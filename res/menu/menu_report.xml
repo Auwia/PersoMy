@@ -1,0 +1,7 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android" >
+	<item android:title="@string/menu_voce" android:id="@+id/menu_voce"/>
+    <item android:title="@string/menu_mensile" android:id="@+id/menu_mensile"/>
+    <item android:title="@string/menu_anno" android:id="@+id/menu_anno"/>
+    <item android:title="@string/menu_totale" android:id="@+id/menu_totale"/>
+    <item android:title="@string/menu_periodo" android:id="@+id/menu_periodo"/>
+</menu>

@@ -1,0 +1,11 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:id="@+id/menu_elimina_varie"
+        android:title="@string/menu_elimina"
+        android:showAsAction="never"
+        android:icon="@android:drawable/ic_menu_delete" />
+    
+    <item android:id="@+id/menu_exit_spese"
+        android:title="@string/menu_exit"
+        android:showAsAction="never"
+        android:icon="@android:drawable/ic_menu_revert" />
+</menu>

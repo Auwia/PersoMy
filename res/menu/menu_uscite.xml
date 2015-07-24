@@ -1,0 +1,26 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:id="@+id/menu_salva_spese"
+        android:title="@string/menu_salva"
+        android:icon="@android:drawable/ic_menu_save"
+        android:showAsAction="never" />
+	
+    <item android:id="@+id/help"
+        android:title="@string/help"
+        android:icon="@android:drawable/ic_menu_help"
+        android:showAsAction="never"/>
+    	
+	<item android:id="@+id/addDescrizione"
+        android:title="@string/addDescrizione"
+        android:icon="@android:drawable/ic_input_add"
+        android:showAsAction="never"/>
+	
+	<item android:id="@+id/modificaDescrizione"
+        android:icon="@android:drawable/ic_menu_edit"
+		android:title="@string/menu_modifica" 
+        android:showAsAction="never" />
+	
+	<item android:id="@+id/deleteSpesa"
+        android:title="@string/deleteSpesa"
+        android:icon="@android:drawable/ic_menu_delete"
+        android:showAsAction="never"/>	
+</menu>

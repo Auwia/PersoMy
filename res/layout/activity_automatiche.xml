@@ -1,0 +1,178 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:orientation="vertical" >
+
+   <RadioGroup
+		android:id="@+id/radioGroup1"
+	    android:layout_width="fill_parent"
+	    android:layout_height="fill_parent" 
+	    android:orientation="horizontal"
+	    android:layout_gravity="center"
+	    android:gravity="center" >
+	
+		<RadioButton
+		    android:id="@+id/usciteRB"
+		    android:layout_width="wrap_content"
+		    android:layout_height="wrap_content"
+		    android:text="@string/menu_uscite" 
+		    android:checked="true"/>
+		
+		<RadioButton
+		    android:id="@+id/entrateRB"
+		    android:layout_width="wrap_content"
+		    android:layout_height="wrap_content"
+		    android:text="@string/menu_entrate" />
+	
+	</RadioGroup>
+	
+	<LinearLayout 
+	    android:id="@+id/radioGroup2"
+        android:layout_width="fill_parent"
+    	android:layout_height="fill_parent"
+    	android:layout_gravity="center_vertical"
+	    android:gravity="center_vertical"
+	    android:orientation="horizontal" >
+		
+	    <TextView
+		    android:id="@+id/frequenzaTxt"
+		    android:layout_width="0dp"
+		    android:layout_height="fill_parent"
+		    android:layout_weight="3"
+		    android:text="@string/automaticaFrequenza" 
+		    android:textStyle="bold"
+		    android:focusable="false"
+			android:focusableInTouchMode="false"
+			android:gravity="center_vertical" />
+	    
+	    <Spinner
+	        android:id="@+id/frequenza"
+	        android:layout_width="0dp"
+	        android:layout_weight="7"
+	        android:layout_height="fill_parent" 
+	        android:entries="@array/frequenze"
+	        android:gravity="center_vertical" />
+	
+	</LinearLayout>
+	
+    <LinearLayout
+        android:id="@+id/radioGroup3"
+        android:layout_width="fill_parent"
+    	android:layout_height="fill_parent" >
+
+        <ImageButton
+            android:id="@+id/dataAutomaticaBtn"
+            android:layout_height="25dp"
+			android:layout_width="25dp"
+            android:background="@android:drawable/ic_menu_my_calendar"
+            android:layout_gravity="center_vertical"
+            android:contentDescription="@string/dataCalendario"
+            android:focusable="false"
+            android:focusableInTouchMode="false"
+            android:text="@string/pickDate"
+            android:onClick="onDataAutomaticaBtnPress" />
+
+		<TextView
+		    android:id="@+id/dataAutomaticaTxt"
+			android:layout_width="0dp"
+            android:layout_weight="45"
+            android:layout_height="wrap_content"
+            android:text="" 
+		    android:textStyle="bold"
+		    android:focusable="false"
+			android:focusableInTouchMode="false"
+			android:textSize="12pt"
+			android:onClick="onDataAutomaticaBtnPress"
+			android:clickable="true" />
+		
+		<ImageButton
+			android:id="@+id/oraAutomaticaBtn"
+			android:layout_height="25dp"
+			android:layout_width="25dp"
+			android:text="@string/pickDate" 
+			android:layout_gravity="center_vertical"
+			android:focusable="false"
+			android:focusableInTouchMode="false"
+			android:contentDescription="@string/dataCalendario"
+			android:background="@android:drawable/ic_lock_idle_alarm" 
+			android:onClick="onOraAutomaticaBtnPress"/>
+		<TextView
+		    android:id="@+id/oraAutomaticaTxt"
+            android:layout_width="0dp"
+            android:layout_weight="25"
+            android:layout_height="wrap_content"
+		    android:text="" 
+		    android:textStyle="bold"
+		    android:focusable="false"
+			android:focusableInTouchMode="false"
+			android:textSize="12pt"
+			android:onClick="onOraAutomaticaBtnPress"
+			android:clickable="true"/>
+	
+	</LinearLayout>
+	
+    <LinearLayout
+        android:id="@+id/radioGroup4"
+        android:layout_width="fill_parent"
+    	android:layout_height="fill_parent"
+    	android:layout_gravity="center" 
+    	android:gravity="center">
+	    
+        <Spinner
+			android:id="@+id/descrizioneSpesa"
+			android:layout_width="0dp"
+			android:layout_weight="60"
+			android:layout_height="wrap_content" />
+        
+		<EditText
+		    android:id="@+id/importoAutomatica"
+		    android:layout_marginLeft="10dp" 
+		    android:layout_width="0dp"
+		    android:layout_weight="25"
+		    android:layout_height="wrap_content"
+		    android:gravity="right"
+		    android:inputType="numberDecimal"
+		    android:maxLength="7"
+		    android:text=""
+		    android:textSize="16sp" />
+        
+		<TextView
+			android:id="@+id/simboloEuro"
+			android:layout_width="0dp"
+			android:layout_weight="5"
+			android:layout_height="wrap_content"
+			android:text=""
+			android:textSize="20sp" 
+			android:focusable="false"
+			android:focusableInTouchMode="false" /> 
+			
+		<ImageButton android:id="@+id/addSpesa"
+		    android:layout_width="25dp"
+			android:layout_height="25dp"
+			android:title="@string/addSpesa"
+			android:contentDescription="@string/addSpesa"
+			android:background="@android:drawable/ic_menu_add"
+			android:showAsAction="ifRoom"
+			android:onClick="onAggiungiSpesaBtnPress"/>
+	
+	</LinearLayout>
+	
+	<LinearLayout
+	    android:id="@+id/radioGroup5"
+        android:layout_width="fill_parent"
+    	android:layout_height="fill_parent"
+    	android:paddingTop="10dp" >
+    
+	    <ListView
+		    android:id="@+id/listaAutomatica"
+		    android:layout_width="fill_parent"
+		    android:layout_height="fill_parent"
+		    android:clickable="true"
+		    android:fadingEdge="vertical" 
+		    android:focusable="false"
+			android:focusableInTouchMode="false"/> 
+	
+	</LinearLayout>
+    
+</LinearLayout>

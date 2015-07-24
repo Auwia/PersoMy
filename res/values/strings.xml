@@ -1,0 +1,117 @@
+<resources>
+
+    <string name="PersoMy">PersoMy © eng. Massimo Manganiello</string>
+    <string name="PersoMyIcon">PersoMy</string>
+    <string name="PersoMyHistory">PersoMy is a simple accounting program that allows you to keep track of all revenus and expenses of your family budget. You just need to track your expenses and earnings for a moment in the household budget, compiling statistics, get an overview of the current month and check the liquidity available.</string>
+    <string name="PersoMyVersion">Version: </string>
+    <string name="OK">OK</string>
+    <string name="SI">Yes</string>
+    <string name="NO">No</string>
+    <string name="help">Help</string>
+    <string name="castData">System Error: Unable to parse date stamp</string>
+    <string name="persomyExit">Are you sure to exit?</string>
+    <string name="menu_file">Operations</string>
+    <string name="title_activity_main">PersoMy</string>
+    <string name="menu_entrate">Revenues</string>
+    <string name="menu_uscite">Expenses</string>
+    <string name="menu_elimina">Delete</string>
+    <string name="menu_modifica">Modify Item</string>
+    <string name="menu_selezione_voce">Select Item</string>
+    <string name="menu_varie">Other</string>
+    <string name="menu_file_backup">Backup&amp;Restore</string>
+    <string name="menu_backup">Backup</string>
+    <string name="menu_exit">Exit</string>
+    <string name="menu_report">Reports</string>
+    <string name="menu_mensile">Monthly</string>
+    <string name="menu_periodo">Custom</string>
+    <string name="menu_mese">Month</string>
+    <string name="menu_anno">Yearly</string>
+    <string name="menu_totale">Sum</string>
+    <string name="menu_info">info</string>
+    <string name="menu_salva">Save</string>
+    <string name="salvaGriglia">Save the grid.</string>
+    <string name="menu_opzioni">Options</string>
+    <string name="title_activity_uscite">PersoMy - Expenses</string>
+    <string name="title_activity_entrate">PersoMy - Revenues</string>
+    <string name="menu_settings">Settings</string>
+    <string name="pickDate">Date</string>
+    <string name="addDescrizione">Add New Item</string>
+    <string name="addSpesa">Add Voice</string>
+    <string name="deleteSpesa">Delete Expensive</string>
+    <string name="cancel">Cancel</string>
+    <string name="password">Password</string>
+    <string name="setPassword">Set a password</string>
+    <string name="setPasswordOK">Password set.</string>
+    <string name="settings_pwd_equal">Passwords Match</string>
+    <string name="settings_pwd_not_equal">Passwords Do Not Match</string>
+    <string name="settings_password">Enter password:</string>
+    <string name="settings_password2">Enter password again:</string>
+    <string name="setPasswordKO">Password off</string>
+    <string name="setPasswordVuota">Password is not valid.</string>
+    <string name="inserirePassword">Password:</string>
+    <string name="password_verify">Verify password:</string>
+    <string name="password_verify_ko">Password wrong!</string>
+    <string name="addDescrizioneVolo">Add description</string>
+    <string name="TOTEntrate">SUM Revenues</string>
+    <string name="TOTUscite">SUM Expenses</string>
+    <string name="saldo">Balance</string>
+    <string name="menu_ripristino_backup">Restore Backup</string>
+    <string name="aggiungiVoceGriglia">Add</string>
+    <string name="togliVoceGriglia">Delete</string>
+    <string name="dataCalendario">Select date</string>
+    <string name="menu_voce">Item</string>
+    <string name="selectAll">All</string>
+    <string name="update">Automatic Update</string>
+    <string name="setUpdate">Set automatic update</string>
+    <string name="confermaUpdate">Internet connection is required, do you accept?</string>
+    <string name="setUpdateOK">Automatic Update ON.</string>
+    <string name="setUpdateKO">Automatic Update OFF.</string>
+    <string name="new_update_found">A new update was found, would you like to update now?</string>
+    <string name="backupOKDescr">Backup OK! - saved: /SDCARD/PersoMy/backup/PersoMyDB.db</string>
+    <string name="backupNoFile">File not found.</string>
+    <string name="backupGenericErrorFile">Generic Error on file: </string>
+    <string name="backupGenericError">Generic Error: </string>
+    <string name="backupSDCardError">SD card not found.</string>
+    <string name="backupNotFound">Backup not found.</string>
+    <string name="backupRestore">Do you want to restore the backup?</string>
+    <string name="backupRestoredOK">Restoring Backup&#8230;OK!</string>
+    <string name="spesaSalvataggioOk">Save OK!</string>
+    <string name="spesaDelete">If you proceed to the cancellation, will remove all entries in the table. Do you want to continue?</string>
+    <string name="spesaEliminazioneOk">Delete OK!</string>
+    <string name="spesaAggiungiVoce">Add an item to the list</string>
+    <string name="spesaControlloImporto">Amount negative or invalid!</string>
+    <string name="spesaCancellaVoce">Select an item to delete from the grid</string>
+    <string name="spesaModificaVoce">Change item name</string>
+    <string name="spesaVoceVuota">Item name incorrect!</string>
+    <string name="spesaVoceDuplicata">Item name existent!</string>
+    <string name="automaticaFrequenza">Frequency</string>
+    <string name="menu_operazioni_automatiche">Automatic Operations</string>
+    <string name="loading">Loading. Please Wait&#8230;</string>
+    <string name="legenda">Map</string>
+    <string name="menu_salva_descrizione">Save the content list in the user database.</string>
+    <string name="addDescrizione_descrizione">Create a new item in the user database (ex. hotel, coffee, etc.).</string>
+    <string name="modificaDescrizione_descrizione">Modify selected item (in: dropdown list, database and content list).</string>
+    <string name="deleteSpesa_descrizione">Delete the cheked item in the content list.</string>
+    <string name="addSpesa_descrizione">Add selected item and amount to the content list.</string>
+    <string name="check_license">Check license</string>
+    <string name="checking_license">Checking license&#8230;</string>
+    <string name="dont_allow">Don\'t allow the user access</string>
+    <string name="allow">Allow the user access</string>
+    <string name="application_error">Application error: %1$s</string>
+    <string name="unlicensed_dialog_title">Application not licensed</string>
+    <string name="unlicensed_dialog_body">This application is not licensed. Please purchase it from Android Market.</string>
+    <string name="buy_button">Buy app</string>
+    <string name="quit_button">Exit</string>
+
+    <string-array name="frequenze">
+                                                 <item>Daily</item>
+                                                 <item>Weekly</item>
+                                                 <item>Decadal</item>
+                                                 <item>Monthly</item>
+                                                 <item>Half</item>
+                                                 <item>Annual</item>
+                                                 <item>First day of the month</item>
+                                                 <item>Last day of the month</item>
+    </string-array>
+
+</resources>

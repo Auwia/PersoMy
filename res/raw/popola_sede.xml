@@ -1,0 +1,9 @@
+<resources>
+    <INSERT>insert into sede values ('1','Tintoretto','Roma')</INSERT>
+	<INSERT>insert into sede values ('2','Pio Emanuelli','Roma')</INSERT>
+	<INSERT>insert into sede values ('3','Parco De Medici','Roma')</INSERT>
+	<INSERT>insert into sede values ('4','Santa Palomba','Pomezia')</INSERT>
+	<INSERT>insert into sede values ('5','Telecom Tiburtina','Roma')</INSERT>
+	<INSERT>insert into sede values ('8','Telecom Acilia','Acilia')</INSERT>
+	<INSERT>insert into sede values ('9','ATS Napoli','Napoli')</INSERT>    
+</resources>

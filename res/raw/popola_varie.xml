@@ -1,0 +1,3 @@
+<resources>
+	<INSERT>insert into varie values (1,'Hotel')</INSERT>
+</resources>

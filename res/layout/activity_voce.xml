@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    	xmlns:android="http://schemas.android.com/apk/res/android"
+    	android:layout_width="fill_parent"
+		android:layout_height="fill_parent" >	
+    
+	<LinearLayout
+		android:id="@+id/widget32"
+		android:layout_width="fill_parent"
+		android:layout_height="fill_parent"
+		android:orientation="vertical">
+		
+		<LinearLayout
+		    android:id="@+id/widget38"
+		    android:layout_width="fill_parent"
+		    android:layout_height="wrap_content"
+		    android:layout_gravity="center"
+		    android:gravity="center_horizontal"
+		    android:orientation="horizontal" >
+			<Spinner
+			    android:id="@+id/descrizioneSpesa"
+			    android:layout_width="wrap_content"
+			    android:layout_height="wrap_content"
+			    android:paddingRight="15dp"  >
+			</Spinner>
+		</LinearLayout>
+		<LinearLayout
+			android:id="@+id/widget45"
+			android:layout_width="fill_parent"
+			android:layout_height="wrap_content"
+			android:orientation="horizontal">
+			<GridView
+			    android:id="@+id/listaMovimenti"
+			    android:layout_height="wrap_content"
+			    android:layout_width="wrap_content"
+			    android:numColumns="1"
+			    android:gravity="center"
+			    android:stretchMode="columnWidth">
+			</GridView>
+		</LinearLayout>
+	</LinearLayout>
+				
+	<include
+	    layout="@layout/totali_importi_bottom"
+	    android:id="@+id/idImportVoce"
+	    android:layout_width="match_parent"
+	    android:layout_height="wrap_content"
+	    android:layout_alignParentBottom="true" >
+	</include>
+</RelativeLayout>

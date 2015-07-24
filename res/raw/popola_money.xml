@@ -1,0 +1,3 @@
+<resources>
+	<INSERT>insert into money values (17, datetime(DATE('now')), 1, 0.6, 1)</INSERT>
+</resources>

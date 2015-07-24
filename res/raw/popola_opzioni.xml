@@ -1,0 +1,4 @@
+<resources>
+	<INSERT>insert into OPZIONI values ('PASSWORD', 0, NULL)</INSERT>
+	<INSERT>insert into OPZIONI values ('UPDATE', 0, NULL)</INSERT>
+</resources>

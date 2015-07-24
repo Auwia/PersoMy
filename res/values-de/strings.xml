@@ -1,0 +1,117 @@
+<resources>
+
+    <string name="PersoMy">PersoMy © eng. Massimo Manganiello</string>
+    <string name="PersoMyHistory">PersoMy ist eine einfache Buchhaltung Programm, das Ihnen den Überblick über alle revenus und Ausgaben Ihrer Familie Budget halten können. Sie müssen nur Ihre Aufwendungen und Erträge für einen Moment in die Haushaltskasse zu verfolgen, die Erstellung von Statistiken, erhalten einen Überblick über den aktuellen Monat und überprüfen Sie die Liquidität zur Verfügung.</string>
+    <string name="PersoMyVersion">Version: </string>
+    <string name="PersoMyIcon">PersoMy</string>
+    <string name="OK">OK</string>
+    <string name="SI">Ja</string>
+    <string name="NO">Nein</string>
+    <string name="help">Hilfe</string>
+    <string name="castData">System Error: Kann Datumsstempel analysieren</string>
+    <string name="persomyExit">Sind Sie sicher, zu verlassen?</string>
+    <string name="menu_file">Geschäftstätigkeit</string>
+    <string name="title_activity_main">PersoMy</string>
+    <string name="menu_entrate">Umsatz</string>
+    <string name="menu_uscite">Aufwendungen</string>
+    <string name="menu_elimina">löschen</string>
+    <string name="menu_modifica">Ändern Artikel</string>
+    <string name="menu_selezione_voce">Wählen Artikel</string>
+    <string name="menu_varie">Andere</string>
+    <string name="menu_file_backup">Backup&amp;Restore</string>
+    <string name="menu_backup">Backup</string>
+    <string name="menu_exit">Verlassen</string>
+    <string name="menu_report">Berichte</string>
+    <string name="menu_mensile">Monatlich</string>
+    <string name="menu_periodo">Brauch</string>
+    <string name="menu_mese">Monat</string>
+    <string name="menu_anno">Jährlich</string>
+    <string name="menu_totale">Sum</string>
+    <string name="menu_info">info</string>
+    <string name="menu_salva">Speichern</string>
+    <string name="salvaGriglia">Speichern Sie das Raster.</string>
+    <string name="menu_opzioni">Optionen</string>
+    <string name="title_activity_uscite">PersoMy - Aufwendungen</string>
+    <string name="title_activity_entrate">PersoMy - Umsatz</string>
+    <string name="menu_settings">Einstellungen</string>
+    <string name="pickDate">Datum</string>
+    <string name="addDescrizione">Neues Element hinzufügen</string>
+    <string name="addSpesa">Neue Sprachanwahl</string>
+    <string name="deleteSpesa">Teure löschen</string>
+    <string name="cancel">Stornieren</string>
+    <string name="password">Passwort</string>
+    <string name="setPassword">Legen Sie ein Passwort</string>
+    <string name="setPasswordOK">Passwort gesetzt.</string>
+    <string name="settings_pwd_equal">Passwörter Spiel</string>
+    <string name="settings_pwd_not_equal">Passwörter stimmen nicht überein</string>
+    <string name="settings_password">Geben Sie das Passwort:</string>
+    <string name="settings_password2">Passwort erneut eingeben:</string>
+    <string name="setPasswordKO">Passwort off</string>
+    <string name="setPasswordVuota">Passwort ist nicht gültig.</string>
+    <string name="inserirePassword">Passwort:</string>
+    <string name="password_verify">Passwort bestätigen:</string>
+    <string name="password_verify_ko">Passwort falsch!</string>
+    <string name="addDescrizioneVolo">Fügen Sie eine Beschreibung</string>
+    <string name="TOTEntrate">SUM Umsatz</string>
+    <string name="TOTUscite">SUM Aufwendungen</string>
+    <string name="saldo">Gleichgewicht</string>
+    <string name="menu_ripristino_backup">Restore Backup</string>
+    <string name="aggiungiVoceGriglia">Hinzufügen</string>
+    <string name="togliVoceGriglia">löschen</string>
+    <string name="dataCalendario">Datum wählen</string>
+    <string name="menu_voce">Stück</string>
+    <string name="selectAll">Alle</string>
+    <string name="update">Automatisches Update</string>
+    <string name="setUpdate">Stellen Sie die automatische Aktualisierung</string>
+    <string name="confermaUpdate">Internet-Verbindung erforderlich ist, akzeptieren Sie?</string>
+    <string name="setUpdateOK">Automatisches Update ON.</string>
+    <string name="setUpdateKO">Automatisches Update OFF.</string>
+    <string name="new_update_found">Ein neues Update gefunden wurde, möchten Sie jetzt aktualisieren?</string>
+    <string name="backupOKDescr">Backup OK! - gespeichert: /SDCARD/PersoMy/backup/PersoMyDB.db</string>
+    <string name="backupNoFile">Datei nicht gefunden.</string>
+    <string name="backupGenericErrorFile">Allgemeiner Fehler auf Datei: </string>
+    <string name="backupGenericError">Allgemeiner Fehler: </string>
+    <string name="backupSDCardError">SD-Karte nicht gefunden.</string>
+    <string name="backupNotFound">Backup nicht gefunden.</string>
+    <string name="backupRestore">Wollen Sie die backup wiederherstellen?</string>
+    <string name="backupRestoredOK">Restoring Backup&#8230;OK!</string>
+    <string name="spesaSalvataggioOk">Speichern OK!</string>
+    <string name="spesaDelete">Wenn Sie fortfahren, um die Annullierung, werden alle Einträge in der Tabelle zu entfernen. Möchten Sie fortfahren?</string>
+    <string name="spesaEliminazioneOk">Löschen OK!</string>
+    <string name="spesaAggiungiVoce">Hinzufügen eines Elements zur Liste</string>
+    <string name="spesaControlloImporto">Betrag negativ oder ungültig!</string>
+    <string name="spesaCancellaVoce">Wählen Sie ein Element aus dem Netz löschen</string>
+    <string name="spesaModificaVoce">Ändern Sie Artikel Name</string>
+    <string name="spesaVoceVuota">Artikel Name nicht korrekt!</string>
+    <string name="spesaVoceDuplicata">Artikel Name vorhanden</string>
+    <string name="automaticaFrequenza">Häufigkeit</string>
+    <string name="menu_operazioni_automatiche">Automatische Operationen</string>
+    <string name="loading">Lädt. Bitte warten&#8230;</string>
+    <string name="legenda">Karte</string>
+    <string name="menu_salva_descrizione">Speichern Sie den Inhalt in der Benutzer-Datenbank.</string>
+    <string name="addDescrizione_descrizione">Erstellen Sie einen neuen Eintrag in der User-Datenbank (zB Hotel, Kaffee, etc.).</string>
+    <string name="modificaDescrizione_descrizione">Ändern ausgewählte Element (in: Dropdown-Liste, Datenbank-und Content-Liste).</string>
+    <string name="deleteSpesa_descrizione">Löschen Sie das Kreuz im Artikel in der Inhaltsliste.</string>
+    <string name="addSpesa_descrizione">Ausgewählte Artikel und Menge zur Liste der Inhalte.</string>
+    <string name="check_license">Check license</string>
+    <string name="checking_license">Checking license&#8230;</string>
+    <string name="dont_allow">Don\'t allow the user access</string>
+    <string name="allow">Allow the user access</string>
+    <string name="application_error">Application error: %1$s</string>
+    <string name="unlicensed_dialog_title">Application not licensed</string>
+    <string name="unlicensed_dialog_body">This application is not licensed. Please purchase it from Android Market.</string>
+    <string name="buy_button">Buy app</string>
+    <string name="quit_button">Exit</string>
+
+    <string-array name="frequenze">
+                                         <item>Täglich</item>
+                                         <item>Wöchentlich</item>
+                                         <item>Decadal</item>
+                                         <item>Monatlich</item>
+                                         <item>Halbjahr</item>
+                                         <item>Geschäftsbericht</item>
+                                         <item>Erster Tag des Monats</item>
+                                         <item>Letzter Tag des Monats</item>
+    </string-array>
+
+</resources>

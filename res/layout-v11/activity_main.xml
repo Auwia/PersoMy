@@ -1,0 +1,156 @@
+<TableLayout 
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/contentPane"
+   	android:layout_width="fill_parent"
+   	android:layout_height="fill_parent"
+   	android:orientation="vertical">
+    
+	<TableRow
+	    android:id="@+id/widget33"
+		android:layout_width="fill_parent"
+	    android:layout_height="0dp"
+	    android:layout_weight="25"
+	    android:orientation="vertical" >
+	
+		<Button
+		    android:id="@+id/usciteBtn"
+		    android:layout_weight="50"
+		    android:layout_width="0dp"
+		    android:layout_height="fill_parent"
+		    android:drawableTop="@drawable/uscite"
+		    android:contentDescription="@string/dataCalendario" 
+		    android:text="@string/menu_uscite"
+		    android:textSize="14sp"
+		    android:background="@android:color/transparent"
+		    android:onClick="onUsciteBtnPress"
+		    android:gravity="center_horizontal" 
+		    android:layout_gravity="center_vertical"/>
+		
+		<Button
+		    android:id="@+id/entrateBtn"
+		    android:layout_weight="50"
+		    android:layout_width="0dp"
+		    android:layout_height="fill_parent"
+		    android:drawableTop="@drawable/entrate"
+		    android:contentDescription="@string/dataCalendario"
+		    android:text="@string/menu_entrate"
+		    android:textSize="14sp"
+		    android:background="@android:color/transparent"
+		    android:onClick="onEntrateBtnPress"
+		    android:gravity="center_horizontal" 
+		    android:layout_gravity="center_vertical" />
+	
+	</TableRow>
+	
+	<TableRow
+	    android:id="@+id/widget133"
+		android:layout_width="fill_parent"
+	    android:layout_height="0dp"
+	    android:layout_weight="25"
+	    android:orientation="horizontal" >
+	
+		<Button
+		    android:id="@+id/reportBtn"
+		    android:layout_weight="50"
+		    android:layout_width="0dp"
+		    android:layout_height="fill_parent"
+		    android:drawableTop="@drawable/report"
+		    android:contentDescription="@string/dataCalendario"
+		    android:background="@android:color/transparent"
+		    android:textSize="14sp"
+		    android:text="@string/menu_report"
+		    android:onClick="onReportBtnPress"
+		    android:gravity="center_horizontal" 
+		    android:layout_gravity="center_vertical"/>
+		
+		<Button
+		    android:id="@+id/automaticheBtn"
+		    android:layout_weight="50"
+		    android:layout_width="0dp"
+		    android:layout_height="fill_parent"
+		    android:drawableTop="@drawable/operazioniautomatiche"
+		    android:contentDescription="@string/dataCalendario"
+		    android:background="@android:color/transparent"
+		    android:textSize="14sp"
+		    android:text="@string/menu_operazioni_automatiche"
+		    android:onClick="onAutomaticheBtnPress" 
+		    android:gravity="center_horizontal" 
+		    android:layout_gravity="center_vertical"/>
+	
+	</TableRow>
+
+	<TableRow
+	    android:id="@+id/widget136"
+		android:layout_width="fill_parent"
+	    android:layout_height="0dp"
+	    android:layout_weight="25"
+	    android:orientation="horizontal" >
+	
+		<Button
+		    android:id="@+id/backupBtn"
+		    android:layout_weight="50"
+		    android:layout_width="0dp"
+		    android:layout_height="fill_parent"
+		    android:drawableTop="@drawable/backup"
+		    android:contentDescription="@string/dataCalendario"
+		    android:background="@android:color/transparent"
+		    android:textSize="14sp"
+		    android:text="@string/menu_file_backup" 
+		    android:onClick="onBackupBtnPress"
+		    android:gravity="center_horizontal" 
+		    android:layout_gravity="center_vertical"/>
+	
+		<Button
+		    android:id="@+id/optionsBtn"
+		    android:layout_weight="50"
+		    android:layout_width="0dp"
+		    android:layout_height="fill_parent"
+		    android:drawableTop="@drawable/opzioni"
+		    android:contentDescription="@string/dataCalendario"
+		    android:background="@android:color/transparent"
+		    android:textSize="14sp"
+		    android:text="@string/menu_opzioni"
+		    android:onClick="onOptionsBtnPress"
+		    android:gravity="center_horizontal" 
+		    android:layout_gravity="center_vertical" />
+		
+	</TableRow>
+	
+	<TableRow
+	    android:id="@+id/widget137"
+		android:layout_width="fill_parent"
+	    android:layout_height="0dp"
+	    android:layout_weight="25"
+	    android:orientation="horizontal" >
+	
+		<Button
+		    android:id="@+id/eliminaBtn"
+		    android:layout_weight="50"
+		    android:layout_width="0dp"
+		    android:layout_height="fill_parent"
+		    android:drawableTop="@drawable/deleteform"
+		    android:contentDescription="@string/dataCalendario"
+		    android:background="@android:color/transparent"
+		    android:textSize="14sp"
+		    android:text="@string/menu_elimina"
+		    android:onClick="onEliminaBtnPress"
+		    android:gravity="center_horizontal" 
+		    android:layout_gravity="center_vertical" />
+	
+		<Button
+		    android:id="@+id/exitBtn"
+		    android:layout_weight="50"
+		    android:layout_width="0dp"
+		    android:layout_height="fill_parent"
+		    android:drawableTop="@drawable/exit"
+		    android:contentDescription="@string/dataCalendario"
+		    android:background="@android:color/transparent"
+		    android:textSize="14sp"
+		    android:text="@string/menu_exit"
+		    android:onClick="onExitBtnPress" 
+		    android:gravity="center_horizontal" 
+		    android:layout_gravity="center_vertical"/>
+		
+	</TableRow>
+
+</TableLayout>
