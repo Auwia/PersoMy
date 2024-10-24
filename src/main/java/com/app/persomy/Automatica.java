@@ -1,4 +1,4 @@
-package com.app.persomy;
+package main.java.com.app.persomy;
 
 class Automatica {
     private String automaticaFrequenza, automaticaStartDate, automaticaVoce;    

@@ -1,4 +1,4 @@
-package com.app.persomy;
+package main.java.com.app.persomy;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -69,17 +69,16 @@ import android.widget.ListView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.RadioGroup.OnCheckedChangeListener;
+import main.java.com.google.android.vending.licensing.AESObfuscator;
+import main.java.com.google.android.vending.licensing.LicenseChecker;
+import main.java.com.google.android.vending.licensing.LicenseCheckerCallback;
+import main.java.com.google.android.vending.licensing.ServerManagedPolicy;
 import android.widget.Spinner;
 import android.widget.Switch;
 import android.widget.TableLayout;
 import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
-
-import com.google.android.vending.licensing.AESObfuscator;
-import com.google.android.vending.licensing.LicenseChecker;
-import com.google.android.vending.licensing.LicenseCheckerCallback;
-import com.google.android.vending.licensing.ServerManagedPolicy;
 
 @TargetApi(14)
 public class MainActivity extends Activity {

@@ -1,4 +1,4 @@
-package com.app.persomy;
+package main.java.com.app.persomy;
 
 import java.io.IOException;
 import java.io.InputStream;
