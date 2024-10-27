@@ -6,26 +6,23 @@ buildscript {
         mavenCentral()
     }
     dependencies {
-        classpath "com.android.tools.build:gradle:8.0.2"  // La versione di Gradle plugin
+        classpath 'com.android.tools.build:gradle:8.5.0'  // solo `classpath` qui
     }
 }
 
 allprojects {
     repositories {
-                maven {
-    url "https://maven.google.com"
-}
+        maven { url "https://maven.google.com" }
         google()
         mavenCentral()
         jcenter()
-        
     }
 }
 
-// Aggiungi questo blocco per la configurazione dell'app Android
+// Configurazione dell'app Android
 android {
     namespace 'com.app.persomy'
-    compileSdkVersion 30
+    compileSdk 35
     defaultConfig {
         applicationId "com.app.persomy"
         minSdkVersion 16
@@ -39,9 +36,12 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_11
+        targetCompatibility JavaVersion.VERSION_11
+    }
 }
 
 dependencies {
-    implementation 'com.android.support:appcompat-v7:28.0.0'
-    implementation 'com.google.android.vending:licensing:1.1.0'
+    implementation 'androidx.appcompat:appcompat:1.6.1'  // Le dipendenze del progetto vanno qui
 }

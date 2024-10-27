@@ -1,4 +1,4 @@
-package main.java.com.app.persomy;
+package com.app.persomy;
 
 import java.text.DateFormatSymbols;
 import java.text.SimpleDateFormat;
@@ -40,11 +40,12 @@ public class ScaricaDati {
 		int ritorno;
 		Cursor cur = database.query("VARIE", new String[]{"cont", "count(*)"} , "descrizione" + "=?", new String[]{descr} , null, null, null);
 		cur.moveToFirst();
-		if (cur.getCount() > 0 && cur.getInt(0) > 0 )
+		if (cur.getCount() > 0 && cur.getInt(0) > 0 ) {
 			ritorno = Integer.parseInt(cur.getString(0));
-		else
+		} else {
 			ritorno = -1;
-		
+		}
+
 	   cur.close();
 	   return ritorno;
 	}
@@ -63,8 +64,9 @@ public class ScaricaDati {
 		
 		cur = database.query("MOVIMENTI_AUTOMATICI", new String[]{"ID"} , "id_frequenza=? and data_start=? and id_voce=? and importo=? and uscita=" + a, new String[]{String.valueOf(frequenzaDescription), dateFormat.format(dateObj), String.valueOf(voceDescription), String.valueOf(prezzo)}, null, null, null);
 	    
-		if (cur.moveToFirst())
+		if (cur.moveToFirst()) {
 	    	ritorno = cur.getString(0);
+		}
 	    
 	    cur.close();
 	    return ritorno;
@@ -72,11 +74,12 @@ public class ScaricaDati {
 	
 	public String[] caricaSpinnerCompleto(String uscita) 
     {
-		if (uscita.equals("null"))
+		if (uscita.equals("null")) {
 			cur = database.query("VARIE", new String[]{"descrizione"}, "cont in (select distinct descrizione from money)", null, null, null, "descrizione");
-		else
+		} else {
 			cur = database.query("VARIE", new String[]{"descrizione"}, null, null, null, null, "descrizione");
-	
+		}
+		
         cur.moveToFirst();
         int i=0;
         String array_spinner[] = new String[cur.getCount()];

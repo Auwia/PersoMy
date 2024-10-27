@@ -1,4 +1,4 @@
-package main.java.com.app.persomy;
+package com.app.persomy;
 
 import android.content.Context;
 import android.database.Cursor;

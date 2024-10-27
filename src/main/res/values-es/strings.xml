@@ -113,5 +113,5 @@
                          <item>El primer día del mes</item>
                          <item>Último día del mes</item>
     </string-array>
-
+    <string name="err_UnknownHostException">Unknown Host</string>
 </resources>

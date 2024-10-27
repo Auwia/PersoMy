@@ -1,4 +1,4 @@
-package main.java.com.app.persomy;
+package com.app.persomy;
 
 public class Frequenza {
     private String descrizioneFrequenza;
