@@ -1,4 +1,4 @@
-package com.app.persomy;
+package com.app.persomy.v4;
 
 import android.annotation.TargetApi;
 import android.app.ActionBar;
@@ -1341,7 +1341,7 @@ public class MainActivity extends Activity {
                                 if (verify.IsSdPresent()) {
                                     File file = new File(
                                             Environment.getDataDirectory()
-                                                    + "/data/com.app.persomy/databases/PersoMyDB.db");
+                                                    + "/data/com.app.persomy.v4/databases/PersoMyDB.db");
                                     File fileBackupDir = new File(Environment
                                             .getExternalStorageDirectory(),
                                             "/PersoMy/backup");
@@ -2023,7 +2023,7 @@ public class MainActivity extends Activity {
         boolean writeable = verify.IsSdPresent();
         if (writeable) {
             File file = new File(Environment.getDataDirectory()
-                    + "/data/com.app.persomy/databases/PersoMyDB.db");
+                    + "/data/com.app.persomy.v4/databases/PersoMyDB.db");
             File fileBackupDir = new File(
                     Environment.getExternalStorageDirectory(),
                     "/PersoMy/backup");

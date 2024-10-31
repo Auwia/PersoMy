@@ -1,4 +1,4 @@
-package com.app.persomy;
+package com.app.persomy.v4;
 
 public class Frequenza {
     private String descrizioneFrequenza;
