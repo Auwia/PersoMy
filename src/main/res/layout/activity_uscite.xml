@@ -47,6 +47,7 @@
             android:layout_gravity="center"
             android:layout_weight="60"
             android:drawSelectorOnTop="true"
+			android:textColor="#000000"
             android:prompt="@string/menu_selezione_voce" />
 
         <EditText
@@ -94,6 +95,56 @@
             android:fadingEdge="vertical"
             android:focusable="false"
             android:focusableInTouchMode="false" />
+    </LinearLayout>
+	
+	<LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        android:orientation="horizontal"
+        android:background="#f1f1f1"
+        android:padding="10dp" >
+		
+		<ImageButton
+            android:id="@+id/menu_salva_spese"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@android:drawable/ic_menu_save"
+            android:contentDescription="@string/menu_salva"
+            android:onClick="onSalvaSpeseClick" />
+
+        <ImageButton
+            android:id="@+id/help"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@android:drawable/ic_menu_help"
+            android:contentDescription="@string/help"
+			android:onClick="onHelpClick"					/>
+
+        <ImageButton
+            android:id="@+id/addDescrizione"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@android:drawable/ic_input_add"
+            android:contentDescription="@string/addDescrizione" 
+			android:onClick="onAddDescrizioneClick" />
+
+        <ImageButton
+            android:id="@+id/modificaDescrizione"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@android:drawable/ic_menu_edit"
+            android:contentDescription="@string/menu_modifica" 
+			android:onClick="onModificaDescrizioneClick"/>
+
+        <ImageButton
+            android:id="@+id/deleteSpesa"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@android:drawable/ic_menu_delete"
+            android:contentDescription="@string/deleteSpesa"
+			android:onClick="onDeleteSpesaClick"			/>
+
     </LinearLayout>
 
 </LinearLayout>

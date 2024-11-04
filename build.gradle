@@ -6,7 +6,7 @@ buildscript {
         mavenCentral()
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:8.5.0'  // solo `classpath` qui
+        classpath 'com.android.tools.build:gradle:8.5.2'  // solo `classpath` qui
     }
 }
 
@@ -27,8 +27,8 @@ android {
         applicationId "com.app.persomy.v4"
         minSdkVersion 16
         targetSdkVersion 35
-        versionCode 300101
-        versionName "3.1.01"
+        versionCode 300103
+        versionName "3.1.03"
     }
     buildTypes {
         release {

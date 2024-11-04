@@ -1,18 +1,13 @@
 package com.app.persomy.v4;
 
-import android.annotation.TargetApi;
 import android.app.ActionBar;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
-import android.app.ProgressDialog;
 import android.app.TimePickerDialog;
 import android.content.ContentValues;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.SharedPreferences;
-import android.content.pm.ActivityInfo;
 import android.content.pm.PackageInfo;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
@@ -21,8 +16,6 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
-import android.os.Handler;
-import android.preference.PreferenceManager;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.text.format.DateFormat;
@@ -37,14 +30,11 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.View.OnClickListener;
-import android.view.ViewGroup;
 import android.view.ViewGroup.LayoutParams;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.ArrayAdapter;
 import android.widget.CheckBox;
-import android.widget.CompoundButton;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.GridView;
@@ -52,7 +42,6 @@ import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
-import android.widget.RadioGroup.OnCheckedChangeListener;
 import android.widget.Spinner;
 import android.widget.Switch;
 import android.widget.TableLayout;
@@ -75,7 +64,6 @@ import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
-@TargetApi(14)
 public class MainActivity extends Activity {
 
     // VARIABILI DATA BASE
@@ -84,16 +72,20 @@ public class MainActivity extends Activity {
     private static Boolean uscita = true;
     // CALENDARI E OROLOGI
     private final Calendar c = Calendar.getInstance();
+    private final DecimalFormat df = new DecimalFormat("###,##0.00");
+    private final Verify verify = new Verify();
     private int mYear, mMonth, mDay, mHourOfDay, mMinute,
             menu_choise = R.menu.main, CURRENT_LAYOUT, id, j, da;
     private String giorni = String.valueOf(mDay),
             mesi = String.valueOf(mMonth), ora = String.valueOf(mHourOfDay),
             minuti = String.valueOf(mMinute);
-    private String array_spinner[], strPassword1, strPassword2, message = null;
+    private String[] array_spinner;
+    private String strPassword1;
+    private String strPassword2;
+    private String message = null;
     private LayoutInflater li;
     private Activity activity;
-    private ProgressDialog progressDialog;
-    private DecimalFormat df = new DecimalFormat("###,##0.00");
+    private AlertDialog progressDialog;
     // COMPONENTI FISICI DI LAYOUT
     private TableLayout contentPane;
     private ListView myListView;
@@ -102,11 +94,10 @@ public class MainActivity extends Activity {
             mDateDisplayDa, mDateDisplayA;
     private RadioButton entrateRB, usciteRB;
     private EditText importoAutomatica, password1, password2, input;
-    private AlertDialog.Builder alert;
     private View layout;
     private GridView myGridView;
     private Switch password, update;
-    private CheckBox password233, update233, all;
+    private CheckBox all;
     // ARRAY
     private ArrayList<Frequenza> myFrequenza;
     private ArrayList<Lista> myLista;
@@ -118,46 +109,34 @@ public class MainActivity extends Activity {
     private ArrayAdapter<Movimento> myAdapterAutomatica;
     private ArrayAdapter<Spesa> myAdapter;
     private SQLiteDatabase database;
-    private PersoMyDataSource datasource;
     private Cursor cur;
     // CLASSI DI SUPPORTO
     private ScaricaDati scaricaDati;
-    private Verify verify = new Verify();
     private DatePickerDialog dialogDate, dialogDateA = null;
     private TimePickerDialog dialogTime = null;
     private SimpleDateFormat dateFormat;
     private Date dateObj, dateObjA;
 
-    private Handler mHandler;
-
-    private static void copyFile(File src, File dst) throws IOException {
-        FileChannel inChannel = null;
-        FileChannel outChannel = null;
-
-        try {
-            inChannel = new FileInputStream(src).getChannel();
-            outChannel = new FileOutputStream(dst).getChannel();
-            inChannel.transferTo(0, inChannel.size(), outChannel);
-        } finally {
-            if (inChannel != null)
-                inChannel.close();
-            if (outChannel != null)
-                outChannel.close();
-        }
+    public MainActivity() {
     }
 
-    private void displayResult(final String result) {
-        mHandler.post(new Runnable() {
-            public void run() {
+    private static void copyFile(File src, File dst) throws IOException {
 
-                setProgressBarIndeterminateVisibility(false);
-
-            }
-        });
+        try (FileChannel inChannel = new FileInputStream(src).getChannel(); FileChannel outChannel = new FileOutputStream(dst).getChannel()) {
+            inChannel.transferTo(0, inChannel.size(), outChannel);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
     protected void onDestroy() {
+        if (cur != null && !cur.isClosed()) {
+            cur.close();
+        }
+        if (database != null && database.isOpen()) {
+            database.close();
+        }
         super.onDestroy();
     }
 
@@ -165,13 +144,10 @@ public class MainActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        SharedPreferences preferences = PreferenceManager
-                .getDefaultSharedPreferences(getBaseContext());
-
         String deviceId = Utils.getId(getApplicationContext());
         Log.i("Main:onCreate", deviceId);
 
-        myFrequenza = new ArrayList<Frequenza>();
+        myFrequenza = new ArrayList<>();
         myFrequenza.add(new Frequenza(1, "Giornaliero", 1));
         myFrequenza.add(new Frequenza(2, "Settimanale", 7));
         myFrequenza.add(new Frequenza(3, "Decadale", 0));
@@ -182,9 +158,9 @@ public class MainActivity extends Activity {
         myFrequenza.add(new Frequenza(8, "Ultimo giorno del mese", 0));
 
         setContentView(R.layout.activity_main);
-        contentPane = (TableLayout) findViewById(R.id.contentPane);
+        contentPane = findViewById(R.id.contentPane);
 
-        datasource = new PersoMyDataSource(getApplicationContext());
+        PersoMyDataSource datasource = new PersoMyDataSource(getApplicationContext());
         datasource.open();
         database = openOrCreateDatabase(DATABASE_NAME,
                 Context.MODE_PRIVATE, null);
@@ -202,13 +178,8 @@ public class MainActivity extends Activity {
             msgBox();
         }
 
-        if (verify.isThereJobAutomatico(database))
+        if (verify.isThereJobAutomatico(database)) {
             startJobAutomatici();
-
-        if (verify.isTablet(this))
-            setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
-        else {
-            setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         }
 
         scaricaDati = new ScaricaDati(database);
@@ -217,11 +188,11 @@ public class MainActivity extends Activity {
 
         registraContextMenu();
 
-        if (Build.VERSION.SDK_INT > 11) {
-            ActionBar bar = getActionBar();
-            bar.setDisplayHomeAsUpEnabled(true);
-            bar.setDisplayShowTitleEnabled(true);
-        }
+        ActionBar bar = getActionBar();
+        assert bar != null;
+        bar.setDisplayHomeAsUpEnabled(true);
+        bar.setDisplayShowTitleEnabled(true);
+
     }
 
     @Override
@@ -238,21 +209,17 @@ public class MainActivity extends Activity {
             contentPane.removeAllViews();
             setContentView(R.layout.activity_main);
             setTitle(R.string.title_activity_main);
-            contentPane = (TableLayout) findViewById(R.id.contentPane);
+            contentPane = findViewById(R.id.contentPane);
 
             registraContextMenu();
 
-            if (Build.VERSION.SDK_INT > 11)
-                invalidateOptionsMenu();
-            else
-                openOptionsMenu();
+            invalidateOptionsMenu();
 
             return true;
         }
 
         if (keyCode == KeyEvent.KEYCODE_MENU)
-            if (Build.VERSION.SDK_INT > 11)
-                return true;
+            return true;
 
         return super.onKeyDown(keyCode, event);
     }
@@ -336,7 +303,6 @@ public class MainActivity extends Activity {
         } else if (menu_choise == R.menu.main) {
             inflater.inflate(R.menu.main, menu);
         } else if (menu_choise == R.menu.menu_elimina) {
-            menu_choise = R.menu.menu_elimina;
             inflater.inflate(R.menu.menu_elimina, menu);
         } else if (menu_choise == R.menu.menu_report) {
             inflater.inflate(R.menu.menu_report, menu);
@@ -357,7 +323,6 @@ public class MainActivity extends Activity {
         } else if (menu_choise == R.menu.menu_report) {
             inflater.inflate(R.menu.menu_report, menu);
         } else if (menu_choise == R.menu.menu_elimina) {
-            menu_choise = R.menu.menu_elimina;
             inflater.inflate(R.menu.menu_elimina, menu);
         }
         return true;
@@ -371,14 +336,11 @@ public class MainActivity extends Activity {
             contentPane.removeAllViews();
             setContentView(R.layout.activity_main);
             setTitle(R.string.title_activity_main);
-            contentPane = (TableLayout) findViewById(R.id.contentPane);
+            contentPane = findViewById(R.id.contentPane);
 
             registraContextMenu();
 
-            if (Build.VERSION.SDK_INT > 11)
-                invalidateOptionsMenu();
-            else
-                openOptionsMenu();
+            invalidateOptionsMenu();
 
             return true;
         } else if (item.getItemId() == android.R.id.home) {
@@ -393,14 +355,11 @@ public class MainActivity extends Activity {
             contentPane.removeAllViews();
             setContentView(R.layout.activity_main);
             setTitle(R.string.title_activity_main);
-            contentPane = (TableLayout) findViewById(R.id.contentPane);
+            contentPane = findViewById(R.id.contentPane);
 
             registraContextMenu();
 
-            if (Build.VERSION.SDK_INT > 11)
-                invalidateOptionsMenu();
-            else
-                openOptionsMenu();
+            invalidateOptionsMenu();
             return true;
         } else if (item.getItemId() == R.id.menu_elimina_varie) {
             eliminaVarie();
@@ -452,242 +411,241 @@ public class MainActivity extends Activity {
 
                 return true;
             } else if (CURRENT_LAYOUT == R.layout.activity_automatiche) {
-                progressDialog = new ProgressDialog(this);
-                progressDialog.setMessage(this.getText(R.string.loading));
+                AlertDialog.Builder builder = new AlertDialog.Builder(this);
+                builder.setCancelable(false);
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                    builder.setView(R.layout.dialog_loading);
+                }
+                progressDialog = builder.create();
                 progressDialog.show();
 
-                new Thread(new Runnable() {
-                    public void run() {
-                        try {
-                            message = null;
-                            database.beginTransaction();
-                            ContentValues row = new ContentValues();
+                new Thread(() -> {
+                    try {
+                        message = null;
+                        database.beginTransaction();
+                        ContentValues row = new ContentValues();
 
-                            database.delete("JOB_AUTOMATICI",
-                                    "id_movimento in (select id from movimenti_automatici where uscita="
-                                            + ((uscita) ? 1 : 0) + ")", null);
-                            database.delete("MOVIMENTI_AUTOMATICI", "uscita="
-                                    + ((uscita) ? 1 : 0), null);
+                        database.delete("JOB_AUTOMATICI",
+                                "id_movimento in (select id from movimenti_automatici where uscita="
+                                        + ((uscita) ? 1 : 0) + ")", null);
+                        database.delete("MOVIMENTI_AUTOMATICI", "uscita="
+                                + ((uscita) ? 1 : 0), null);
 
-                            dateFormat = new SimpleDateFormat(
-                                    "yyyy-MM-dd HH:mm:ss", Locale.ROOT);
+                        dateFormat = new SimpleDateFormat(
+                                "yyyy-MM-dd HH:mm:ss", Locale.ROOT);
 
-                            int i = 0;
-                            for (i = 0; i < myMovimento.size(); i++) {
-                                int codiceFrequenza = scaricaDati
-                                        .frequenzaToNumber(myMovimento.get(i)
-                                                .getAutomaticaFrequenza());
-                                int idVoce = scaricaDati
-                                        .getSpesaCodiceDescrizione(myMovimento
-                                                .get(i).getAutomaticaVoce());
+                        for (int i = 0; i < myMovimento.size(); i++) {
+                            int codiceFrequenza = scaricaDati
+                                    .frequenzaToNumber(myMovimento.get(i)
+                                            .getAutomaticaFrequenza());
+                            int idVoce = scaricaDati
+                                    .getSpesaCodiceDescrizione(myMovimento
+                                            .get(i).getAutomaticaVoce());
 
-                                dateObj = dateFormat.parse(myMovimento.get(i)
-                                        .getAutomaticaStartDate()
-                                        .substring(6, 10)
-                                        + "-"
-                                        + myMovimento.get(i)
-                                        .getAutomaticaStartDate()
-                                        .substring(3, 5)
-                                        + "-"
-                                        + myMovimento.get(i)
-                                        .getAutomaticaStartDate()
-                                        .substring(0, 2)
-                                        + " "
-                                        + myMovimento.get(i)
-                                        .getAutomaticaStartDate()
-                                        .substring(11, 13)
-                                        + ":"
-                                        + myMovimento.get(i)
-                                        .getAutomaticaStartDate()
-                                        .substring(14, 16) + ":00");
-                                c.setTime(dateObj);
+                            dateObj = dateFormat.parse(myMovimento.get(i)
+                                    .getAutomaticaStartDate()
+                                    .substring(6, 10)
+                                    + "-"
+                                    + myMovimento.get(i)
+                                    .getAutomaticaStartDate()
+                                    .substring(3, 5)
+                                    + "-"
+                                    + myMovimento.get(i)
+                                    .getAutomaticaStartDate()
+                                    .substring(0, 2)
+                                    + " "
+                                    + myMovimento.get(i)
+                                    .getAutomaticaStartDate()
+                                    .substring(11, 13)
+                                    + ":"
+                                    + myMovimento.get(i)
+                                    .getAutomaticaStartDate()
+                                    .substring(14, 16) + ":00");
+                            c.setTime(dateObj);
 
-                                int giorno, mese, anno, ore = c
-                                        .get(Calendar.HOUR_OF_DAY), minuti = c
-                                        .get(Calendar.MINUTE), secondi = c
-                                        .get(Calendar.SECOND), giorniFrequenza = scaricaDati
-                                        .getGiorniFrequenza(myMovimento.get(i)
-                                                .getAutomaticaFrequenza());
+                            int giorno, mese, anno, ore = c
+                                    .get(Calendar.HOUR_OF_DAY), minuti = c
+                                    .get(Calendar.MINUTE), secondi = c
+                                    .get(Calendar.SECOND), giorniFrequenza = scaricaDati
+                                    .getGiorniFrequenza(myMovimento.get(i)
+                                            .getAutomaticaFrequenza());
 
-                                row.clear();
-                                row.put("ID_FREQUENZA", codiceFrequenza);
-                                row.put("DATA_START",
-                                        dateFormat.format(dateObj));
-                                row.put("ID_VOCE", idVoce);
-                                row.put("IMPORTO", myMovimento.get(i)
-                                        .getAutomaticaImporto());
-                                row.put("USCITA", ((uscita) ? 1 : 0));
-                                database.insert("MOVIMENTI_AUTOMATICI", null,
-                                        row);
+                            row.clear();
+                            row.put("ID_FREQUENZA", codiceFrequenza);
+                            row.put("DATA_START",
+                                    dateFormat.format(dateObj));
+                            row.put("ID_VOCE", idVoce);
+                            row.put("IMPORTO", myMovimento.get(i)
+                                    .getAutomaticaImporto());
+                            row.put("USCITA", ((uscita) ? 1 : 0));
+                            database.insert("MOVIMENTI_AUTOMATICI", null,
+                                    row);
 
-                                String cancellaJob = scaricaDati
-                                        .getIDMovimento(
-                                                codiceFrequenza,
-                                                dateFormat.format(dateObj),
-                                                idVoce,
-                                                myMovimento.get(i)
-                                                        .getAutomaticaImporto(),
-                                                uscita);
+                            String cancellaJob = scaricaDati
+                                    .getIDMovimento(
+                                            codiceFrequenza,
+                                            dateFormat.format(dateObj),
+                                            idVoce,
+                                            myMovimento.get(i)
+                                                    .getAutomaticaImporto(),
+                                            uscita);
 
-                                if (giorniFrequenza == 0) {
-                                    if (codiceFrequenza == 3) {
-                                        for (int j = 0; j < 36; j++) {
-                                            mese = c.get(Calendar.MONTH) + 1;
-                                            anno = c.get(Calendar.YEAR);
-
-                                            row.clear();
-                                            row.put("ID_MOVIMENTO", cancellaJob);
-                                            row.put("DATA_START", dateFormat
-                                                    .format(dateFormat
-                                                            .parse(anno + "-"
-                                                                    + mese
-                                                                    + "-"
-                                                                    + "01"
-                                                                    + " " + ore
-                                                                    + ":"
-                                                                    + minuti
-                                                                    + ":00")));
-                                            database.insert("JOB_AUTOMATICI",
-                                                    null, row);
-
-                                            row.clear();
-                                            row.put("ID_MOVIMENTO", cancellaJob);
-                                            row.put("DATA_START", dateFormat
-                                                    .format(dateFormat
-                                                            .parse(anno + "-"
-                                                                    + mese
-                                                                    + "-"
-                                                                    + "11"
-                                                                    + " " + ore
-                                                                    + ":"
-                                                                    + minuti
-                                                                    + ":00")));
-                                            database.insert("JOB_AUTOMATICI",
-                                                    null, row);
-
-                                            row.clear();
-                                            row.put("ID_MOVIMENTO", cancellaJob);
-                                            row.put("DATA_START", dateFormat
-                                                    .format(dateFormat
-                                                            .parse(anno + "-"
-                                                                    + mese
-                                                                    + "-"
-                                                                    + "21"
-                                                                    + " " + ore
-                                                                    + ":"
-                                                                    + minuti
-                                                                    + ":00")));
-                                            database.insert("JOB_AUTOMATICI",
-                                                    null, row);
-
-                                            c.add(Calendar.DATE, 30);
-                                        }
-
-                                        database.delete(
-                                                "JOB_AUTOMATICI",
-                                                "ID_MOVIMENTO = ? AND DATA_START < ? ",
-                                                new String[]{
-                                                        cancellaJob,
-                                                        dateFormat
-                                                                .format(dateObj)});
-
-                                    }
-
-                                    if (codiceFrequenza == 7)
-                                        for (int j = 0; j < 36; j++) {
-                                            mese = c.get(Calendar.MONTH) + 1;
-                                            anno = c.get(Calendar.YEAR);
-
-                                            row.clear();
-                                            row.put("ID_MOVIMENTO", cancellaJob);
-                                            row.put("DATA_START", dateFormat
-                                                    .format(dateFormat
-                                                            .parse(anno + "-"
-                                                                    + mese
-                                                                    + "-"
-                                                                    + "01"
-                                                                    + " " + ore
-                                                                    + ":"
-                                                                    + minuti
-                                                                    + ":00")));
-                                            database.insert("JOB_AUTOMATICI",
-                                                    null, row);
-
-                                            c.add(Calendar.DATE, 30);
-                                        }
-
-                                    if (codiceFrequenza == 8)
-                                        for (int j = 0; j < 36; j++) {
-                                            giorno = c
-                                                    .getActualMaximum(Calendar.DATE);
-                                            mese = c.get(Calendar.MONTH) + 1;
-                                            anno = c.get(Calendar.YEAR);
-
-                                            row.clear();
-                                            row.put("ID_MOVIMENTO", cancellaJob);
-                                            row.put("DATA_START", dateFormat
-                                                    .format(dateFormat
-                                                            .parse(anno + "-"
-                                                                    + mese
-                                                                    + "-"
-                                                                    + giorno
-                                                                    + " " + ore
-                                                                    + ":"
-                                                                    + minuti
-                                                                    + ":00")));
-                                            database.insert("JOB_AUTOMATICI",
-                                                    null, row);
-
-                                            c.add(Calendar.DATE, 30);
-                                        }
-                                } else {
-                                    for (int j = 0; j < 1095; j++) {
-                                        giorno = c.get(Calendar.DAY_OF_MONTH);
+                            if (giorniFrequenza == 0) {
+                                if (codiceFrequenza == 3) {
+                                    for (int j = 0; j < 36; j++) {
                                         mese = c.get(Calendar.MONTH) + 1;
                                         anno = c.get(Calendar.YEAR);
 
                                         row.clear();
                                         row.put("ID_MOVIMENTO", cancellaJob);
                                         row.put("DATA_START", dateFormat
-                                                .format(dateFormat.parse(anno
-                                                        + "-" + mese + "-"
-                                                        + giorno + " " + ore
-                                                        + ":" + minuti + ":"
-                                                        + secondi)));
-                                        database.insert("JOB_AUTOMATICI", null,
-                                                row);
+                                                .format(dateFormat
+                                                        .parse(anno + "-"
+                                                                + mese
+                                                                + "-"
+                                                                + "01"
+                                                                + " " + ore
+                                                                + ":"
+                                                                + minuti
+                                                                + ":00")));
+                                        database.insert("JOB_AUTOMATICI",
+                                                null, row);
 
-                                        c.add(Calendar.DATE, giorniFrequenza);
+                                        row.clear();
+                                        row.put("ID_MOVIMENTO", cancellaJob);
+                                        row.put("DATA_START", dateFormat
+                                                .format(dateFormat
+                                                        .parse(anno + "-"
+                                                                + mese
+                                                                + "-"
+                                                                + "11"
+                                                                + " " + ore
+                                                                + ":"
+                                                                + minuti
+                                                                + ":00")));
+                                        database.insert("JOB_AUTOMATICI",
+                                                null, row);
+
+                                        row.clear();
+                                        row.put("ID_MOVIMENTO", cancellaJob);
+                                        row.put("DATA_START", dateFormat
+                                                .format(dateFormat
+                                                        .parse(anno + "-"
+                                                                + mese
+                                                                + "-"
+                                                                + "21"
+                                                                + " " + ore
+                                                                + ":"
+                                                                + minuti
+                                                                + ":00")));
+                                        database.insert("JOB_AUTOMATICI",
+                                                null, row);
+
+                                        c.add(Calendar.DATE, 30);
                                     }
+
+                                    database.delete(
+                                            "JOB_AUTOMATICI",
+                                            "ID_MOVIMENTO = ? AND DATA_START < ? ",
+                                            new String[]{
+                                                    cancellaJob,
+                                                    dateFormat
+                                                            .format(dateObj)});
+
+                                }
+
+                                if (codiceFrequenza == 7)
+                                    for (int j = 0; j < 36; j++) {
+                                        mese = c.get(Calendar.MONTH) + 1;
+                                        anno = c.get(Calendar.YEAR);
+
+                                        row.clear();
+                                        row.put("ID_MOVIMENTO", cancellaJob);
+                                        row.put("DATA_START", dateFormat
+                                                .format(dateFormat
+                                                        .parse(anno + "-"
+                                                                + mese
+                                                                + "-"
+                                                                + "01"
+                                                                + " " + ore
+                                                                + ":"
+                                                                + minuti
+                                                                + ":00")));
+                                        database.insert("JOB_AUTOMATICI",
+                                                null, row);
+
+                                        c.add(Calendar.DATE, 30);
+                                    }
+
+                                if (codiceFrequenza == 8)
+                                    for (int j = 0; j < 36; j++) {
+                                        giorno = c
+                                                .getActualMaximum(Calendar.DATE);
+                                        mese = c.get(Calendar.MONTH) + 1;
+                                        anno = c.get(Calendar.YEAR);
+
+                                        row.clear();
+                                        row.put("ID_MOVIMENTO", cancellaJob);
+                                        row.put("DATA_START", dateFormat
+                                                .format(dateFormat
+                                                        .parse(anno + "-"
+                                                                + mese
+                                                                + "-"
+                                                                + giorno
+                                                                + " " + ore
+                                                                + ":"
+                                                                + minuti
+                                                                + ":00")));
+                                        database.insert("JOB_AUTOMATICI",
+                                                null, row);
+
+                                        c.add(Calendar.DATE, 30);
+                                    }
+                            } else {
+                                for (int j = 0; j < 1095; j++) {
+                                    giorno = c.get(Calendar.DAY_OF_MONTH);
+                                    mese = c.get(Calendar.MONTH) + 1;
+                                    anno = c.get(Calendar.YEAR);
+
+                                    row.clear();
+                                    row.put("ID_MOVIMENTO", cancellaJob);
+                                    row.put("DATA_START", dateFormat
+                                            .format(dateFormat.parse(anno
+                                                    + "-" + mese + "-"
+                                                    + giorno + " " + ore
+                                                    + ":" + minuti + ":"
+                                                    + secondi)));
+                                    database.insert("JOB_AUTOMATICI", null,
+                                            row);
+
+                                    c.add(Calendar.DATE, giorniFrequenza);
                                 }
                             }
-
-                            startJobAutomatici();
-                            database.setTransactionSuccessful();
-                            progressDialog.dismiss();
-
-                        } catch (Exception e) {
-                            e.printStackTrace();
-                            message = e.getMessage();
-
-                        } finally {
-                            database.endTransaction();
-                            message = null;
                         }
 
-                        MainActivity.this.runOnUiThread(new Runnable() {
-                            public void run() {
-                                if (message == null)
-                                    Toast.makeText(getApplicationContext(),
-                                            R.string.spesaSalvataggioOk,
-                                            Toast.LENGTH_SHORT).show();
-                                else
-                                    Toast.makeText(getApplicationContext(),
-                                            message.toString(),
-                                            Toast.LENGTH_LONG).show();
-                            }
-                        });
+                        startJobAutomatici();
+                        database.setTransactionSuccessful();
+                        progressDialog.dismiss();
+
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                        message = e.getMessage();
+
+                    } finally {
+                        database.endTransaction();
+                        message = null;
                     }
+
+                    MainActivity.this.runOnUiThread(() -> {
+                        if (message == null)
+                            Toast.makeText(getApplicationContext(),
+                                    R.string.spesaSalvataggioOk,
+                                    Toast.LENGTH_SHORT).show();
+                        else
+                            Toast.makeText(getApplicationContext(),
+                                    message,
+                                    Toast.LENGTH_LONG).show();
+                    });
                 }).start();
             }
             return true;
@@ -697,13 +655,13 @@ public class MainActivity extends Activity {
             return true;
         } else if (item.getItemId() == R.id.modificaDescrizione) {
             id = 3;
-            descrizioneSpesa = (Spinner) findViewById(R.id.descrizioneSpesa);
+            descrizioneSpesa = findViewById(R.id.descrizioneSpesa);
             if (descrizioneSpesa.getCount() > 0)
                 msgBox();
             return true;
         } else if (item.getItemId() == R.id.deleteSpesa) {
             if (CURRENT_LAYOUT == R.layout.activity_uscite) {
-                if (mySpesa.size() > 0) {
+                if (!mySpesa.isEmpty()) {
                     for (int i = mySpesa.size() - 1; i > -1; i--) {
                         if (mySpesa.get(i).getSpesaFlaggata()) {
                             mySpesa.remove(i);
@@ -725,7 +683,7 @@ public class MainActivity extends Activity {
 
                 return true;
             } else if (CURRENT_LAYOUT == R.layout.activity_automatiche) {
-                if (myMovimento.size() > 0) {
+                if (!myMovimento.isEmpty()) {
                     for (int i = myMovimento.size() - 1; i > -1; i--) {
                         if (myMovimento.get(i).getAutomaticaFlaggata()) {
                             myMovimento.remove(i);
@@ -759,8 +717,8 @@ public class MainActivity extends Activity {
     // ******************************************************************
     public void onSearchBtnPress(View v) {
 
-        TextView totUscite = (TextView) findViewById(R.id.totaleUscite);
-        TextView totEntrate = (TextView) findViewById(R.id.totaleEntrate);
+        TextView totUscite = findViewById(R.id.totaleUscite);
+        TextView totEntrate = findViewById(R.id.totaleEntrate);
 
         try {
             dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss",
@@ -780,11 +738,10 @@ public class MainActivity extends Activity {
                     + mDateDisplayA.getText().toString().substring(0, 2)
                     + " 00:00:00");
         } catch (Exception ignored) {
-        } finally {
         }
 
-        descrizioneSpesa = (Spinner) findViewById(R.id.descrizioneSpesa);
-        all = (CheckBox) findViewById(R.id.selectAll);
+        descrizioneSpesa = findViewById(R.id.descrizioneSpesa);
+        all = findViewById(R.id.selectAll);
         if (all.isChecked())
             cur = database.query(
                     "MONEY a INNER JOIN VARIE B ON (a.DESCRIZIONE=b.CONT)",
@@ -805,7 +762,7 @@ public class MainActivity extends Activity {
                             descrizioneSpesa.getSelectedItem().toString()},
                     null, null, "a.DATA, a.uscita");
 
-        myLista = new ArrayList<Lista>();
+        myLista = new ArrayList<>();
 
         cur.moveToFirst();
 
@@ -829,13 +786,13 @@ public class MainActivity extends Activity {
         cur.close();
 
         myAdapterLista = new ListaMovimentiGridViewAdapter(this, myLista);
-        myGridView = (GridView) findViewById(R.id.listaMovimenti);
+        myGridView = findViewById(R.id.listaMovimenti);
         myGridView.setAdapter(myAdapterLista);
 
         Display display = getWindowManager().getDefaultDisplay();
         Point size = new Point();
         display.getSize(size);
-        LayoutParams lp = (LayoutParams) myGridView.getLayoutParams();
+        LayoutParams lp = myGridView.getLayoutParams();
         lp.height = size.y * 70 / 100;
         myGridView.setLayoutParams(lp);
 
@@ -860,8 +817,8 @@ public class MainActivity extends Activity {
 
         if (cur.getCount() > 0 && cur.getString(0) != null
                 && Double.parseDouble(cur.getString(0)) > 0) {
-            totEntrate.setText(String.valueOf(df.format(Double.parseDouble(cur
-                    .getString(0)))));
+            totEntrate.setText(df.format(Double.parseDouble(cur
+                    .getString(0))));
         } else
             totEntrate.setText("0");
 
@@ -887,8 +844,8 @@ public class MainActivity extends Activity {
 
         if (cur.getCount() > 0 && cur.getString(0) != null
                 && Double.parseDouble(cur.getString(0)) > 0)
-            totUscite.setText(String.valueOf(df.format(Double.parseDouble(cur
-                    .getString(0)))));
+            totUscite.setText(df.format(Double.parseDouble(cur
+                    .getString(0))));
         else
             totUscite.setText("0");
 
@@ -919,17 +876,17 @@ public class MainActivity extends Activity {
 
     private void eliminaVarie() {
         id = 5;
-        descrizioneSpesa = (Spinner) findViewById(R.id.descrizioneSpesa);
+        descrizioneSpesa = findViewById(R.id.descrizioneSpesa);
         if (descrizioneSpesa.getCount() > 0)
             msgBox();
     }
 
     public void caricaGridView(String varie) {
-        TextView totUscite = (TextView) findViewById(R.id.totaleUscite);
-        TextView totEntrate = (TextView) findViewById(R.id.totaleEntrate);
+        TextView totUscite = findViewById(R.id.totaleUscite);
+        TextView totEntrate = findViewById(R.id.totaleEntrate);
 
-        if (!varie.equals("")) {
-            myLista = new ArrayList<Lista>();
+        if (!varie.isEmpty()) {
+            myLista = new ArrayList<>();
 
             cur = database.query(
                     "MONEY a INNER JOIN VARIE B ON (a.DESCRIZIONE=b.CONT)",
@@ -959,18 +916,15 @@ public class MainActivity extends Activity {
             cur.close();
 
             myAdapterLista = new ListaMovimentiGridViewAdapter(this, myLista);
-            myGridView = (GridView) findViewById(R.id.listaMovimenti);
+            myGridView = findViewById(R.id.listaMovimenti);
             myGridView.setAdapter(myAdapterLista);
 
-            if (Build.VERSION.SDK_INT > 11) {
-                Display display = getWindowManager().getDefaultDisplay();
-                Point size = new Point();
-                display.getSize(size);
-                LayoutParams lp = (LayoutParams) myGridView.getLayoutParams();
-                lp.height = size.y * 78 / 100;
-                myGridView.setLayoutParams(lp);
-
-            }
+            Display display = getWindowManager().getDefaultDisplay();
+            Point size = new Point();
+            display.getSize(size);
+            LayoutParams lp = myGridView.getLayoutParams();
+            lp.height = size.y * 78 / 100;
+            myGridView.setLayoutParams(lp);
 
             cur = database.query("MONEY", new String[]{"SUM(prezzo)"},
                     "uscita=0 and descrizione=?", new String[]{String
@@ -981,8 +935,8 @@ public class MainActivity extends Activity {
 
             if (cur.getCount() > 0 && cur.getString(0) != null
                     && Double.parseDouble(cur.getString(0)) > 0) {
-                totEntrate.setText(String.valueOf(df.format(Double
-                        .parseDouble(cur.getString(0)))));
+                totEntrate.setText(df.format(Double
+                        .parseDouble(cur.getString(0))));
             } else
                 totEntrate.setText("0");
 
@@ -997,8 +951,8 @@ public class MainActivity extends Activity {
 
             if (cur.getCount() > 0 && cur.getString(0) != null
                     && Double.parseDouble(cur.getString(0)) > 0)
-                totUscite.setText(String.valueOf(df.format(Double
-                        .parseDouble(cur.getString(0)))));
+                totUscite.setText(df.format(Double
+                        .parseDouble(cur.getString(0))));
             else
                 totUscite.setText("0");
 
@@ -1011,9 +965,9 @@ public class MainActivity extends Activity {
     }
 
     public void caricaGridView(String mese, String anno) {
-        if (!mese.equals("") && !anno.equals("")) {
+        if (!mese.isEmpty() && !anno.isEmpty()) {
 
-            myLista = new ArrayList<Lista>();
+            myLista = new ArrayList<>();
 
             cur = database
                     .query("MONEY a INNER JOIN VARIE B ON (a.DESCRIZIONE=b.CONT)",
@@ -1046,17 +1000,15 @@ public class MainActivity extends Activity {
             cur.close();
 
             myAdapterLista = new ListaMovimentiGridViewAdapter(this, myLista);
-            myGridView = (GridView) findViewById(R.id.listaMovimenti);
+            myGridView = findViewById(R.id.listaMovimenti);
             myGridView.setAdapter(myAdapterLista);
 
-            if (Build.VERSION.SDK_INT > 11) {
-                Display display = getWindowManager().getDefaultDisplay();
-                Point size = new Point();
-                display.getSize(size);
-                LayoutParams lp = (LayoutParams) myGridView.getLayoutParams();
-                lp.height = size.y * 78 / 100;
-                myGridView.setLayoutParams(lp);
-            }
+            Display display = getWindowManager().getDefaultDisplay();
+            Point size = new Point();
+            display.getSize(size);
+            LayoutParams lp = myGridView.getLayoutParams();
+            lp.height = size.y * 78 / 100;
+            myGridView.setLayoutParams(lp);
 
             cur = database
                     .query("MONEY",
@@ -1065,12 +1017,12 @@ public class MainActivity extends Activity {
                             new String[]{anno, mese}, null, null, null);
             cur.moveToFirst();
 
-            TextView totEntrate = (TextView) findViewById(R.id.totaleEntrate);
+            TextView totEntrate = findViewById(R.id.totaleEntrate);
 
             if (cur.getCount() > 0 && cur.getString(0) != null
                     && Double.parseDouble(cur.getString(0)) > 0)
-                totEntrate.setText(String.valueOf(df.format(Double
-                        .parseDouble(cur.getString(0)))));
+                totEntrate.setText(df.format(Double
+                        .parseDouble(cur.getString(0))));
             else
                 totEntrate.setText("0");
 
@@ -1083,11 +1035,11 @@ public class MainActivity extends Activity {
                             new String[]{anno, mese}, null, null, null);
             cur.moveToFirst();
 
-            TextView totUscite = (TextView) findViewById(R.id.totaleUscite);
+            TextView totUscite = findViewById(R.id.totaleUscite);
             if (cur.getCount() > 0 && cur.getString(0) != null
                     && Double.parseDouble(cur.getString(0)) > 0)
-                totUscite.setText(String.valueOf(df.format(Double
-                        .parseDouble(cur.getString(0)))));
+                totUscite.setText(df.format(Double
+                        .parseDouble(cur.getString(0))));
             else
                 totUscite.setText("0");
 
@@ -1096,18 +1048,18 @@ public class MainActivity extends Activity {
     }
 
     public void caricaGridView() {
-        myLista = new ArrayList<Lista>();
+        myLista = new ArrayList<>();
 
         cur = database.query("MONEY", new String[]{"SUM(prezzo)"},
                 "uscita=0", null, null, null, null);
         cur.moveToFirst();
 
-        TextView totEntrate = (TextView) findViewById(R.id.totaleEntrate);
+        TextView totEntrate = findViewById(R.id.totaleEntrate);
 
         if (cur.getCount() > 0 && cur.getString(0) != null
                 && Double.parseDouble(cur.getString(0)) > 0)
-            totEntrate.setText(String.valueOf(df.format(Double.parseDouble(cur
-                    .getString(0)))));
+            totEntrate.setText(df.format(Double.parseDouble(cur
+                    .getString(0))));
         else
             totEntrate.setText("0");
 
@@ -1117,18 +1069,18 @@ public class MainActivity extends Activity {
                 "uscita=1", null, null, null, null);
         cur.moveToFirst();
 
-        TextView totUscite = (TextView) findViewById(R.id.totaleUscite);
+        TextView totUscite = findViewById(R.id.totaleUscite);
         if (cur.getCount() > 0 && cur.getString(0) != null
                 && Double.parseDouble(cur.getString(0)) > 0)
-            totUscite.setText(String.valueOf(df.format(Double.parseDouble(cur
-                    .getString(0)))));
+            totUscite.setText(df.format(Double.parseDouble(cur
+                    .getString(0))));
         else
             totUscite.setText("0");
 
         cur = database.query("MONEY", new String[]{"SUM(prezzo)"},
                 "uscita=0", null, null, null, null);
         cur.moveToFirst();
-        Double a, b;
+        double a, b;
         if (cur.getCount() > 0 && cur.getString(0) != null
                 && Double.parseDouble(cur.getString(0)) > 0)
             a = Double.parseDouble(cur.getString(0));
@@ -1144,8 +1096,8 @@ public class MainActivity extends Activity {
         else
             b = 0.0;
 
-        TextView saldo = (TextView) findViewById(R.id.totaleSaldo);
-        saldo.setText(String.valueOf(df.format(a - b)));
+        TextView saldo = findViewById(R.id.totaleSaldo);
+        saldo.setText(df.format(a - b));
 
         cur.close();
     }
@@ -1165,11 +1117,9 @@ public class MainActivity extends Activity {
 
         cur.close();
 
-        descrizioneSpesa = (Spinner) findViewById(R.id.descrizioneSpesa);
-        descrizioneSpesa.setAdapter(new CustomSpinnerVarie(this, scaricaDati
-                .caricaSpinnerCompleto(uscita.toString())));
-        descrizioneSpesa.setSelection(new CustomSpinnerVarie(this, scaricaDati
-                .caricaSpinnerCompleto(uscita.toString())).getPosition(voce));
+        descrizioneSpesa = findViewById(R.id.descrizioneSpesa);
+        descrizioneSpesa.setAdapter(new CustomSpinnerVarie(this, scaricaDati.caricaSpinnerCompleto(uscita.toString())));
+        descrizioneSpesa.setSelection(new CustomSpinnerVarie(this, scaricaDati.caricaSpinnerCompleto(uscita.toString())).getPosition(voce));
     }
 
     public String getPassword() {
@@ -1189,7 +1139,7 @@ public class MainActivity extends Activity {
                 "count(*)"}, null, null, null, null, null);
         if (cur.moveToFirst()) {
             if (Integer.parseInt(cur.getString(2)) > 0) {
-                List<String> arraySpinner = new ArrayList<String>();
+                List<String> arraySpinner = new ArrayList<>();
                 int j = -1;
 
                 for (int i = Integer.parseInt(cur.getString(0)); i <= Integer
@@ -1200,8 +1150,8 @@ public class MainActivity extends Activity {
 
                 cur.close();
 
-                Spinner s = (Spinner) findViewById(R.id.selAnno);
-                ArrayAdapter<String> adapterAnno = new ArrayAdapter<String>(
+                Spinner s = findViewById(R.id.selAnno);
+                ArrayAdapter<String> adapterAnno = new ArrayAdapter<>(
                         this, android.R.layout.simple_spinner_item,
                         arraySpinner);
                 adapterAnno
@@ -1214,14 +1164,14 @@ public class MainActivity extends Activity {
 
     private void msgBox() {
         LayoutInflater inflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        alert = new AlertDialog.Builder(this);
+        AlertDialog.Builder alert = new AlertDialog.Builder(this);
         input = new EditText(this);
 
         switch (id) {
             case 1:
                 // password_verify
                 layout = inflater.inflate(R.layout.dialog_verify_password,
-                        (ViewGroup) findViewById(R.id.root));
+                        findViewById(R.id.root));
                 alert.setView(layout);
                 alert.setTitle(R.string.password_verify);
                 break;
@@ -1252,10 +1202,10 @@ public class MainActivity extends Activity {
             case 6:
                 // inserimento password
                 layout = inflater.inflate(R.layout.dialog_password,
-                        (ViewGroup) findViewById(R.id.root));
-                password1 = (EditText) layout.findViewById(R.id.EditText_Pwd1);
-                password2 = (EditText) layout.findViewById(R.id.EditText_Pwd2);
-                final TextView error = (TextView) layout
+                        findViewById(R.id.root));
+                password1 = layout.findViewById(R.id.EditText_Pwd1);
+                password2 = layout.findViewById(R.id.EditText_Pwd2);
+                final TextView error = layout
                         .findViewById(R.id.TextView_PwdProblem);
 
                 password1.addTextChangedListener(new TextWatcher() {
@@ -1319,423 +1269,372 @@ public class MainActivity extends Activity {
 
             case 10:
                 layout = inflater.inflate(R.layout.dialog_legenda,
-                        (ViewGroup) findViewById(R.id.widget145));
+                        findViewById(R.id.widget145));
                 alert.setView(layout);
                 alert.setTitle(R.string.legenda);
                 break;
         }
 
         alert.setPositiveButton(R.string.OK,
-                new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int whichButton) {
-                        switch (id) {
-                            case 1:
-                                EditText passwordVerify = (EditText) layout
-                                        .findViewById(R.id.password_verify);
-                                if (!passwordVerify.getText().toString().trim()
-                                        .equals(getPassword().trim()))
-                                    System.exit(0);
-                                break;
+                (dialog, whichButton) -> {
+                    switch (id) {
+                        case 1:
+                            EditText passwordVerify = layout
+                                    .findViewById(R.id.password_verify);
+                            if (!passwordVerify.getText().toString().trim()
+                                    .equals(getPassword().trim()))
+                                System.exit(0);
+                            break;
 
-                            case 2:
-                                if (verify.IsSdPresent()) {
-                                    File file = new File(
-                                            Environment.getDataDirectory()
-                                                    + "/data/com.app.persomy.v4/databases/PersoMyDB.db");
-                                    File fileBackupDir = new File(Environment
-                                            .getExternalStorageDirectory(),
-                                            "/PersoMy/backup");
+                        case 2:
+                            if (verify.IsSdPresent()) {
+                                File file = new File(
+                                        Environment.getDataDirectory()
+                                                + "/data/com.app.persomy.v4/databases/PersoMyDB.db");
+                                File fileBackupDir = new File(Environment
+                                        .getExternalStorageDirectory(),
+                                        "/PersoMy/backup");
 
-                                    if (!fileBackupDir.exists())
+                                if (!fileBackupDir.exists())
+                                    Toast.makeText(getApplicationContext(),
+                                            R.string.backupNotFound,
+                                            Toast.LENGTH_SHORT).show();
+
+                                if (file.exists()) {
+                                    File fileBackup = new File(fileBackupDir,
+                                            "PersoMyDB.db");
+                                    try {
+                                        fileBackup.createNewFile();
+                                        copyFile(fileBackup, file);
+
+                                        Toast.makeText(getApplicationContext(),
+                                                R.string.backupRestoredOK,
+                                                Toast.LENGTH_SHORT).show();
+
+                                    } catch (FileNotFoundException ex) {
                                         Toast.makeText(getApplicationContext(),
                                                 R.string.backupNotFound,
                                                 Toast.LENGTH_SHORT).show();
-
-                                    if (file.exists()) {
-                                        File fileBackup = new File(fileBackupDir,
-                                                "PersoMyDB.db");
-                                        try {
-                                            fileBackup.createNewFile();
-                                            copyFile(fileBackup, file);
-
-                                            Toast.makeText(getApplicationContext(),
-                                                    R.string.backupRestoredOK,
-                                                    Toast.LENGTH_SHORT).show();
-
-                                        } catch (FileNotFoundException ex) {
-                                            Toast.makeText(getApplicationContext(),
-                                                    R.string.backupNotFound,
-                                                    Toast.LENGTH_SHORT).show();
-                                            System.exit(0);
-                                        } catch (IOException e) {
-                                            Toast.makeText(
-                                                    getApplicationContext(),
-                                                    R.string.backupGenericErrorFile
-                                                            + e.getMessage(),
-                                                    Toast.LENGTH_SHORT).show();
-                                        } catch (Exception e) {
-                                            Toast.makeText(
-                                                    getApplicationContext(),
-                                                    R.string.backupGenericError
-                                                            + e.getMessage(),
-                                                    Toast.LENGTH_SHORT).show();
-                                        }
+                                        System.exit(0);
+                                    } catch (IOException e) {
+                                        Toast.makeText(
+                                                getApplicationContext(),
+                                                R.string.backupGenericErrorFile
+                                                        + e.getMessage(),
+                                                Toast.LENGTH_SHORT).show();
+                                    } catch (Exception e) {
+                                        Toast.makeText(
+                                                getApplicationContext(),
+                                                R.string.backupGenericError
+                                                        + e.getMessage(),
+                                                Toast.LENGTH_SHORT).show();
                                     }
-                                } else {
-                                    Toast.makeText(getApplicationContext(),
-                                            R.string.backupSDCardError,
-                                            Toast.LENGTH_SHORT).show();
-                                    System.exit(0);
                                 }
-                                break;
+                            } else {
+                                Toast.makeText(getApplicationContext(),
+                                        R.string.backupSDCardError,
+                                        Toast.LENGTH_SHORT).show();
+                                System.exit(0);
+                            }
+                            break;
 
-                            case 3:
-                                String bkpVoce = descrizioneSpesa.getSelectedItem()
-                                        .toString();
+                        case 3:
+                            String bkpVoce = descrizioneSpesa.getSelectedItem()
+                                    .toString();
 
-                                if (input.getText().toString().trim().length() > 0) {
-                                    if (!input.getText().toString().trim()
-                                            .equals(bkpVoce)) {
-                                        if (scaricaDati
-                                                .getSpesaCodiceDescrizione(input
-                                                        .getText().toString()
-                                                        .trim()) == -1) {
-                                            try {
-                                                database.beginTransaction();
-                                                ContentValues row = new ContentValues();
-                                                row.put("DESCRIZIONE", input
-                                                        .getText().toString()
-                                                        .trim());
-                                                database.update(
-                                                        "VARIE",
-                                                        row,
-                                                        "cont=?",
-                                                        new String[]{String
-                                                                .format("%d",
-                                                                scaricaDati
-                                                                        .getSpesaCodiceDescrizione(descrizioneSpesa
-                                                                                .getSelectedItem()
-                                                                                .toString()))});
-                                                database.setTransactionSuccessful();
-                                            } catch (Exception e) {
-                                                Toast.makeText(
-                                                        getApplicationContext(),
-                                                        e.getMessage(),
-                                                        Toast.LENGTH_LONG).show();
-                                            } finally {
-                                                database.endTransaction();
-
-                                                if (CURRENT_LAYOUT == R.layout.activity_uscite) {
-                                                    if (mySpesa.size() > 0)
-                                                        for (int i = mySpesa.size() - 1; i > -1; i--)
-                                                            if (mySpesa
-                                                                    .get(i)
-                                                                    .getSpesaName()
-                                                                    .equals(bkpVoce))
-                                                                mySpesa.set(
-                                                                        i,
-                                                                        new Spesa(
-                                                                                input.getText()
-                                                                                        .toString()
-                                                                                        .trim(),
-                                                                                mySpesa.get(
-                                                                                                i)
-                                                                                        .getSpesaPrezzo(),
-                                                                                false,
-                                                                                false));
-
-                                                    myListView
-                                                            .setAdapter(myAdapter);
-                                                } else if (CURRENT_LAYOUT == R.layout.activity_automatiche) {
-                                                    if (myMovimento.size() > 0)
-                                                        for (int i = myMovimento
-                                                                .size() - 1; i > -1; i--)
-                                                            if (myMovimento
-                                                                    .get(i)
-                                                                    .getAutomaticaVoce()
-                                                                    .equals(bkpVoce))
-                                                                myMovimento
-                                                                        .set(i,
-                                                                                new Movimento(
-                                                                                        myMovimento
-                                                                                                .get(i)
-                                                                                                .getAutomaticaFrequenza(),
-                                                                                        myMovimento
-                                                                                                .get(i)
-                                                                                                .getAutomaticaStartDate(),
-                                                                                        input.getText()
-                                                                                                .toString()
-                                                                                                .trim(),
-                                                                                        myMovimento
-                                                                                                .get(i)
-                                                                                                .getAutomaticaImporto(),
-                                                                                        uscita,
-                                                                                        false,
-                                                                                        false));
-
-                                                    myListView
-                                                            .setAdapter(myAdapterAutomatica);
-                                                }
-                                            }
-
-                                            caricaSpinner();
-                                            selezionaVoce(input.getText()
-                                                    .toString().trim());
-
-                                            Toast.makeText(getApplicationContext(),
-                                                    R.string.spesaSalvataggioOk,
-                                                    Toast.LENGTH_SHORT).show();
-                                        } else
-                                            Toast.makeText(getApplicationContext(),
-                                                    R.string.spesaVoceDuplicata,
-                                                    Toast.LENGTH_LONG).show();
-                                    } else
-                                        Toast.makeText(getApplicationContext(),
-                                                R.string.spesaVoceDuplicata,
-                                                Toast.LENGTH_LONG).show();
-                                } else
-                                    Toast.makeText(getApplicationContext(),
-                                            R.string.spesaVoceVuota,
-                                            Toast.LENGTH_SHORT).show();
-                                break;
-
-                            case 4:
-                                if (input.getText().toString().trim().length() > 0) {
-                                    if (scaricaDati.getSpesaCodiceDescrizione(input
-                                            .getText().toString().trim()) == -1) {
+                            if (!input.getText().toString().trim().isEmpty()) {
+                                if (!input.getText().toString().trim()
+                                        .equals(bkpVoce)) {
+                                    if (scaricaDati
+                                            .getSpesaCodiceDescrizione(input
+                                                    .getText().toString()
+                                                    .trim()) == -1) {
                                         try {
                                             database.beginTransaction();
                                             ContentValues row = new ContentValues();
-                                            row.put("DESCRIZIONE", input.getText()
-                                                    .toString().trim());
-                                            database.insert("VARIE", null, row);
+                                            row.put("DESCRIZIONE", input
+                                                    .getText().toString()
+                                                    .trim());
+                                            database.update("VARIE", row, "cont=?", new String[]{String
+                                                    .format("%d",
+                                                    scaricaDati
+                                                            .getSpesaCodiceDescrizione(descrizioneSpesa
+                                                                    .getSelectedItem()
+                                                                    .toString()))});
                                             database.setTransactionSuccessful();
                                         } catch (Exception e) {
-                                            Toast.makeText(getApplicationContext(),
+                                            Toast.makeText(
+                                                    getApplicationContext(),
                                                     e.getMessage(),
                                                     Toast.LENGTH_LONG).show();
                                         } finally {
                                             database.endTransaction();
-                                            caricaSpinner();
-                                            selezionaVoce(input.getText()
-                                                    .toString().trim());
-                                            Toast.makeText(getApplicationContext(),
-                                                    R.string.spesaSalvataggioOk,
-                                                    Toast.LENGTH_SHORT).show();
+
+                                            if (CURRENT_LAYOUT == R.layout.activity_uscite) {
+                                                if (mySpesa.size() > 0)
+                                                    for (int i = mySpesa.size() - 1; i > -1; i--)
+                                                        if (mySpesa
+                                                                .get(i)
+                                                                .getSpesaName()
+                                                                .equals(bkpVoce))
+                                                            mySpesa.set(
+                                                                    i,
+                                                                    new Spesa(
+                                                                            input.getText()
+                                                                                    .toString()
+                                                                                    .trim(),
+                                                                            mySpesa.get(
+                                                                                            i)
+                                                                                    .getSpesaPrezzo(),
+                                                                            false,
+                                                                            false));
+
+                                                myListView
+                                                        .setAdapter(myAdapter);
+                                            } else if (CURRENT_LAYOUT == R.layout.activity_automatiche) {
+                                                if (!myMovimento.isEmpty())
+                                                    for (int i = myMovimento
+                                                            .size() - 1; i > -1; i--)
+                                                        if (myMovimento
+                                                                .get(i)
+                                                                .getAutomaticaVoce()
+                                                                .equals(bkpVoce))
+                                                            myMovimento
+                                                                    .set(i,
+                                                                            new Movimento(
+                                                                                    myMovimento
+                                                                                            .get(i)
+                                                                                            .getAutomaticaFrequenza(),
+                                                                                    myMovimento
+                                                                                            .get(i)
+                                                                                            .getAutomaticaStartDate(),
+                                                                                    input.getText()
+                                                                                            .toString()
+                                                                                            .trim(),
+                                                                                    myMovimento
+                                                                                            .get(i)
+                                                                                            .getAutomaticaImporto(),
+                                                                                    uscita,
+                                                                                    false,
+                                                                                    false));
+
+                                                myListView
+                                                        .setAdapter(myAdapterAutomatica);
+                                            }
                                         }
+
+                                        caricaSpinner();
+                                        selezionaVoce(input.getText()
+                                                .toString().trim());
+
+                                        Toast.makeText(getApplicationContext(),
+                                                R.string.spesaSalvataggioOk,
+                                                Toast.LENGTH_SHORT).show();
                                     } else
                                         Toast.makeText(getApplicationContext(),
                                                 R.string.spesaVoceDuplicata,
                                                 Toast.LENGTH_LONG).show();
                                 } else
                                     Toast.makeText(getApplicationContext(),
-                                            R.string.spesaVoceVuota,
+                                            R.string.spesaVoceDuplicata,
                                             Toast.LENGTH_LONG).show();
+                            } else
+                                Toast.makeText(getApplicationContext(),
+                                        R.string.spesaVoceVuota,
+                                        Toast.LENGTH_SHORT).show();
+                            break;
 
-                                break;
-
-                            case 5:
-                                try {
-                                    descrizioneSpesa = (Spinner) findViewById(R.id.descrizioneSpesa);
-                                    myGridView = (GridView) findViewById(R.id.listaMovimenti);
-
-                                    database.beginTransaction();
-                                    database.delete(
-                                            "MONEY",
-                                            "descrizione=?",
-                                            new String[]{String.valueOf(scaricaDati
-                                                    .getSpesaCodiceDescrizione(descrizioneSpesa
-                                                            .getSelectedItem()
-                                                            .toString()))});
-                                    database.delete(
-                                            "VARIE",
-                                            "cont=?",
-                                            new String[]{String.valueOf(scaricaDati
-                                                    .getSpesaCodiceDescrizione(descrizioneSpesa
-                                                            .getSelectedItem()
-                                                            .toString()))});
-                                    database.setTransactionSuccessful();
-
-                                } catch (Exception e) {
-                                    Toast.makeText(getApplicationContext(),
-                                                    e.getMessage(), Toast.LENGTH_LONG)
-                                            .show();
-                                } finally {
-                                    database.endTransaction();
-                                    caricaSpinner();
-                                    if (descrizioneSpesa.getCount() > 0)
-                                        caricaGridView(descrizioneSpesa
-                                                .getSelectedItem().toString());
-                                    else
-                                        caricaGridView("");
-
-                                    Toast.makeText(getApplicationContext(),
-                                            R.string.spesaEliminazioneOk,
-                                            Toast.LENGTH_SHORT).show();
-                                }
-                                break;
-
-                            case 6:
-                                try {
-                                    strPassword1 = password1.getText().toString();
-                                    strPassword2 = password2.getText().toString();
-                                    if (!(strPassword1.equals("") || strPassword2
-                                            .equals(""))) {
-                                        if (strPassword1.equals(strPassword2)) {
-                                            database.beginTransaction();
-                                            ContentValues row = new ContentValues();
-                                            row.put("ATTIVO", "1");
-                                            row.put("VALORE", strPassword2.trim());
-                                            database.update("OPZIONI", row,
-                                                    "OPZ=?",
-                                                    new String[]{"PASSWORD"});
-
-                                            database.setTransactionSuccessful();
-                                            database.endTransaction();
-
-                                            Toast.makeText(getApplicationContext(),
-                                                    R.string.setPasswordOK,
-                                                    Toast.LENGTH_SHORT).show();
-
-                                            if (Build.VERSION.SDK_INT > 13)
-                                                password.setChecked(true);
-                                            else
-                                                password233.setChecked(true);
-                                        } else {
-                                            Toast.makeText(getApplicationContext(),
-                                                    R.string.password_verify_ko,
-                                                    Toast.LENGTH_LONG).show();
-
-                                            if (Build.VERSION.SDK_INT > 13)
-                                                password.setChecked(false);
-                                            else
-                                                password233.setChecked(false);
-                                        }
-                                    } else {
+                        case 4:
+                            if (!input.getText().toString().trim().isEmpty()) {
+                                if (scaricaDati.getSpesaCodiceDescrizione(input
+                                        .getText().toString().trim()) == -1) {
+                                    try {
+                                        database.beginTransaction();
+                                        ContentValues row = new ContentValues();
+                                        row.put("DESCRIZIONE", input.getText()
+                                                .toString().trim());
+                                        database.insert("VARIE", null, row);
+                                        database.setTransactionSuccessful();
+                                    } catch (Exception e) {
                                         Toast.makeText(getApplicationContext(),
-                                                R.string.setPasswordVuota,
+                                                e.getMessage(),
                                                 Toast.LENGTH_LONG).show();
-
-                                        if (Build.VERSION.SDK_INT > 13)
-                                            password.setChecked(false);
-                                        else
-                                            password233.setChecked(false);
+                                    } finally {
+                                        database.endTransaction();
+                                        caricaSpinner();
+                                        selezionaVoce(input.getText()
+                                                .toString().trim());
+                                        Toast.makeText(getApplicationContext(),
+                                                R.string.spesaSalvataggioOk,
+                                                Toast.LENGTH_SHORT).show();
                                     }
-                                } catch (Exception e) {
+                                } else
                                     Toast.makeText(getApplicationContext(),
-                                                    e.getMessage(), Toast.LENGTH_LONG)
-                                            .show();
+                                            R.string.spesaVoceDuplicata,
+                                            Toast.LENGTH_LONG).show();
+                            } else
+                                Toast.makeText(getApplicationContext(),
+                                        R.string.spesaVoceVuota,
+                                        Toast.LENGTH_LONG).show();
 
-                                    if (Build.VERSION.SDK_INT > 13)
-                                        password.setChecked(false);
-                                    else
-                                        password233.setChecked(false);
-                                }
-                                break;
+                            break;
 
-                            case 7:
-                                database.close();
-                                finish();
-                                break;
+                        case 5:
+                            try {
+                                descrizioneSpesa = findViewById(R.id.descrizioneSpesa);
+                                myGridView = findViewById(R.id.listaMovimenti);
 
-                            case 8:
                                 database.beginTransaction();
-                                ContentValues row = new ContentValues();
-                                row.put("ATTIVO", "1");
-                                database.update("OPZIONI", row, "OPZ=?",
-                                        new String[]{"UPDATE"});
+                                database.delete(
+                                        "MONEY",
+                                        "descrizione=?",
+                                        new String[]{String.valueOf(scaricaDati
+                                                .getSpesaCodiceDescrizione(descrizioneSpesa
+                                                        .getSelectedItem()
+                                                        .toString()))});
+                                database.delete(
+                                        "VARIE",
+                                        "cont=?",
+                                        new String[]{String.valueOf(scaricaDati
+                                                .getSpesaCodiceDescrizione(descrizioneSpesa
+                                                        .getSelectedItem()
+                                                        .toString()))});
                                 database.setTransactionSuccessful();
+
+                            } catch (Exception e) {
+                                Toast.makeText(getApplicationContext(),
+                                                e.getMessage(), Toast.LENGTH_LONG)
+                                        .show();
+                            } finally {
                                 database.endTransaction();
+                                caricaSpinner();
+                                if (descrizioneSpesa.getCount() > 0)
+                                    caricaGridView(descrizioneSpesa
+                                            .getSelectedItem().toString());
+                                else
+                                    caricaGridView("");
 
                                 Toast.makeText(getApplicationContext(),
-                                                R.string.setUpdateOK, Toast.LENGTH_SHORT)
+                                        R.string.spesaEliminazioneOk,
+                                        Toast.LENGTH_SHORT).show();
+                            }
+                            break;
+
+                        case 6:
+                            try {
+                                strPassword1 = password1.getText().toString();
+                                strPassword2 = password2.getText().toString();
+                                if (!(strPassword1.isEmpty() || strPassword2.isEmpty())) {
+                                    if (strPassword1.equals(strPassword2)) {
+                                        database.beginTransaction();
+                                        ContentValues row = new ContentValues();
+                                        row.put("ATTIVO", "1");
+                                        row.put("VALORE", strPassword2.trim());
+                                        database.update("OPZIONI", row,
+                                                "OPZ=?",
+                                                new String[]{"PASSWORD"});
+
+                                        database.setTransactionSuccessful();
+                                        database.endTransaction();
+
+                                        Toast.makeText(getApplicationContext(),
+                                                R.string.setPasswordOK,
+                                                Toast.LENGTH_SHORT).show();
+
+                                        password.setChecked(true);
+                                    } else {
+                                        Toast.makeText(getApplicationContext(),
+                                                R.string.password_verify_ko,
+                                                Toast.LENGTH_LONG).show();
+
+                                        password.setChecked(false);
+                                    }
+                                } else {
+                                    Toast.makeText(getApplicationContext(),
+                                            R.string.setPasswordVuota,
+                                            Toast.LENGTH_LONG).show();
+
+                                    password.setChecked(false);
+                                }
+                            } catch (Exception e) {
+                                Toast.makeText(getApplicationContext(),
+                                                e.getMessage(), Toast.LENGTH_LONG)
                                         .show();
 
-                                if (Build.VERSION.SDK_INT > 13)
-                                    update.setChecked(true);
-                                else
-                                    update233.setChecked(true);
+                                password.setChecked(false);
+                            }
+                            break;
 
-                                break;
+                        case 7:
+                            database.close();
+                            finish();
+                            break;
 
-                            case 9:
-                                try {
-                                    Intent intent = new Intent(Intent.ACTION_VIEW);
-                                    File f1 = new File(Environment
-                                            .getExternalStorageDirectory()
-                                            + "/PersoMy/backup/PersoMy.apk");
-                                    intent.setDataAndType(Uri.fromFile(f1),
-                                            "application/vnd.android.package-archive");
-                                    startActivity(intent);
-                                } catch (Exception e) {
-                                    e.printStackTrace();
-                                }
+                        case 8:
+                            database.beginTransaction();
+                            ContentValues row = new ContentValues();
+                            row.put("ATTIVO", "1");
+                            database.update("OPZIONI", row, "OPZ=?",
+                                    new String[]{"UPDATE"});
+                            database.setTransactionSuccessful();
+                            database.endTransaction();
 
-                                break;
-                        }
+                            Toast.makeText(getApplicationContext(),
+                                            R.string.setUpdateOK, Toast.LENGTH_SHORT)
+                                    .show();
+
+                            update.setChecked(true);
+
+                            break;
+
+                        case 9:
+                            try {
+                                Intent intent = new Intent(Intent.ACTION_VIEW);
+                                File f1 = new File(Environment
+                                        .getExternalStorageDirectory()
+                                        + "/PersoMy/backup/PersoMy.apk");
+                                intent.setDataAndType(Uri.fromFile(f1),
+                                        "application/vnd.android.package-archive");
+                                startActivity(intent);
+                            } catch (Exception e) {
+                                e.printStackTrace();
+                            }
+
+                            break;
                     }
                 });
 
         if (id != 10) // non visualizza il pulsante ANNULLA in caso di
             // visualizzazione della GUIDA
             alert.setNegativeButton(R.string.cancel,
-                    new DialogInterface.OnClickListener() {
-                        public void onClick(DialogInterface dialog,
-                                            int whichButton) {
-                            switch (id) {
-                                case 1:
-                                    System.exit(0);
-                                    break;
+                    (dialog, whichButton) -> {
+                        switch (id) {
+                            case 1:
+                                System.exit(0);
+                                break;
 
-                                case 2:
-                                    dialog.cancel();
-                                    break;
+                            case 2:
 
-                                case 3:
-                                    dialog.cancel();
-                                    break;
+                            case 9:
 
-                                case 4:
-                                    dialog.cancel();
-                                    break;
+                            case 7:
 
-                                case 5:
-                                    dialog.cancel();
-                                    break;
+                            case 5:
 
-                                case 6: // PASSWORD
-                                    dialog.cancel();
-                                    if (verify.isTherePassword(database))
-                                        if (Build.VERSION.SDK_INT > 13)
-                                            password.setChecked(true);
-                                        else
-                                            password233.setChecked(true);
-                                    else if (Build.VERSION.SDK_INT > 13)
-                                        password.setChecked(false);
-                                    else
-                                        password233.setChecked(false);
-                                    break;
+                            case 3:
 
-                                case 7:
-                                    dialog.cancel();
-                                    break;
+                            case 4:
+                                dialog.cancel();
+                                break;
 
-                                case 8: // AGGIORNAMENTI AUTOMATICI
-                                    if (verify.isThereUpdate(database))
-                                        if (Build.VERSION.SDK_INT > 13)
-                                            update.setChecked(true);
-                                        else
-                                            update233.setChecked(true);
-                                    else if (Build.VERSION.SDK_INT > 13)
-                                        update.setChecked(false);
-                                    else
-                                        update233.setChecked(false);
-                                    break;
+                            case 6: // PASSWORD
+                                dialog.cancel();
+                                password.setChecked(verify.isTherePassword(database));
+                                break;
 
-                                case 9:
-                                    dialog.cancel();
-                                    break;
-                            }
+                            case 8: // AGGIORNAMENTI AUTOMATICI
+                                update.setChecked(verify.isThereUpdate(database));
+                                break;
                         }
                     });
 
@@ -1747,21 +1646,19 @@ public class MainActivity extends Activity {
     public void caricaSpinner() {
         cur = database.query("VARIE", new String[]{"descrizione"}, null,
                 null, null, null, "descrizione");
-        cur.moveToFirst();
-        int i = 0;
-        array_spinner = new String[cur.getCount()];
 
-        while (!cur.isAfterLast()) {
-            array_spinner[i] = cur.getString(0);
-            i += 1;
-            cur.moveToNext();
+        List<String> data = new ArrayList<>();
+
+        while (cur.moveToNext()) {
+            data.add(cur.getString(0));
         }
 
         cur.close();
 
-        descrizioneSpesa = (Spinner) findViewById(R.id.descrizioneSpesa);
-        descrizioneSpesa.setAdapter(new CustomSpinnerVarie(this, scaricaDati
-                .caricaSpinnerCompleto(uscita.toString())));
+        descrizioneSpesa = findViewById(R.id.descrizioneSpesa);
+        CustomSpinnerVarie adapter = new CustomSpinnerVarie(this, data);
+        descrizioneSpesa.setAdapter(adapter);
+        // descrizioneSpesa.setAdapter(new CustomSpinnerVarie(this, scaricaDati.caricaSpinnerCompleto(uscita.toString())));
     }
 
     // ******************************************************************
@@ -1775,143 +1672,63 @@ public class MainActivity extends Activity {
         contentPane.addView(li.inflate(R.layout.activity_opzioni, null));
 
         menu_choise = R.menu.menu_solo_exit;
-        if (Build.VERSION.SDK_INT > 11)
-            invalidateOptionsMenu();
-        else
-            openOptionsMenu();
-        if (Build.VERSION.SDK_INT > 11)
-            password = (Switch) findViewById(R.id.password);
-        else
-            password233 = (CheckBox) findViewById(R.id.password);
+        invalidateOptionsMenu();
+        password = findViewById(R.id.password);
 
         if (verify.isTherePassword(database))
-            if (Build.VERSION.SDK_INT > 11)
-                password.setChecked(true);
-            else
-                password233.setChecked(true);
+            password.setChecked(true);
 
-        if (Build.VERSION.SDK_INT > 11) {
-            password.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-                public void onCheckedChanged(CompoundButton buttonView,
-                                             boolean isChecked) {
-                    if (isChecked) {
-                        id = 6;
-                        msgBox();
-                    } else {
-                        try {
-                            database.beginTransaction();
-                            ContentValues row = new ContentValues();
-                            row.put("ATTIVO", "0");
-                            database.update("OPZIONI", row, "OPZ=?",
-                                    new String[]{"PASSWORD"});
-                            database.setTransactionSuccessful();
+        password.setOnCheckedChangeListener((buttonView, isChecked) -> {
+            if (isChecked) {
+                id = 6;
+                msgBox();
+            } else {
+                try {
+                    database.beginTransaction();
+                    ContentValues row = new ContentValues();
+                    row.put("ATTIVO", "0");
+                    database.update("OPZIONI", row, "OPZ=?",
+                            new String[]{"PASSWORD"});
+                    database.setTransactionSuccessful();
 
-                        } catch (Exception e) {
-                            Toast.makeText(getApplicationContext(),
-                                    e.getMessage(), Toast.LENGTH_LONG).show();
-                        } finally {
-                            database.endTransaction();
-                            Toast.makeText(getApplicationContext(),
-                                            R.string.setPasswordKO, Toast.LENGTH_SHORT)
-                                    .show();
-                        }
-                    }
+                } catch (Exception e) {
+                    Toast.makeText(getApplicationContext(),
+                            e.getMessage(), Toast.LENGTH_LONG).show();
+                } finally {
+                    database.endTransaction();
+                    Toast.makeText(getApplicationContext(),
+                                    R.string.setPasswordKO, Toast.LENGTH_SHORT)
+                            .show();
                 }
-            });
-        } else {
-            password233.setOnClickListener(new OnClickListener() {
-                public void onClick(View v) {
-                    if (password233.isChecked()) {
-                        id = 6;
-                        msgBox();
-                    } else {
-                        try {
-                            database.beginTransaction();
-                            ContentValues row = new ContentValues();
-                            row.put("ATTIVO", "0");
-                            database.update("OPZIONI", row, "OPZ=?",
-                                    new String[]{"PASSWORD"});
-                            database.setTransactionSuccessful();
+            }
+        });
 
-                        } catch (Exception e) {
-                            Toast.makeText(getApplicationContext(),
-                                    e.getMessage(), Toast.LENGTH_LONG).show();
-                        } finally {
-                            database.endTransaction();
-                            Toast.makeText(getApplicationContext(),
-                                            R.string.setPasswordKO, Toast.LENGTH_SHORT)
-                                    .show();
-                        }
-                    }
-                }
-            });
-        }
-
-        if (Build.VERSION.SDK_INT > 11)
-            update = (Switch) findViewById(R.id.update);
-        else
-            update233 = (CheckBox) findViewById(R.id.update);
+        update = findViewById(R.id.update);
 
         if (verify.isThereUpdate(database))
-            if (Build.VERSION.SDK_INT > 11)
-                update.setChecked(true);
-            else
-                update233.setChecked(true);
+            update.setChecked(true);
 
-        if (Build.VERSION.SDK_INT > 11) {
-            update.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-                public void onCheckedChanged(CompoundButton buttonView,
-                                             boolean isChecked) {
-                    if (update.isChecked()) {
-                    } else {
-                        try {
-                            database.beginTransaction();
-                            ContentValues row = new ContentValues();
-                            row.put("ATTIVO", "0");
-                            database.update("OPZIONI", row, "OPZ=?",
-                                    new String[]{"UPDATE"});
-                            database.setTransactionSuccessful();
+        update.setOnCheckedChangeListener((buttonView, isChecked) -> {
+            if (!update.isChecked()) {
+                try {
+                    database.beginTransaction();
+                    ContentValues row = new ContentValues();
+                    row.put("ATTIVO", "0");
+                    database.update("OPZIONI", row, "OPZ=?",
+                            new String[]{"UPDATE"});
+                    database.setTransactionSuccessful();
 
-                        } catch (Exception e) {
-                            Toast.makeText(getApplicationContext(),
-                                    e.getMessage(), Toast.LENGTH_LONG).show();
-                        } finally {
-                            database.endTransaction();
-                            Toast.makeText(getApplicationContext(),
-                                            R.string.setUpdateKO, Toast.LENGTH_SHORT)
-                                    .show();
-                        }
-                    }
+                } catch (Exception e) {
+                    Toast.makeText(getApplicationContext(),
+                            e.getMessage(), Toast.LENGTH_LONG).show();
+                } finally {
+                    database.endTransaction();
+                    Toast.makeText(getApplicationContext(),
+                                    R.string.setUpdateKO, Toast.LENGTH_SHORT)
+                            .show();
                 }
-            });
-        } else {
-            update233.setOnClickListener(new OnClickListener() {
-                public void onClick(View v) {
-                    if (update233.isChecked()) {
-                        id = 8;
-                        msgBox();
-                    } else {
-                        try {
-                            database.beginTransaction();
-                            ContentValues row = new ContentValues();
-                            row.put("ATTIVO", "0");
-                            database.update("OPZIONI", row, "OPZ=?",
-                                    new String[]{"UPDATE"});
-                            database.setTransactionSuccessful();
-
-                        } catch (Exception e) {
-                            Toast.makeText(getApplicationContext(),
-                                    e.getMessage(), Toast.LENGTH_LONG).show();
-                        } finally {
-                            database.endTransaction();
-                            Toast.makeText(getApplicationContext(),
-                                            R.string.setUpdateKO, Toast.LENGTH_SHORT)
-                                    .show();
-                        }
-                    }
-                }
-            });
-        }
+            }
+        });
     }
 
     public void startInfo() {
@@ -1921,12 +1738,9 @@ public class MainActivity extends Activity {
         contentPane.addView(li.inflate(R.layout.activity_info, null));
 
         menu_choise = R.menu.menu_solo_exit;
-        if (Build.VERSION.SDK_INT > 11)
-            invalidateOptionsMenu();
-        else
-            openOptionsMenu();
+        invalidateOptionsMenu();
 
-        TextView info = (TextView) findViewById(R.id.versionPersoMy);
+        TextView info = findViewById(R.id.versionPersoMy);
 
         try {
             PackageInfo pInfo = getPackageManager().getPackageInfo(
@@ -1951,21 +1765,21 @@ public class MainActivity extends Activity {
                 .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         contentPane.addView(li.inflate(R.layout.activity_uscite, null));
 
-        menu_choise = R.menu.menu_uscite;
+        // menu_choise = R.menu.menu_uscite;
 
-        TextView simboloEuro = (TextView) findViewById(R.id.simboloEuro);
+        TextView simboloEuro = findViewById(R.id.simboloEuro);
 
         Locale loc = new Locale("it", "IT");
         simboloEuro.setText(Currency.getInstance(loc).getSymbol());
 
-        mDateDisplayUscite = (TextView) findViewById(R.id.dateSpesa);
+        mDateDisplayUscite = findViewById(R.id.dateSpesa);
         resetCalendario();
 
         caricaSpinner();
 
-        mySpesa = new ArrayList<Spesa>();
+        mySpesa = new ArrayList<>();
         myAdapter = new SpesaListViewAdapter(this, mySpesa);
-        myListView = (ListView) findViewById(R.id.listaSpesa);
+        myListView = findViewById(R.id.listaSpesa);
         myListView.setAdapter(myAdapter);
 
         mDateDisplayUscite.addTextChangedListener(new TextWatcher() {
@@ -1996,7 +1810,7 @@ public class MainActivity extends Activity {
 
                 while (!cur.isAfterLast()) {
                     mySpesa.add(new Spesa(scaricaDati.getSpesaDescrizione(cur
-                            .getString(0)), Double.valueOf(cur.getString(1)),
+                            .getString(0)), Double.parseDouble(cur.getString(1)),
                             true, false));
                     cur.moveToNext();
                 }
@@ -2008,10 +1822,7 @@ public class MainActivity extends Activity {
 
         updateDisplay(0);
 
-        if (Build.VERSION.SDK_INT > 11)
-            invalidateOptionsMenu();
-        else
-            openOptionsMenu();
+        invalidateOptionsMenu();
     }
 
     private void startRestoreBackup() {
@@ -2069,21 +1880,18 @@ public class MainActivity extends Activity {
                 .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         contentPane.addView(li.inflate(R.layout.activity_totale, null));
 
-        TextView simboloEuro = (TextView) findViewById(R.id.simboloEuro);
+        TextView simboloEuro = findViewById(R.id.simboloEuro);
 
         Locale loc = new Locale("it", "IT");
         simboloEuro.setText(Currency.getInstance(loc).getSymbol());
 
-        TextView simboloEuro2 = (TextView) findViewById(R.id.simboloEuro2);
+        TextView simboloEuro2 = findViewById(R.id.simboloEuro2);
 
         simboloEuro2.setText(Currency.getInstance(loc).getSymbol());
 
         caricaGridView();
 
-        if (Build.VERSION.SDK_INT > 11)
-            invalidateOptionsMenu();
-        else
-            openOptionsMenu();
+        invalidateOptionsMenu();
     }
 
     private void startAnno() {
@@ -2095,25 +1903,25 @@ public class MainActivity extends Activity {
                 .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         contentPane.addView(li.inflate(R.layout.activity_anno, null));
 
-        TextView simboloEuro = (TextView) findViewById(R.id.simboloEuro);
+        TextView simboloEuro = findViewById(R.id.simboloEuro);
 
         Locale loc = new Locale("it", "IT");
         simboloEuro.setText(Currency.getInstance(loc).getSymbol());
 
         simboloEuro.setText(Currency.getInstance(loc).getSymbol());
-        TextView simboloEuro2 = (TextView) findViewById(R.id.simboloEuro2);
+        TextView simboloEuro2 = findViewById(R.id.simboloEuro2);
         simboloEuro2.setText(Currency.getInstance(loc).getSymbol());
 
         caricaSpinnerAnno();
 
-        anno = (Spinner) findViewById(R.id.selAnno);
+        anno = findViewById(R.id.selAnno);
 
         if (anno.getCount() > 0) {
             anno.setOnItemSelectedListener(new OnItemSelectedListener() {
                 public void onItemSelected(AdapterView<?> parent, View view,
                                            int pos, long id) {
                     Object item = parent.getItemAtPosition(pos);
-                    myListaReportAnno = new ArrayList<ListaReportAnno>();
+                    myListaReportAnno = new ArrayList<>();
 
                     for (int i = 1; i < 13; i++) {
                         myListaReportAnno.add(new ListaReportAnno(scaricaDati
@@ -2186,9 +1994,9 @@ public class MainActivity extends Activity {
                     if (cur.getCount() > 0 && cur.getString(0) != null
                             && Double.parseDouble(cur.getString(0)) > 0) {
                         try {
-                            TextView totEntrate = (TextView) findViewById(R.id.totaleEntrate);
-                            totEntrate.setText(String.valueOf(df.format(Double
-                                    .parseDouble(cur.getString(0)))));
+                            TextView totEntrate = findViewById(R.id.totaleEntrate);
+                            totEntrate.setText(df.format(Double
+                                    .parseDouble(cur.getString(0))));
 
                         } catch (Exception ex) {
                             Log.d("PersoMy: ", ex.toString());
@@ -2206,9 +2014,9 @@ public class MainActivity extends Activity {
                     if (cur.getCount() > 0 && cur.getString(0) != null
                             && Double.parseDouble(cur.getString(0)) > 0) {
                         try {
-                            TextView totUscite = (TextView) findViewById(R.id.totaleUscite);
-                            totUscite.setText(String.valueOf(df.format(Double
-                                    .parseDouble(cur.getString(0)))));
+                            TextView totUscite = findViewById(R.id.totaleUscite);
+                            totUscite.setText(df.format(Double
+                                    .parseDouble(cur.getString(0))));
 
                         } catch (Exception ex) {
                             Log.d("PersoMy: ", ex.toString());
@@ -2219,7 +2027,7 @@ public class MainActivity extends Activity {
 
                     myAdapterListaReporAnno = new ReportAnnoGridViewAdapter(
                             getApplicationContext(), myListaReportAnno);
-                    myGridView = (GridView) findViewById(R.id.listaMovimentiAnno);
+                    myGridView = findViewById(R.id.listaMovimentiAnno);
                     myGridView.setAdapter(myAdapterListaReporAnno);
                 }
 
@@ -2228,10 +2036,7 @@ public class MainActivity extends Activity {
             });
         }
 
-        if (Build.VERSION.SDK_INT > 11)
-            invalidateOptionsMenu();
-        else
-            openOptionsMenu();
+        invalidateOptionsMenu();
     }
 
     private void startMensile() {
@@ -2243,33 +2048,23 @@ public class MainActivity extends Activity {
                 .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         contentPane.addView(li.inflate(R.layout.activity_mensile, null));
 
-        if (Build.VERSION.SDK_INT > 11)
-            invalidateOptionsMenu();
-        else
-            openOptionsMenu();
+        invalidateOptionsMenu();
 
-        TextView simboloEuro = (TextView) findViewById(R.id.simboloEuro);
+        TextView simboloEuro = findViewById(R.id.simboloEuro);
 
         Locale loc = new Locale("it", "IT");
         simboloEuro.setText(Currency.getInstance(loc).getSymbol());
 
-        TextView simboloEuro2 = (TextView) findViewById(R.id.simboloEuro2);
+        TextView simboloEuro2 = findViewById(R.id.simboloEuro2);
 
         simboloEuro2.setText(Currency.getInstance(loc).getSymbol());
 
-        //
-        // DisplayMetrics dm = this.getResources().getDisplayMetrics();
-        // LinearLayout myBar = (LinearLayout) findViewById(R.id.widget45);
-        // ViewGroup.LayoutParams params = myBar.getLayoutParams();
-        // params.height = dm.heightPixels - 140;
-        // myBar.setLayoutParams(new LinearLayout.LayoutParams(params));
-
         caricaSpinnerAnno();
 
-        mese = (Spinner) findViewById(R.id.selMese);
-        anno = (Spinner) findViewById(R.id.selAnno);
+        mese = findViewById(R.id.selMese);
+        anno = findViewById(R.id.selAnno);
 
-        ArrayAdapter<String> myAdapterMese = new ArrayAdapter<String>(this,
+        ArrayAdapter<String> myAdapterMese = new ArrayAdapter<>(this,
                 android.R.layout.simple_spinner_item,
                 scaricaDati.caricaSpinnerMese());
         myAdapterMese
@@ -2314,43 +2109,34 @@ public class MainActivity extends Activity {
                 .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         contentPane.addView(li.inflate(R.layout.activity_periodo, null));
 
-        if (Build.VERSION.SDK_INT > 11)
-            invalidateOptionsMenu();
-        else
-            openOptionsMenu();
+        invalidateOptionsMenu();
 
-        TextView simboloEuro = (TextView) findViewById(R.id.simboloEuro);
+        TextView simboloEuro = findViewById(R.id.simboloEuro);
         Locale loc = new Locale("it", "IT");
         simboloEuro.setText(Currency.getInstance(loc).getSymbol());
 
-        TextView simboloEuro2 = (TextView) findViewById(R.id.simboloEuro2);
+        TextView simboloEuro2 = findViewById(R.id.simboloEuro2);
         simboloEuro2.setText(Currency.getInstance(loc).getSymbol());
 
         DisplayMetrics dm = this.getResources().getDisplayMetrics();
-        LinearLayout myBar = (LinearLayout) findViewById(R.id.widget45);
+        LinearLayout myBar = findViewById(R.id.widget45);
         LayoutParams params = myBar.getLayoutParams();
         params.height = dm.heightPixels - 180;
         myBar.setLayoutParams(new LinearLayout.LayoutParams(params));
 
-        mDateDisplayDa = (TextView) findViewById(R.id.dataAutomaticaTxtDa);
-        mDateDisplayA = (TextView) findViewById(R.id.dataAutomaticaTxtA);
+        mDateDisplayDa = findViewById(R.id.dataAutomaticaTxtDa);
+        mDateDisplayA = findViewById(R.id.dataAutomaticaTxtA);
         resetCalendario();
 
-        descrizioneSpesa = (Spinner) findViewById(R.id.descrizioneSpesa);
-        descrizioneSpesa.setAdapter(new ArrayAdapter<String>(this,
+        descrizioneSpesa = findViewById(R.id.descrizioneSpesa);
+        descrizioneSpesa.setAdapter(new ArrayAdapter<>(this,
                 android.R.layout.simple_spinner_item, scaricaDati
                 .caricaSpinnerCompleto("null")));
 
-        all = (CheckBox) findViewById(R.id.selectAll);
-        all.setOnClickListener(new OnClickListener() {
-            public void onClick(View v) {
-                descrizioneSpesa = (Spinner) findViewById(R.id.descrizioneSpesa);
-                if (all.isChecked()) {
-                    descrizioneSpesa.setEnabled(false);
-                } else {
-                    descrizioneSpesa.setEnabled(true);
-                }
-            }
+        all = findViewById(R.id.selectAll);
+        all.setOnClickListener(v -> {
+            descrizioneSpesa = findViewById(R.id.descrizioneSpesa);
+            descrizioneSpesa.setEnabled(!all.isChecked());
         });
     }
 
@@ -2364,12 +2150,12 @@ public class MainActivity extends Activity {
 
         menu_choise = R.menu.menu_uscite;
 
-        TextView simboloEuro = (TextView) findViewById(R.id.simboloEuro);
+        TextView simboloEuro = findViewById(R.id.simboloEuro);
         Locale loc = new Locale("it", "IT");
         simboloEuro.setText(Currency.getInstance(loc).getSymbol());
 
-        mDateDisplay = (TextView) findViewById(R.id.dataAutomaticaTxt);
-        mTimeDisplay = (TextView) findViewById(R.id.oraAutomaticaTxt);
+        mDateDisplay = findViewById(R.id.dataAutomaticaTxt);
+        mTimeDisplay = findViewById(R.id.oraAutomaticaTxt);
         mHourOfDay = c.get(Calendar.HOUR_OF_DAY);
         mMinute = c.get(Calendar.MINUTE);
         dialogTime = new TimePickerDialog(this, new PickTime(), mHourOfDay,
@@ -2378,14 +2164,14 @@ public class MainActivity extends Activity {
         resetTime();
         updateDisplay(1);
 
-        voceAutomatica = (Spinner) findViewById(R.id.descrizioneSpesa);
+        voceAutomatica = findViewById(R.id.descrizioneSpesa);
         voceAutomatica.setAdapter(new CustomSpinnerVarie(this, scaricaDati
                 .caricaSpinnerCompleto(uscita.toString())));
 
         // listview
-        myMovimento = new ArrayList<Movimento>();
+        myMovimento = new ArrayList<>();
         myAdapterAutomatica = new MovimentoListViewAdapter(this, myMovimento);
-        myListView = (ListView) findViewById(R.id.listaAutomatica);
+        myListView = findViewById(R.id.listaAutomatica);
 
         myMovimento.clear();
 
@@ -2420,68 +2206,63 @@ public class MainActivity extends Activity {
 
         myListView.setAdapter(myAdapterAutomatica);
 
-        RadioGroup grpRB = (RadioGroup) findViewById(R.id.radioGroup1);
-        entrateRB = (RadioButton) findViewById(R.id.usciteRB);
-        usciteRB = (RadioButton) findViewById(R.id.entrateRB);
+        RadioGroup grpRB = findViewById(R.id.radioGroup1);
+        entrateRB = findViewById(R.id.usciteRB);
+        usciteRB = findViewById(R.id.entrateRB);
 
-        grpRB.setOnCheckedChangeListener(new OnCheckedChangeListener() {
-            public void onCheckedChanged(RadioGroup rg, int checkedId) {
-                if (entrateRB.getId() == checkedId)
-                    uscita = true;
+        grpRB.setOnCheckedChangeListener((rg, checkedId) -> {
+            if (entrateRB.getId() == checkedId)
+                uscita = true;
 
-                if (usciteRB.getId() == checkedId)
-                    uscita = false;
+            if (usciteRB.getId() == checkedId)
+                uscita = false;
 
-                voceAutomatica = (Spinner) findViewById(R.id.descrizioneSpesa);
-                voceAutomatica.setAdapter(new CustomSpinnerVarie(activity,
-                        scaricaDati.caricaSpinnerCompleto(uscita.toString())));
+            voceAutomatica = findViewById(R.id.descrizioneSpesa);
+            voceAutomatica.setAdapter(new CustomSpinnerVarie(activity,
+                    scaricaDati.caricaSpinnerCompleto(uscita.toString())));
 
-                myMovimento.clear();
+            myMovimento.clear();
 
-                int a = (uscita) ? 1 : 0;
+            int a1 = (uscita) ? 1 : 0;
 
-                cur = database
-                        .query("MOVIMENTI_AUTOMATICI a INNER JOIN VARIE c ON (a.ID_VOCE = c.CONT)",
-                                new String[]{"a.ID_FREQUENZA-1",
-                                        "a.DATA_START", "c.DESCRIZIONE",
-                                        "a.IMPORTO", "a.USCITA"},
-                                "a.uscita=? ",
-                                new String[]{String.valueOf(a)}, null, null,
-                                "a.DATA_START");
-                cur.moveToFirst();
+            cur = database
+                    .query("MOVIMENTI_AUTOMATICI a INNER JOIN VARIE c ON (a.ID_VOCE = c.CONT)",
+                            new String[]{"a.ID_FREQUENZA-1",
+                                    "a.DATA_START", "c.DESCRIZIONE",
+                                    "a.IMPORTO", "a.USCITA"},
+                            "a.uscita=? ",
+                            new String[]{String.valueOf(a1)}, null, null,
+                            "a.DATA_START");
+            cur.moveToFirst();
 
-                try {
-                    while (cur.getCount() > 0 && !cur.isAfterLast()) {
-                        dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm",
-                                Locale.ROOT);
-                        dateObj = dateFormat.parse(cur.getString(1).substring(
-                                0, cur.getString(1).length() - 3));
-                        dateFormat.applyPattern("dd/MM/yyyy HH:mm");
+            try {
+                while (cur.getCount() > 0 && !cur.isAfterLast()) {
+                    dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm",
+                            Locale.ROOT);
+                    dateObj = dateFormat.parse(cur.getString(1).substring(
+                            0, cur.getString(1).length() - 3));
+                    dateFormat.applyPattern("dd/MM/yyyy HH:mm");
 
-                        myMovimento.add(new Movimento(myFrequenza.get(
-                                cur.getInt(0)).getDescrizioneFrequenza(),
-                                dateFormat.format(dateObj), cur.getString(2),
-                                Double.parseDouble(cur.getString(3)), uscita,
-                                true, false));
-                        cur.moveToNext();
-                    }
-                } catch (Exception ex) {
-                    ex.printStackTrace();
-                } finally {
-                    cur.close();
+                    myMovimento.add(new Movimento(myFrequenza.get(
+                            cur.getInt(0)).getDescrizioneFrequenza(),
+                            dateFormat.format(dateObj), cur.getString(2),
+                            Double.parseDouble(cur.getString(3)), uscita,
+                            true, false));
+                    cur.moveToNext();
                 }
-
-                myListView.setAdapter(myAdapterAutomatica);
+            } catch (Exception ex) {
+                ex.printStackTrace();
+            } finally {
+                cur.close();
             }
+
+            myListView.setAdapter(myAdapterAutomatica);
         });
 
-        importoAutomatica = (EditText) findViewById(R.id.importoAutomatica);
-        frequenza = (Spinner) findViewById(R.id.frequenza);
+        importoAutomatica = findViewById(R.id.importoAutomatica);
+        frequenza = findViewById(R.id.frequenza);
 
-        if (Build.VERSION.SDK_INT > 11)
-            invalidateOptionsMenu();
-        else
-            openOptionsMenu();
+        invalidateOptionsMenu();
     }
 
     private void startVoce() {
@@ -2491,26 +2272,22 @@ public class MainActivity extends Activity {
                 .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         contentPane.addView(li.inflate(R.layout.activity_voce, null));
 
-        if (Build.VERSION.SDK_INT > 11) {
-            ActionBar bar = getActionBar();
-            bar.hide();
-            bar.show();
-        }
+        ActionBar bar = getActionBar();
+        assert bar != null;
+        bar.hide();
+        bar.show();
 
-        if (Build.VERSION.SDK_INT > 11)
-            invalidateOptionsMenu();
-        else
-            openOptionsMenu();
+        invalidateOptionsMenu();
 
-        TextView simboloEuro = (TextView) findViewById(R.id.simboloEuro);
+        TextView simboloEuro = findViewById(R.id.simboloEuro);
         Locale loc = new Locale("it", "IT");
         simboloEuro.setText(Currency.getInstance(loc).getSymbol());
 
-        TextView simboloEuro2 = (TextView) findViewById(R.id.simboloEuro2);
+        TextView simboloEuro2 = findViewById(R.id.simboloEuro2);
         simboloEuro2.setText(Currency.getInstance(loc).getSymbol());
 
-        descrizioneSpesa = (Spinner) findViewById(R.id.descrizioneSpesa);
-        descrizioneSpesa.setAdapter(new ArrayAdapter<String>(this,
+        descrizioneSpesa = findViewById(R.id.descrizioneSpesa);
+        descrizioneSpesa.setAdapter(new ArrayAdapter<>(this,
                 android.R.layout.simple_spinner_item, scaricaDati
                 .caricaSpinnerCompleto("null")));
         descrizioneSpesa
@@ -2527,13 +2304,13 @@ public class MainActivity extends Activity {
 
         if (menu_choise == R.menu.menu_elimina) {
             DisplayMetrics dm = this.getResources().getDisplayMetrics();
-            LinearLayout myBar = (LinearLayout) findViewById(R.id.widget45);
+            LinearLayout myBar = findViewById(R.id.widget45);
             LayoutParams params = myBar.getLayoutParams();
             params.height = dm.heightPixels * 68 / 100;
             myBar.setLayoutParams(new LinearLayout.LayoutParams(params));
         } else {
             DisplayMetrics dm = this.getResources().getDisplayMetrics();
-            LinearLayout myBar = (LinearLayout) findViewById(R.id.widget45);
+            LinearLayout myBar = findViewById(R.id.widget45);
             LayoutParams params = myBar.getLayoutParams();
             params.height = dm.heightPixels - 140;
             myBar.setLayoutParams(new LinearLayout.LayoutParams(params));
@@ -2543,14 +2320,6 @@ public class MainActivity extends Activity {
     // ******************************************************************
     // CLICK BOTTONI
     // ******************************************************************
-
-    public boolean modificaDescrizioneBtnClick(View v) {
-        id = 3;
-        descrizioneSpesa = (Spinner) findViewById(R.id.descrizioneSpesa);
-        if (descrizioneSpesa.getCount() > 0)
-            msgBox();
-        return true;
-    }
 
     public void onAggiungiSpesaBtnPress(View v) {
 
@@ -2572,10 +2341,10 @@ public class MainActivity extends Activity {
 
     public void onAddSpesaBtnPress(View v) {
 
-        EditText soldiSpesa = (EditText) findViewById(R.id.soldiSpesa);
-        Spinner descrizioneSpesa = (Spinner) findViewById(R.id.descrizioneSpesa);
+        EditText soldiSpesa = findViewById(R.id.soldiSpesa);
+        Spinner descrizioneSpesa = findViewById(R.id.descrizioneSpesa);
 
-        if (!descrizioneSpesa.getSelectedItem().toString().equals(""))
+        if (!descrizioneSpesa.getSelectedItem().toString().isEmpty())
             if (soldiSpesa.length() != 0
                     && Double.parseDouble(soldiSpesa.getText().toString()) > 0) {
                 mySpesa.add(new Spesa(descrizioneSpesa.getSelectedItem()
@@ -2722,6 +2491,326 @@ public class MainActivity extends Activity {
         }
     }
 
+    public void onDeleteSpesaClick(View view) {
+        if (CURRENT_LAYOUT == R.layout.activity_uscite) {
+            if (!mySpesa.isEmpty()) {
+                for (int i = mySpesa.size() - 1; i > -1; i--) {
+                    if (mySpesa.get(i).getSpesaFlaggata()) {
+                        mySpesa.remove(i);
+                        j++;
+                    }
+                }
+                myListView.setAdapter(myAdapter);
+
+                if (j == 0)
+                    Toast.makeText(getApplicationContext(),
+                                    R.string.spesaCancellaVoce, Toast.LENGTH_SHORT)
+                            .show();
+
+            } else {
+                Toast.makeText(getApplicationContext(),
+                                R.string.spesaCancellaVoce, Toast.LENGTH_SHORT)
+                        .show();
+            }
+        }
+    }
+
+    public void onSalvaSpeseClick(View view) {
+        if (CURRENT_LAYOUT == R.layout.activity_uscite) {
+            try {
+                database.beginTransaction();
+                ContentValues row = new ContentValues();
+
+                dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss",
+                        Locale.ROOT);
+                dateObj = dateFormat.parse(mYear + "-" + (mMonth + 1) + "-"
+                        + mDay + " 00:00:00");
+                database.delete("MONEY", "data=? and uscita="
+                                + ((uscita) ? 1 : 0),
+                        new String[]{dateFormat.format(dateObj)});
+
+                for (int i = 0; i < mySpesa.size(); i++) {
+                    row.put("DATA", dateFormat.format(dateObj));
+                    row.put("DESCRIZIONE", scaricaDati
+                            .getSpesaCodiceDescrizione(mySpesa.get(i)
+                                    .getSpesaName()));
+                    row.put("PREZZO", mySpesa.get(i).getSpesaPrezzo());
+                    row.put("USCITA", ((uscita) ? 1 : 0));
+
+                    database.insert("MONEY", null, row);
+                }
+
+                database.setTransactionSuccessful();
+
+            } catch (Exception e) {
+                Toast.makeText(getApplicationContext(), e.getMessage(),
+                        Toast.LENGTH_LONG).show();
+                e.printStackTrace();
+            } finally {
+                database.endTransaction();
+
+                Toast.makeText(getApplicationContext(),
+                                R.string.spesaSalvataggioOk, Toast.LENGTH_SHORT)
+                        .show();
+            }
+        } else if (CURRENT_LAYOUT == R.layout.activity_automatiche) {
+            AlertDialog.Builder builder = new AlertDialog.Builder(this);
+            builder.setCancelable(false);
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                builder.setView(R.layout.dialog_loading);
+            }
+            progressDialog = builder.create();
+            progressDialog.show();
+
+            new Thread(() -> {
+                try {
+                    message = null;
+                    database.beginTransaction();
+                    ContentValues row = new ContentValues();
+
+                    database.delete("JOB_AUTOMATICI",
+                            "id_movimento in (select id from movimenti_automatici where uscita="
+                                    + ((uscita) ? 1 : 0) + ")", null);
+                    database.delete("MOVIMENTI_AUTOMATICI", "uscita="
+                            + ((uscita) ? 1 : 0), null);
+
+                    dateFormat = new SimpleDateFormat(
+                            "yyyy-MM-dd HH:mm:ss", Locale.ROOT);
+
+                    for (int i = 0; i < myMovimento.size(); i++) {
+                        int codiceFrequenza = scaricaDati
+                                .frequenzaToNumber(myMovimento.get(i)
+                                        .getAutomaticaFrequenza());
+                        int idVoce = scaricaDati
+                                .getSpesaCodiceDescrizione(myMovimento
+                                        .get(i).getAutomaticaVoce());
+
+                        dateObj = dateFormat.parse(myMovimento.get(i)
+                                .getAutomaticaStartDate()
+                                .substring(6, 10)
+                                + "-"
+                                + myMovimento.get(i)
+                                .getAutomaticaStartDate()
+                                .substring(3, 5)
+                                + "-"
+                                + myMovimento.get(i)
+                                .getAutomaticaStartDate()
+                                .substring(0, 2)
+                                + " "
+                                + myMovimento.get(i)
+                                .getAutomaticaStartDate()
+                                .substring(11, 13)
+                                + ":"
+                                + myMovimento.get(i)
+                                .getAutomaticaStartDate()
+                                .substring(14, 16) + ":00");
+                        c.setTime(dateObj);
+
+                        int giorno, mese, anno, ore = c
+                                .get(Calendar.HOUR_OF_DAY), minuti = c
+                                .get(Calendar.MINUTE), secondi = c
+                                .get(Calendar.SECOND), giorniFrequenza = scaricaDati
+                                .getGiorniFrequenza(myMovimento.get(i)
+                                        .getAutomaticaFrequenza());
+
+                        row.clear();
+                        row.put("ID_FREQUENZA", codiceFrequenza);
+                        row.put("DATA_START",
+                                dateFormat.format(dateObj));
+                        row.put("ID_VOCE", idVoce);
+                        row.put("IMPORTO", myMovimento.get(i)
+                                .getAutomaticaImporto());
+                        row.put("USCITA", ((uscita) ? 1 : 0));
+                        database.insert("MOVIMENTI_AUTOMATICI", null,
+                                row);
+
+                        String cancellaJob = scaricaDati
+                                .getIDMovimento(
+                                        codiceFrequenza,
+                                        dateFormat.format(dateObj),
+                                        idVoce,
+                                        myMovimento.get(i)
+                                                .getAutomaticaImporto(),
+                                        uscita);
+
+                        if (giorniFrequenza == 0) {
+                            if (codiceFrequenza == 3) {
+                                for (int j = 0; j < 36; j++) {
+                                    mese = c.get(Calendar.MONTH) + 1;
+                                    anno = c.get(Calendar.YEAR);
+
+                                    row.clear();
+                                    row.put("ID_MOVIMENTO", cancellaJob);
+                                    row.put("DATA_START", dateFormat
+                                            .format(dateFormat
+                                                    .parse(anno + "-"
+                                                            + mese
+                                                            + "-"
+                                                            + "01"
+                                                            + " " + ore
+                                                            + ":"
+                                                            + minuti
+                                                            + ":00")));
+                                    database.insert("JOB_AUTOMATICI",
+                                            null, row);
+
+                                    row.clear();
+                                    row.put("ID_MOVIMENTO", cancellaJob);
+                                    row.put("DATA_START", dateFormat
+                                            .format(dateFormat
+                                                    .parse(anno + "-"
+                                                            + mese
+                                                            + "-"
+                                                            + "11"
+                                                            + " " + ore
+                                                            + ":"
+                                                            + minuti
+                                                            + ":00")));
+                                    database.insert("JOB_AUTOMATICI",
+                                            null, row);
+
+                                    row.clear();
+                                    row.put("ID_MOVIMENTO", cancellaJob);
+                                    row.put("DATA_START", dateFormat
+                                            .format(dateFormat
+                                                    .parse(anno + "-"
+                                                            + mese
+                                                            + "-"
+                                                            + "21"
+                                                            + " " + ore
+                                                            + ":"
+                                                            + minuti
+                                                            + ":00")));
+                                    database.insert("JOB_AUTOMATICI",
+                                            null, row);
+
+                                    c.add(Calendar.DATE, 30);
+                                }
+
+                                database.delete(
+                                        "JOB_AUTOMATICI",
+                                        "ID_MOVIMENTO = ? AND DATA_START < ? ",
+                                        new String[]{
+                                                cancellaJob,
+                                                dateFormat
+                                                        .format(dateObj)});
+
+                            }
+
+                            if (codiceFrequenza == 7)
+                                for (int j = 0; j < 36; j++) {
+                                    mese = c.get(Calendar.MONTH) + 1;
+                                    anno = c.get(Calendar.YEAR);
+
+                                    row.clear();
+                                    row.put("ID_MOVIMENTO", cancellaJob);
+                                    row.put("DATA_START", dateFormat
+                                            .format(dateFormat
+                                                    .parse(anno + "-"
+                                                            + mese
+                                                            + "-"
+                                                            + "01"
+                                                            + " " + ore
+                                                            + ":"
+                                                            + minuti
+                                                            + ":00")));
+                                    database.insert("JOB_AUTOMATICI",
+                                            null, row);
+
+                                    c.add(Calendar.DATE, 30);
+                                }
+
+                            if (codiceFrequenza == 8)
+                                for (int j = 0; j < 36; j++) {
+                                    giorno = c
+                                            .getActualMaximum(Calendar.DATE);
+                                    mese = c.get(Calendar.MONTH) + 1;
+                                    anno = c.get(Calendar.YEAR);
+
+                                    row.clear();
+                                    row.put("ID_MOVIMENTO", cancellaJob);
+                                    row.put("DATA_START", dateFormat
+                                            .format(dateFormat
+                                                    .parse(anno + "-"
+                                                            + mese
+                                                            + "-"
+                                                            + giorno
+                                                            + " " + ore
+                                                            + ":"
+                                                            + minuti
+                                                            + ":00")));
+                                    database.insert("JOB_AUTOMATICI",
+                                            null, row);
+
+                                    c.add(Calendar.DATE, 30);
+                                }
+                        } else {
+                            for (int j = 0; j < 1095; j++) {
+                                giorno = c.get(Calendar.DAY_OF_MONTH);
+                                mese = c.get(Calendar.MONTH) + 1;
+                                anno = c.get(Calendar.YEAR);
+
+                                row.clear();
+                                row.put("ID_MOVIMENTO", cancellaJob);
+                                row.put("DATA_START", dateFormat
+                                        .format(dateFormat.parse(anno
+                                                + "-" + mese + "-"
+                                                + giorno + " " + ore
+                                                + ":" + minuti + ":"
+                                                + secondi)));
+                                database.insert("JOB_AUTOMATICI", null,
+                                        row);
+
+                                c.add(Calendar.DATE, giorniFrequenza);
+                            }
+                        }
+                    }
+
+                    startJobAutomatici();
+                    database.setTransactionSuccessful();
+                    progressDialog.dismiss();
+
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    message = e.getMessage();
+
+                } finally {
+                    database.endTransaction();
+                    message = null;
+                }
+
+                MainActivity.this.runOnUiThread(() -> {
+                    if (message == null)
+                        Toast.makeText(getApplicationContext(),
+                                R.string.spesaSalvataggioOk,
+                                Toast.LENGTH_SHORT).show();
+                    else
+                        Toast.makeText(getApplicationContext(),
+                                message,
+                                Toast.LENGTH_LONG).show();
+                });
+            }).start();
+        }
+    }
+
+    public void onHelpClick(View view) {
+        id = 10;
+        msgBox();
+    }
+
+    public void onAddDescrizioneClick(View view) {
+        id = 4;
+        msgBox();
+    }
+
+    public void onModificaDescrizioneClick(View view) {
+        id = 3;
+        descrizioneSpesa = findViewById(R.id.descrizioneSpesa);
+        if (descrizioneSpesa.getCount() > 0) {
+            msgBox();
+        }
+    }
+
     // ******************************************************************
     // DISPLAY
     // ******************************************************************
@@ -2746,4 +2835,5 @@ public class MainActivity extends Activity {
             dialogTime.hide();
         }
     }
+
 }
