@@ -1371,7 +1371,7 @@ public class MainActivity extends Activity {
                                             database.endTransaction();
 
                                             if (CURRENT_LAYOUT == R.layout.activity_uscite) {
-                                                if (mySpesa.size() > 0)
+                                                if (!mySpesa.isEmpty())
                                                     for (int i = mySpesa.size() - 1; i > -1; i--)
                                                         if (mySpesa
                                                                 .get(i)
@@ -2344,23 +2344,26 @@ public class MainActivity extends Activity {
         EditText soldiSpesa = findViewById(R.id.soldiSpesa);
         Spinner descrizioneSpesa = findViewById(R.id.descrizioneSpesa);
 
-        if (!descrizioneSpesa.getSelectedItem().toString().isEmpty())
-            if (soldiSpesa.length() != 0
-                    && Double.parseDouble(soldiSpesa.getText().toString()) > 0) {
-                mySpesa.add(new Spesa(descrizioneSpesa.getSelectedItem()
-                        .toString(), Double.parseDouble(soldiSpesa.getText()
-                        .toString()), false, false));
-                myAdapter = new SpesaListViewAdapter(this, mySpesa);
-                myListView.setAdapter(myAdapter);
-                soldiSpesa.setText("");
+        if (descrizioneSpesa != null) {
+            if (!descrizioneSpesa.getSelectedItem().toString().isEmpty()) {
+                if (soldiSpesa.length() != 0
+                        && Double.parseDouble(soldiSpesa.getText().toString()) > 0) {
+                    mySpesa.add(new Spesa(descrizioneSpesa.getSelectedItem()
+                            .toString(), Double.parseDouble(soldiSpesa.getText()
+                            .toString()), false, false));
+                    myAdapter = new SpesaListViewAdapter(this, mySpesa);
+                    myListView.setAdapter(myAdapter);
+                    soldiSpesa.setText("");
+                } else {
+                    Toast.makeText(getApplicationContext(),
+                                    R.string.spesaControlloImporto, Toast.LENGTH_SHORT)
+                            .show();
+                }
             } else {
                 Toast.makeText(getApplicationContext(),
-                                R.string.spesaControlloImporto, Toast.LENGTH_SHORT)
-                        .show();
+                        R.string.menu_selezione_voce, Toast.LENGTH_SHORT).show();
             }
-        else
-            Toast.makeText(getApplicationContext(),
-                    R.string.menu_selezione_voce, Toast.LENGTH_SHORT).show();
+        }
     }
 
     public void onDataUsciteBtnPress(View v) {
