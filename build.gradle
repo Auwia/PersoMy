@@ -19,44 +19,39 @@ allprojects {
     }
 }
 
-// Configurazione dell'app Android
 android {
     namespace 'com.app.persomy.v4'
     compileSdk 35
+
     defaultConfig {
         applicationId "com.app.persomy.v4"
         minSdkVersion 16
         targetSdkVersion 35
-        versionCode 300104
-        versionName "3.1.04"
+        versionCode 300107
+        versionName "3.1.07"
     }
-    buildTypes {
-        release {
-            minifyEnabled false
-            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
-        }
-    }
-    compileOptions {
-        sourceCompatibility JavaVersion.VERSION_11
-        targetCompatibility JavaVersion.VERSION_11
-    }
+
     signingConfigs {
         release {
-            storeFile file("src/main/assets/certs/persomy.jks") 
+            storeFile file("src/main/assets/certs/persomy.jks")
             storePassword "max6ndax"
             keyAlias "persomy"
             keyPassword "max6ndax"
         }
     }
+
     buildTypes {
         release {
             signingConfig signingConfigs.release
-            minifyEnabled false              // Imposta a true se vuoi usare ProGuard per ottimizzare l'APK
+            minifyEnabled true // Assicurati che sia true per attivare ProGuard/R8
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
 
-
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_11
+        targetCompatibility JavaVersion.VERSION_11
+    }
 }
 
 dependencies {
