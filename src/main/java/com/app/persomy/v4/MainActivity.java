@@ -49,6 +49,15 @@ import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
+import androidx.appcompat.app.AppCompatActivity;
+
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.android.play.core.integrity.IntegrityManager;
+import com.google.android.play.core.integrity.IntegrityManagerFactory;
+import com.google.android.play.core.integrity.IntegrityTokenRequest;
+import com.google.android.play.core.integrity.IntegrityTokenResponse;
+
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -63,8 +72,9 @@ import java.util.Currency;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
+import java.util.UUID;
 
-public class MainActivity extends Activity {
+public class MainActivity extends AppCompatActivity {
 
     // VARIABILI DATA BASE
     private static final String DATABASE_NAME = "PersoMyDB.db";
@@ -158,6 +168,27 @@ public class MainActivity extends Activity {
         myFrequenza.add(new Frequenza(8, "Ultimo giorno del mese", 0));
 
         setContentView(R.layout.activity_main);
+
+        String nonce = UUID.randomUUID().toString();
+        IntegrityManager integrityManager = IntegrityManagerFactory.create(this);
+        integrityManager.requestIntegrityToken(
+                        IntegrityTokenRequest.builder()
+                                .setCloudProjectNumber(45902672061L)
+                                .setNonce(nonce)
+                                .build())
+                .addOnCompleteListener(new OnCompleteListener<IntegrityTokenResponse>() {
+                    @Override
+                    public void onComplete(Task<IntegrityTokenResponse> task) {
+                        if (task.isSuccessful()) {
+                            String integrityToken = task.getResult().token();
+                            // Invia il token al server backend per la verifica
+                        } else {
+                            // Gestisci l'errore, ad esempio mancanza di connessione
+                        }
+                    }
+                });
+
+
         contentPane = findViewById(R.id.contentPane);
 
         PersoMyDataSource datasource = new PersoMyDataSource(getApplicationContext());
@@ -189,9 +220,12 @@ public class MainActivity extends Activity {
         registraContextMenu();
 
         ActionBar bar = getActionBar();
-        assert bar != null;
-        bar.setDisplayHomeAsUpEnabled(true);
-        bar.setDisplayShowTitleEnabled(true);
+        if (bar != null) {
+            bar.setDisplayHomeAsUpEnabled(true);
+            bar.setDisplayShowTitleEnabled(true);
+        } else {
+            Log.e("MainActivity", "ActionBar non disponibile. Verifica il tema dell'attività.");
+        }
 
     }
 
@@ -203,23 +237,19 @@ public class MainActivity extends Activity {
                 msgBox();
                 return true;
             }
-
             menu_choise = R.menu.main;
-
             contentPane.removeAllViews();
             setContentView(R.layout.activity_main);
             setTitle(R.string.title_activity_main);
             contentPane = findViewById(R.id.contentPane);
-
             registraContextMenu();
-
             invalidateOptionsMenu();
-
             return true;
         }
 
-        if (keyCode == KeyEvent.KEYCODE_MENU)
+        if (keyCode == KeyEvent.KEYCODE_MENU) {
             return true;
+        }
 
         return super.onKeyDown(keyCode, event);
     }
@@ -1765,7 +1795,7 @@ public class MainActivity extends Activity {
                 .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         contentPane.addView(li.inflate(R.layout.activity_uscite, null));
 
-        // menu_choise = R.menu.menu_uscite;
+        menu_choise = R.menu.menu_uscite;
 
         TextView simboloEuro = findViewById(R.id.simboloEuro);
 
@@ -2273,9 +2303,10 @@ public class MainActivity extends Activity {
         contentPane.addView(li.inflate(R.layout.activity_voce, null));
 
         ActionBar bar = getActionBar();
-        assert bar != null;
-        bar.hide();
-        bar.show();
+        if (bar != null) {
+            bar.hide();
+            bar.show();
+        }
 
         invalidateOptionsMenu();
 
@@ -2344,7 +2375,7 @@ public class MainActivity extends Activity {
         EditText soldiSpesa = findViewById(R.id.soldiSpesa);
         Spinner descrizioneSpesa = findViewById(R.id.descrizioneSpesa);
 
-        if (descrizioneSpesa != null) {
+        if (soldiSpesa != null && descrizioneSpesa != null && descrizioneSpesa.getSelectedItem() != null) {
             if (!descrizioneSpesa.getSelectedItem().toString().isEmpty()) {
                 if (soldiSpesa.length() != 0
                         && Double.parseDouble(soldiSpesa.getText().toString()) > 0) {

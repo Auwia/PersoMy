@@ -15,7 +15,6 @@ allprojects {
         maven { url "https://maven.google.com" }
         google()
         mavenCentral()
-        jcenter()
     }
 }
 
@@ -25,10 +24,19 @@ android {
 
     defaultConfig {
         applicationId "com.app.persomy.v4"
-        minSdkVersion 16
+        minSdkVersion 21
         targetSdkVersion 35
-        versionCode 300107
-        versionName "3.1.07"
+        versionCode 300109
+        versionName "3.1.09"
+    }
+
+    configurations.all {
+        resolutionStrategy {
+            // Forza tutte le librerie a utilizzare la versione 1.8.22 di Kotlin
+            force "org.jetbrains.kotlin:kotlin-stdlib:1.8.22"
+            force "org.jetbrains.kotlin:kotlin-stdlib-jdk7:1.8.22"
+            force "org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.8.22"
+        }
     }
 
     signingConfigs {
@@ -55,5 +63,6 @@ android {
 }
 
 dependencies {
-    implementation 'androidx.appcompat:appcompat:1.6.1'  // Le dipendenze del progetto vanno qui
+    implementation 'androidx.appcompat:appcompat:1.7.0'
+    implementation 'com.google.android.play:integrity:1.4.0'
 }

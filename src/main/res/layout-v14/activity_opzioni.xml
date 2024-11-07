@@ -3,8 +3,7 @@
     android:id="@+id/widget32"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    android:orientation="vertical"
-    xmlns:tools="http://schemas.android.com/tools" >
+    android:orientation="vertical">
 
     <Switch
         android:id="@+id/password"

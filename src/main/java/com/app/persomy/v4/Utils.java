@@ -1,11 +1,11 @@
 package com.app.persomy.v4;
 
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
-
 import android.content.Context;
 import android.os.Build;
 import android.provider.Settings;
+
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 
 public class Utils {
 

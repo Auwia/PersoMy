@@ -1,10 +1,5 @@
 package com.app.persomy.v4;
 
-import java.text.DecimalFormat;
-import java.util.ArrayList;
-import java.util.Currency;
-import java.util.Locale;
-
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,6 +8,11 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.CheckBox;
 import android.widget.TextView;
+
+import java.text.DecimalFormat;
+import java.util.ArrayList;
+import java.util.Currency;
+import java.util.Locale;
 
 public class SpesaListViewAdapter extends ArrayAdapter<Spesa> {
 	ArrayList<Spesa> mySpesa;

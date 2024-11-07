@@ -9,7 +9,8 @@
         android:allowBackup="true"
         android:icon="@drawable/ic_launcher"
         android:label="@string/PersoMy"
-        android:uiOptions="splitActionBarWhenNarrow">
+        android:uiOptions="splitActionBarWhenNarrow"
+        android:theme="@style/Theme.AppCompat.Light">
         <activity
             android:name="com.app.persomy.v4.MainActivity"
             android:exported="true"
