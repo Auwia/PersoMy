@@ -75,7 +75,7 @@
     <string name="backupNotFound">Non è presente nessun backup.</string>
     <string name="backupRestore">Vuoi ripristinare il backup?</string>
     <string name="backupRestoredOK">Ripristino Backup&#8230;OK!</string>
-    <string name="spesaSalvataggioOk">Salvataggio OK!</string>
+    <string name="spesaSalvataggioOk">Salvato.</string>
     <string name="spesaDelete">Se procedi alla cancellazione, verranno rimosse tutte le voci indicate in tabella. Vuoi continuare?</string>
     <string name="spesaEliminazioneOk">Eliminazione OK!</string>
     <string name="spesaAggiungiVoce">Aggiungi una voce alla lista</string>

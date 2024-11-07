@@ -75,7 +75,7 @@
     <string name="backupNotFound">Backup not found.</string>
     <string name="backupRestore">Do you want to restore the backup?</string>
     <string name="backupRestoredOK">Restoring Backup&#8230;OK!</string>
-    <string name="spesaSalvataggioOk">Save OK!</string>
+    <string name="spesaSalvataggioOk">Saved.</string>
     <string name="spesaDelete">If you proceed to the cancellation, will remove all entries in the table. Do you want to continue?</string>
     <string name="spesaEliminazioneOk">Delete OK!</string>
     <string name="spesaAggiungiVoce">Add an item to the list</string>

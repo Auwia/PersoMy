@@ -26,13 +26,12 @@ android {
         applicationId "com.app.persomy.v4"
         minSdkVersion 21
         targetSdkVersion 35
-        versionCode 300109
-        versionName "3.1.09"
+        versionCode 300110
+        versionName "3.1.10"
     }
 
-    configurations.all {
+    configurations.configureEach {
         resolutionStrategy {
-            // Forza tutte le librerie a utilizzare la versione 1.8.22 di Kotlin
             force "org.jetbrains.kotlin:kotlin-stdlib:1.8.22"
             force "org.jetbrains.kotlin:kotlin-stdlib-jdk7:1.8.22"
             force "org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.8.22"
@@ -51,7 +50,7 @@ android {
     buildTypes {
         release {
             signingConfig signingConfigs.release
-            minifyEnabled true // Assicurati che sia true per attivare ProGuard/R8
+            minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
