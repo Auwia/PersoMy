@@ -20,7 +20,6 @@
             android:contentDescription="@string/dataCalendario"
             android:drawableTop="@drawable/uscite"
             android:gravity="center"
-            android:onClick="onUsciteBtnPress"
             android:text="@string/menu_uscite"
             android:textSize="14sp" />
 
@@ -33,7 +32,6 @@
             android:contentDescription="@string/dataCalendario"
             android:drawableTop="@drawable/entrate"
             android:gravity="center"
-            android:onClick="onEntrateBtnPress"
             android:text="@string/menu_entrate"
             android:textSize="14sp" />
 
@@ -55,7 +53,6 @@
             android:contentDescription="@string/dataCalendario"
             android:drawableTop="@drawable/report"
             android:gravity="center"
-            android:onClick="onReportBtnPress"
             android:text="@string/menu_report"
             android:textSize="14sp" />
 
@@ -68,7 +65,6 @@
             android:contentDescription="@string/dataCalendario"
             android:drawableTop="@drawable/operazioniautomatiche"
             android:gravity="center"
-            android:onClick="onAutomaticheBtnPress"
             android:text="@string/menu_operazioni_automatiche"
             android:textSize="14sp" />
 

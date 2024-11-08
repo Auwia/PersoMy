@@ -103,7 +103,12 @@
     <string name="unlicensed_dialog_body">This application is not licensed. Please purchase it from Android Market.</string>
     <string name="buy_button">Buy app</string>
     <string name="quit_button">Exit</string>
-    
+    <string name="enter_password">Insert a password</string>
+    <string name="enter_password_description">Here you can put a password that you will confirm in the field below.</string>
+    <string name="importoAutomaticaDesc">By this checkpoint you can select expenses (outcoming) or revenues (incoming).</string>
+    <string name="soldiSpesaDesc">Insert here the import (value) amount of your in/out coming.</string>
+    <string name="passwordVerifyDesc">Insert the password that you inserted before to confirm it.</string>
+
     <string-array name="frequenze">
                  <item>Quotidien</item>
                  <item>Hebdo</item>

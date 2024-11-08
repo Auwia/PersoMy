@@ -34,6 +34,7 @@ import android.view.ViewGroup.LayoutParams;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.DatePicker;
 import android.widget.EditText;
@@ -43,13 +44,13 @@ import android.widget.ListView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Spinner;
-import android.widget.Switch;
 import android.widget.TableLayout;
 import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.SwitchCompat;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -106,7 +107,7 @@ public class MainActivity extends AppCompatActivity {
     private EditText importoAutomatica, password1, password2, input;
     private View layout;
     private GridView myGridView;
-    private Switch password, update;
+    private SwitchCompat password, update;
     private CheckBox all;
     // ARRAY
     private ArrayList<Frequenza> myFrequenza;
@@ -126,6 +127,9 @@ public class MainActivity extends AppCompatActivity {
     private TimePickerDialog dialogTime = null;
     private SimpleDateFormat dateFormat;
     private Date dateObj, dateObjA;
+
+    private Button usciteBtn, entrateBtn, reportBtn, automaticheBtn;
+
 
     public MainActivity() {
     }
@@ -153,7 +157,6 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         String deviceId = Utils.getId(getApplicationContext());
         Log.i("Main:onCreate", deviceId);
 
@@ -227,6 +230,8 @@ public class MainActivity extends AppCompatActivity {
             Log.e("MainActivity", "ActionBar non disponibile. Verifica il tema dell'attività.");
         }
 
+        chiamaBottoni();
+
     }
 
     @Override
@@ -244,6 +249,7 @@ public class MainActivity extends AppCompatActivity {
             contentPane = findViewById(R.id.contentPane);
             registraContextMenu();
             invalidateOptionsMenu();
+            chiamaBottoni();
             return true;
         }
 
@@ -278,47 +284,47 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public boolean onContextItemSelected(MenuItem item) {
-
-        if (item.getItemId() == R.id.menu_mensile) {
-            setTitle(getString(R.string.title_activity_main) + " - "
-                    + getString(R.string.menu_report) + ": "
-                    + getString(R.string.menu_mensile));
-            menu_choise = 0;
-            startMensile();
-        } else if (item.getItemId() == R.id.menu_periodo) {
-            setTitle(getString(R.string.title_activity_main) + " - "
-                    + getString(R.string.menu_report) + ": "
-                    + getString(R.string.menu_periodo));
-            // menu_choise = R.menu.menu_solo_exit;
-            menu_choise = 0;
-            startPeriodo();
-        } else if (item.getItemId() == R.id.menu_anno) {
-            setTitle(getString(R.string.title_activity_main) + " - "
-                    + getString(R.string.menu_report) + ": "
-                    + getString(R.string.menu_anno));
-            // menu_choise = R.menu.menu_solo_exit;
-            menu_choise = 0;
-            startAnno();
-        } else if (item.getItemId() == R.id.menu_totale) {
-            setTitle(getString(R.string.title_activity_main) + " - "
-                    + getString(R.string.menu_report) + ": "
-                    + getString(R.string.menu_totale));
-            // menu_choise = R.menu.menu_solo_exit;
-            menu_choise = 0;
-            startTotale();
-        } else if (item.getItemId() == R.id.menu_voce) {
-            // menu_choise = R.menu.menu_solo_exit;
-            menu_choise = 0;
-            setTitle(getString(R.string.title_activity_main) + " - "
-                    + getString(R.string.menu_report) + ": "
-                    + getString(R.string.menu_voce));
-            startVoce();
-        } else if (item.getItemId() == R.id.menu_backup) {
-            startBackup();
-        } else if (item.getItemId() == R.id.menu_ripristino_backup) {
-            startRestoreBackup();
+        if (item != null) {
+            if (item.getItemId() == R.id.menu_mensile) {
+                setTitle(getString(R.string.title_activity_main) + " - "
+                        + getString(R.string.menu_report) + ": "
+                        + getString(R.string.menu_mensile));
+                menu_choise = 0;
+                startMensile();
+            } else if (item.getItemId() == R.id.menu_periodo) {
+                setTitle(getString(R.string.title_activity_main) + " - "
+                        + getString(R.string.menu_report) + ": "
+                        + getString(R.string.menu_periodo));
+                // menu_choise = R.menu.menu_solo_exit;
+                menu_choise = 0;
+                startPeriodo();
+            } else if (item.getItemId() == R.id.menu_anno) {
+                setTitle(getString(R.string.title_activity_main) + " - "
+                        + getString(R.string.menu_report) + ": "
+                        + getString(R.string.menu_anno));
+                // menu_choise = R.menu.menu_solo_exit;
+                menu_choise = 0;
+                startAnno();
+            } else if (item.getItemId() == R.id.menu_totale) {
+                setTitle(getString(R.string.title_activity_main) + " - "
+                        + getString(R.string.menu_report) + ": "
+                        + getString(R.string.menu_totale));
+                // menu_choise = R.menu.menu_solo_exit;
+                menu_choise = 0;
+                startTotale();
+            } else if (item.getItemId() == R.id.menu_voce) {
+                // menu_choise = R.menu.menu_solo_exit;
+                menu_choise = 0;
+                setTitle(getString(R.string.title_activity_main) + " - "
+                        + getString(R.string.menu_report) + ": "
+                        + getString(R.string.menu_voce));
+                startVoce();
+            } else if (item.getItemId() == R.id.menu_backup) {
+                startBackup();
+            } else if (item.getItemId() == R.id.menu_ripristino_backup) {
+                startRestoreBackup();
+            }
         }
-
         return true;
     }
 
@@ -747,9 +753,6 @@ public class MainActivity extends AppCompatActivity {
     // ******************************************************************
     public void onSearchBtnPress(View v) {
 
-        TextView totUscite = findViewById(R.id.totaleUscite);
-        TextView totEntrate = findViewById(R.id.totaleEntrate);
-
         try {
             dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss",
                     Locale.ROOT);
@@ -772,7 +775,7 @@ public class MainActivity extends AppCompatActivity {
 
         descrizioneSpesa = findViewById(R.id.descrizioneSpesa);
         all = findViewById(R.id.selectAll);
-        if (all.isChecked())
+        if (all.isChecked()) {
             cur = database.query(
                     "MONEY a INNER JOIN VARIE B ON (a.DESCRIZIONE=b.CONT)",
                     new String[]{"a.DATA", "b.DESCRIZIONE", "a.prezzo",
@@ -781,7 +784,7 @@ public class MainActivity extends AppCompatActivity {
                     new String[]{dateFormat.format(dateObj),
                             dateFormat.format(dateObjA)}, null, null,
                     "a.DATA, a.uscita");
-        else
+        } else {
             cur = database.query(
                     "MONEY a INNER JOIN VARIE B ON (a.DESCRIZIONE=b.CONT)",
                     new String[]{"a.DATA", "b.DESCRIZIONE", "a.prezzo",
@@ -791,7 +794,7 @@ public class MainActivity extends AppCompatActivity {
                             dateFormat.format(dateObjA),
                             descrizioneSpesa.getSelectedItem().toString()},
                     null, null, "a.DATA, a.uscita");
-
+        }
         myLista = new ArrayList<>();
 
         cur.moveToFirst();
@@ -845,6 +848,9 @@ public class MainActivity extends AppCompatActivity {
                     null, null, null);
         cur.moveToFirst();
 
+        TextView totUscite = findViewById(R.id.totaleUscite);
+        TextView totEntrate = findViewById(R.id.totaleEntrate);
+
         if (cur.getCount() > 0 && cur.getString(0) != null
                 && Double.parseDouble(cur.getString(0)) > 0) {
             totEntrate.setText(df.format(Double.parseDouble(cur
@@ -872,7 +878,7 @@ public class MainActivity extends AppCompatActivity {
                     null, null, null);
         cur.moveToFirst();
 
-        if (cur.getCount() > 0 && cur.getString(0) != null
+        if (totUscite != null && totEntrate != null && cur.getCount() > 0 && cur.getString(0) != null
                 && Double.parseDouble(cur.getString(0)) > 0)
             totUscite.setText(df.format(Double.parseDouble(cur
                     .getString(0))));
@@ -2356,11 +2362,20 @@ public class MainActivity extends AppCompatActivity {
 
         if (importoAutomatica.length() != 0
                 && Double.parseDouble(importoAutomatica.getText().toString()) > 0) {
-            myMovimento.add(new Movimento(frequenza.getSelectedItem()
-                    .toString(), mDateDisplay.getText() + " "
-                    + mTimeDisplay.getText(), voceAutomatica.getSelectedItem()
-                    .toString(), Double.parseDouble(importoAutomatica.getText()
-                    .toString()), uscita, false, false));
+
+            String frequenzaText = frequenza.getSelectedItem() != null ? frequenza.getSelectedItem().toString() : "";
+            String mDateDisplayText = mDateDisplay.getText() != null ? mDateDisplay.getText().toString() : "";
+            String nTimeDisplayText = mTimeDisplay.getText() != null ? mTimeDisplay.getText().toString() : "";
+            String voceAutomaticaText = voceAutomatica.getSelectedItem() != null ? voceAutomatica.getSelectedItem().toString() : "";
+            double importoValue = Double.parseDouble(importoAutomatica.getText().toString());
+
+            myMovimento.add(new Movimento(
+                    frequenzaText,
+                    mDateDisplayText + " " + nTimeDisplayText,
+                    voceAutomaticaText,
+                    importoValue,
+                    uscita, false, false));
+
             myAdapterAutomatica = new MovimentoListViewAdapter(this,
                     myMovimento);
             myListView.setAdapter(myAdapterAutomatica);
@@ -2419,34 +2434,9 @@ public class MainActivity extends AppCompatActivity {
         dialogTime.show();
     }
 
-    public void onUsciteBtnPress(View v) {
-        uscita = true;
-        setTitle(getString(R.string.title_activity_main) + " - "
-                + getString(R.string.menu_uscite));
-        startUscite();
-    }
-
-    public void onEntrateBtnPress(View v) {
-        setTitle(getString(R.string.title_activity_main) + " - "
-                + getString(R.string.menu_entrate));
-        uscita = false;
-        startUscite();
-    }
-
-    public void onReportBtnPress(View v) {
-        menu_choise = R.menu.menu_report;
-        openContextMenu(v);
-    }
-
     public void onBackupBtnPress(View v) {
         menu_choise = R.menu.menu_backup;
         openContextMenu(v);
-    }
-
-    public void onAutomaticheBtnPress(View v) {
-        setTitle(getString(R.string.title_activity_main) + " - "
-                + getString(R.string.menu_operazioni_automatiche));
-        startOperazioniAutomatiche();
     }
 
     public void onOptionsBtnPress(View v) {
@@ -2843,6 +2833,52 @@ public class MainActivity extends AppCompatActivity {
         if (descrizioneSpesa.getCount() > 0) {
             msgBox();
         }
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        chiamaBottoni();
+    }
+
+    private void chiamaBottoni() {
+        usciteBtn = findViewById(R.id.usciteBtn);
+        usciteBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                uscita = true;
+                setTitle(getString(R.string.title_activity_main) + " - " + getString(R.string.menu_uscite));
+                startUscite();
+            }
+        });
+
+         entrateBtn = findViewById(R.id.entrateBtn);
+        entrateBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                setTitle(getString(R.string.title_activity_main) + " - " + getString(R.string.menu_entrate));
+                uscita = false;
+                startUscite();
+            }
+        });
+
+         reportBtn = findViewById(R.id.reportBtn);
+        reportBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                menu_choise = R.menu.menu_report;
+                openContextMenu(v);
+            }
+        });
+
+         automaticheBtn = findViewById(R.id.automaticheBtn);
+        automaticheBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                setTitle(getString(R.string.title_activity_main) + " - " + getString(R.string.menu_operazioni_automatiche));
+                startOperazioniAutomatiche();
+            }
+        });
     }
 
     // ******************************************************************

@@ -47,7 +47,7 @@
 	            android:background="@android:drawable/ic_menu_my_calendar"
 	            android:layout_gravity="center_vertical"
 	            android:contentDescription="@string/dataCalendario"
-	            android:focusable="false"
+	            android:focusable="true"
 	            android:focusableInTouchMode="false"
 	            android:text="@string/pickDate"
 	            android:onClick="onDataPeriodoABtnPress" />
@@ -59,7 +59,7 @@
 	            android:layout_height="wrap_content"
 	            android:text="" 
 			    android:textStyle="bold"
-			    android:focusable="false"
+			    android:focusable="true"
 				android:focusableInTouchMode="false"
 				android:textSize="12pt"
 				android:onClick="onDataPeriodoABtnPress"

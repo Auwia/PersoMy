@@ -5,13 +5,13 @@
     android:layout_height="fill_parent"
     android:orientation="vertical">
 
-    <Switch
+    <androidx.appcompat.widget.SwitchCompat
         android:id="@+id/password"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/password" />
     
-	<Switch
+	<androidx.appcompat.widget.SwitchCompat
         android:id="@+id/update"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

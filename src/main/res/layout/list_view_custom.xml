@@ -43,6 +43,7 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_weight="10"
-        android:clickable="true" />
+        android:clickable="true"
+        android:focusable="true"/>
 
 </LinearLayout>
