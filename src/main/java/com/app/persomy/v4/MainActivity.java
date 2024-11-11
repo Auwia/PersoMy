@@ -157,6 +157,8 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+
         String deviceId = Utils.getId(getApplicationContext());
         Log.i("Main:onCreate", deviceId);
 
@@ -169,8 +171,6 @@ public class MainActivity extends AppCompatActivity {
         myFrequenza.add(new Frequenza(6, "Annuale", 365));
         myFrequenza.add(new Frequenza(7, "Primo giorno del mese", 0));
         myFrequenza.add(new Frequenza(8, "Ultimo giorno del mese", 0));
-
-        setContentView(R.layout.activity_main);
 
         String nonce = UUID.randomUUID().toString();
         IntegrityManager integrityManager = IntegrityManagerFactory.create(this);
@@ -2843,43 +2843,48 @@ public class MainActivity extends AppCompatActivity {
 
     private void chiamaBottoni() {
         usciteBtn = findViewById(R.id.usciteBtn);
-        usciteBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+        if (usciteBtn != null) {
+            usciteBtn.setOnClickListener(v -> {
                 uscita = true;
                 setTitle(getString(R.string.title_activity_main) + " - " + getString(R.string.menu_uscite));
                 startUscite();
-            }
-        });
+            });
+        } else {
+            Log.e("MainActivity", "usciteBtn non trovato nel layout.");
+        }
 
-         entrateBtn = findViewById(R.id.entrateBtn);
-        entrateBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                setTitle(getString(R.string.title_activity_main) + " - " + getString(R.string.menu_entrate));
+        entrateBtn = findViewById(R.id.entrateBtn);
+        if (entrateBtn != null) {
+            entrateBtn.setOnClickListener(v -> {
                 uscita = false;
+                setTitle(getString(R.string.title_activity_main) + " - " + getString(R.string.menu_entrate));
                 startUscite();
-            }
-        });
+            });
+        } else {
+            Log.e("MainActivity", "entrateBtn non trovato nel layout.");
+        }
 
-         reportBtn = findViewById(R.id.reportBtn);
-        reportBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+        reportBtn = findViewById(R.id.reportBtn);
+        if (reportBtn != null) {
+            reportBtn.setOnClickListener(v -> {
                 menu_choise = R.menu.menu_report;
                 openContextMenu(v);
-            }
-        });
+            });
+        } else {
+            Log.e("MainActivity", "reportBtn non trovato nel layout.");
+        }
 
-         automaticheBtn = findViewById(R.id.automaticheBtn);
-        automaticheBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+        automaticheBtn = findViewById(R.id.automaticheBtn);
+        if (automaticheBtn != null) {
+            automaticheBtn.setOnClickListener(v -> {
                 setTitle(getString(R.string.title_activity_main) + " - " + getString(R.string.menu_operazioni_automatiche));
                 startOperazioniAutomatiche();
-            }
-        });
+            });
+        } else {
+            Log.e("MainActivity", "automaticheBtn non trovato nel layout.");
+        }
     }
+
 
     // ******************************************************************
     // DISPLAY
