@@ -12,6 +12,7 @@
 bin/
 gen/
 certificato/
+.idea
 
 # Gradle files
 .gradle/
