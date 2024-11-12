@@ -1,14 +1,17 @@
 package com.app.persomy.v4;
 
+import android.Manifest;
 import android.app.ActionBar;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
+import android.content.ContentResolver;
 import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Point;
@@ -16,6 +19,8 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
+import android.provider.MediaStore;
+import android.provider.Settings;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.text.format.DateFormat;
@@ -49,21 +54,22 @@ import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.SwitchCompat;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
 import com.google.android.play.core.integrity.IntegrityManager;
 import com.google.android.play.core.integrity.IntegrityManagerFactory;
 import com.google.android.play.core.integrity.IntegrityTokenRequest;
-import com.google.android.play.core.integrity.IntegrityTokenResponse;
 
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.OutputStream;
 import java.nio.channels.FileChannel;
 import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
@@ -75,13 +81,15 @@ import java.util.List;
 import java.util.Locale;
 import java.util.UUID;
 
+
 public class MainActivity extends AppCompatActivity {
 
-    // VARIABILI DATA BASE
+    /* VARIABILI DATA BASE */
     private static final String DATABASE_NAME = "PersoMyDB.db";
+    private static final int REQUEST_WRITE_STORAGE = 112;
     public static int CURRENT_VERSION = -1;
     private static Boolean uscita = true;
-    // CALENDARI E OROLOGI
+    /* CALENDARI E OROLOGI */
     private final Calendar c = Calendar.getInstance();
     private final DecimalFormat df = new DecimalFormat("###,##0.00");
     private final Verify verify = new Verify();
@@ -90,14 +98,13 @@ public class MainActivity extends AppCompatActivity {
     private String giorni = String.valueOf(mDay),
             mesi = String.valueOf(mMonth), ora = String.valueOf(mHourOfDay),
             minuti = String.valueOf(mMinute);
-    private String[] array_spinner;
     private String strPassword1;
     private String strPassword2;
     private String message = null;
     private LayoutInflater li;
     private Activity activity;
     private AlertDialog progressDialog;
-    // COMPONENTI FISICI DI LAYOUT
+    /* COMPONENTI FISICI DI LAYOUT */
     private TableLayout contentPane;
     private ListView myListView;
     private Spinner descrizioneSpesa, voceAutomatica, mese, anno, frequenza;
@@ -109,7 +116,7 @@ public class MainActivity extends AppCompatActivity {
     private GridView myGridView;
     private SwitchCompat password, update;
     private CheckBox all;
-    // ARRAY
+    /* ARRAY */
     private ArrayList<Frequenza> myFrequenza;
     private ArrayList<Lista> myLista;
     private ArrayList<ListaReportAnno> myListaReportAnno;
@@ -121,14 +128,12 @@ public class MainActivity extends AppCompatActivity {
     private ArrayAdapter<Spesa> myAdapter;
     private SQLiteDatabase database;
     private Cursor cur;
-    // CLASSI DI SUPPORTO
+    /* CLASSI DI SUPPORTO */
     private ScaricaDati scaricaDati;
     private DatePickerDialog dialogDate, dialogDateA = null;
     private TimePickerDialog dialogTime = null;
     private SimpleDateFormat dateFormat;
     private Date dateObj, dateObjA;
-
-    private Button usciteBtn, entrateBtn, reportBtn, automaticheBtn;
 
 
     public MainActivity() {
@@ -179,15 +184,12 @@ public class MainActivity extends AppCompatActivity {
                                 .setCloudProjectNumber(45902672061L)
                                 .setNonce(nonce)
                                 .build())
-                .addOnCompleteListener(new OnCompleteListener<IntegrityTokenResponse>() {
-                    @Override
-                    public void onComplete(Task<IntegrityTokenResponse> task) {
-                        if (task.isSuccessful()) {
-                            String integrityToken = task.getResult().token();
-                            // Invia il token al server backend per la verifica
-                        } else {
-                            // Gestisci l'errore, ad esempio mancanza di connessione
-                        }
+                .addOnCompleteListener(task -> {
+                    if (task.isSuccessful()) {
+                        String integrityToken = task.getResult().token();
+                        /* Invia il token al server backend per la verifica */
+                    } else {
+                        /* Gestisci l'errore, ad esempio mancanza di connessione */
                     }
                 });
 
@@ -260,9 +262,9 @@ public class MainActivity extends AppCompatActivity {
         return super.onKeyDown(keyCode, event);
     }
 
-    // ******************************************************************
-    // MENU'
-    // ******************************************************************
+    /* *******************************************************************/
+    /* MENU'*/
+    /* *******************************************************************/
     private void registraContextMenu() {
         registerForContextMenu(findViewById(R.id.reportBtn));
         registerForContextMenu(findViewById(R.id.backupBtn));
@@ -283,49 +285,85 @@ public class MainActivity extends AppCompatActivity {
     }
 
     @Override
-    public boolean onContextItemSelected(MenuItem item) {
-        if (item != null) {
-            if (item.getItemId() == R.id.menu_mensile) {
-                setTitle(getString(R.string.title_activity_main) + " - "
-                        + getString(R.string.menu_report) + ": "
-                        + getString(R.string.menu_mensile));
-                menu_choise = 0;
-                startMensile();
-            } else if (item.getItemId() == R.id.menu_periodo) {
-                setTitle(getString(R.string.title_activity_main) + " - "
-                        + getString(R.string.menu_report) + ": "
-                        + getString(R.string.menu_periodo));
-                // menu_choise = R.menu.menu_solo_exit;
-                menu_choise = 0;
-                startPeriodo();
-            } else if (item.getItemId() == R.id.menu_anno) {
-                setTitle(getString(R.string.title_activity_main) + " - "
-                        + getString(R.string.menu_report) + ": "
-                        + getString(R.string.menu_anno));
-                // menu_choise = R.menu.menu_solo_exit;
-                menu_choise = 0;
-                startAnno();
-            } else if (item.getItemId() == R.id.menu_totale) {
-                setTitle(getString(R.string.title_activity_main) + " - "
-                        + getString(R.string.menu_report) + ": "
-                        + getString(R.string.menu_totale));
-                // menu_choise = R.menu.menu_solo_exit;
-                menu_choise = 0;
-                startTotale();
-            } else if (item.getItemId() == R.id.menu_voce) {
-                // menu_choise = R.menu.menu_solo_exit;
-                menu_choise = 0;
-                setTitle(getString(R.string.title_activity_main) + " - "
-                        + getString(R.string.menu_report) + ": "
-                        + getString(R.string.menu_voce));
-                startVoce();
-            } else if (item.getItemId() == R.id.menu_backup) {
+    public boolean onContextItemSelected(@NonNull MenuItem item) {
+        if (item.getItemId() == R.id.menu_mensile) {
+            setTitle(getString(R.string.title_activity_main) + " - "
+                    + getString(R.string.menu_report) + ": "
+                    + getString(R.string.menu_mensile));
+            menu_choise = 0;
+            startMensile();
+        } else if (item.getItemId() == R.id.menu_periodo) {
+            setTitle(getString(R.string.title_activity_main) + " - "
+                    + getString(R.string.menu_report) + ": "
+                    + getString(R.string.menu_periodo));
+            /* menu_choise = R.menu.menu_solo_exit; */
+            menu_choise = 0;
+            startPeriodo();
+        } else if (item.getItemId() == R.id.menu_anno) {
+            setTitle(getString(R.string.title_activity_main) + " - "
+                    + getString(R.string.menu_report) + ": "
+                    + getString(R.string.menu_anno));
+            /* menu_choise = R.menu.menu_solo_exit; */
+            menu_choise = 0;
+            startAnno();
+        } else if (item.getItemId() == R.id.menu_totale) {
+            setTitle(getString(R.string.title_activity_main) + " - "
+                    + getString(R.string.menu_report) + ": "
+                    + getString(R.string.menu_totale));
+            /* menu_choise = R.menu.menu_solo_exit; */
+            menu_choise = 0;
+            startTotale();
+        } else if (item.getItemId() == R.id.menu_voce) {
+            /* menu_choise = R.menu.menu_solo_exit; */
+            menu_choise = 0;
+            setTitle(getString(R.string.title_activity_main) + " - "
+                    + getString(R.string.menu_report) + ": "
+                    + getString(R.string.menu_voce));
+            startVoce();
+        } else if (item.getItemId() == R.id.menu_backup) {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+                if (!Environment.isExternalStorageManager()) {
+                    Intent intent = new Intent(Settings.ACTION_MANAGE_APP_ALL_FILES_ACCESS_PERMISSION);
+                    intent.setData(Uri.parse("package:" + getPackageName()));
+                    startActivity(intent);
+                } else {
+                    startBackup();
+                }
+            } else {
                 startBackup();
-            } else if (item.getItemId() == R.id.menu_ripristino_backup) {
-                startRestoreBackup();
             }
+        } else if (item.getItemId() == R.id.menu_ripristino_backup) {
+            startRestoreBackup();
         }
         return true;
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+
+        if (requestCode == REQUEST_WRITE_STORAGE) {
+            /* Check if the permission request was granted */
+            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                startBackup();
+            } else {
+                Toast.makeText(this, "Storage permission is required to perform the backup.", Toast.LENGTH_LONG).show();
+
+                if (!ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.WRITE_EXTERNAL_STORAGE)) {
+                    new AlertDialog.Builder(this)
+                            .setTitle("Permission Required")
+                            .setMessage("Storage permission is needed to perform the backup. Please enable it in the app settings.")
+                            .setPositiveButton("Open Settings", (dialog, which) -> {
+                                Intent intent = new Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS);
+                                Uri uri = Uri.fromParts("package", getPackageName(), null);
+                                intent.setData(uri);
+                                startActivity(intent);
+                            })
+                            .setNegativeButton("Cancel", null)
+                            .show();
+                }
+            }
+        }
     }
 
     @Override
@@ -449,9 +487,7 @@ public class MainActivity extends AppCompatActivity {
             } else if (CURRENT_LAYOUT == R.layout.activity_automatiche) {
                 AlertDialog.Builder builder = new AlertDialog.Builder(this);
                 builder.setCancelable(false);
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                    builder.setView(R.layout.dialog_loading);
-                }
+                builder.setView(R.layout.dialog_loading);
                 progressDialog = builder.create();
                 progressDialog.show();
 
@@ -748,9 +784,6 @@ public class MainActivity extends AppCompatActivity {
         return true;
     }
 
-    // ******************************************************************
-    // OPERAZIONI
-    // ******************************************************************
     public void onSearchBtnPress(View v) {
 
         try {
@@ -878,12 +911,13 @@ public class MainActivity extends AppCompatActivity {
                     null, null, null);
         cur.moveToFirst();
 
-        if (totUscite != null && totEntrate != null && cur.getCount() > 0 && cur.getString(0) != null
-                && Double.parseDouble(cur.getString(0)) > 0)
+        if (totUscite != null && cur.getCount() > 0 && cur.getString(0) != null && Double.parseDouble(cur.getString(0)) > 0)
             totUscite.setText(df.format(Double.parseDouble(cur
                     .getString(0))));
-        else
+        else {
+            assert totUscite != null;
             totUscite.setText("0");
+        }
 
         cur.close();
     }
@@ -1143,7 +1177,7 @@ public class MainActivity extends AppCompatActivity {
                 null, null, null, "descrizione");
         cur.moveToFirst();
         int i = 0;
-        array_spinner = new String[cur.getCount()];
+        String[] array_spinner = new String[cur.getCount()];
 
         while (!cur.isAfterLast()) {
             array_spinner[i] = cur.getString(0);
@@ -1205,7 +1239,7 @@ public class MainActivity extends AppCompatActivity {
 
         switch (id) {
             case 1:
-                // password_verify
+                /* password_verify */
                 layout = inflater.inflate(R.layout.dialog_verify_password,
                         findViewById(R.id.root));
                 alert.setView(layout);
@@ -1213,30 +1247,30 @@ public class MainActivity extends AppCompatActivity {
                 break;
 
             case 2:
-                // ripristino backup
+                /* ripristino backup */
                 alert.setMessage(R.string.backupRestore);
                 break;
 
             case 3:
-                // modifica descrizione
+                /* modifica descrizione */
                 input.setText(descrizioneSpesa.getSelectedItem().toString());
                 alert.setView(input);
                 alert.setTitle(R.string.spesaModificaVoce);
                 break;
 
             case 4:
-                // add descrizione
+                /* add descrizione */
                 alert.setView(input);
                 alert.setTitle(R.string.spesaAggiungiVoce);
                 break;
 
             case 5:
-                // cancella spesa
+                /* cancella spesa */
                 alert.setMessage(R.string.spesaDelete);
                 break;
 
             case 6:
-                // inserimento password
+                /* inserimento password */
                 layout = inflater.inflate(R.layout.dialog_password,
                         findViewById(R.id.root));
                 password1 = layout.findViewById(R.id.EditText_Pwd1);
@@ -1289,12 +1323,12 @@ public class MainActivity extends AppCompatActivity {
                 break;
 
             case 7:
-                // uscita da persomy
+                /* uscita da persomy */
                 alert.setMessage(R.string.persomyExit);
                 break;
 
             case 8:
-                // Update Automatico
+                /* Update Automatico */
                 alert.setTitle(R.string.setUpdate);
                 alert.setMessage(R.string.confermaUpdate);
                 break;
@@ -1640,39 +1674,37 @@ public class MainActivity extends AppCompatActivity {
                     }
                 });
 
-        if (id != 10) // non visualizza il pulsante ANNULLA in caso di
-            // visualizzazione della GUIDA
-            alert.setNegativeButton(R.string.cancel,
-                    (dialog, whichButton) -> {
-                        switch (id) {
-                            case 1:
-                                System.exit(0);
-                                break;
+        if (id != 10)
+            alert.setNegativeButton(R.string.cancel, (dialog, whichButton) -> {
+                switch (id) {
+                    case 1:
+                        System.exit(0);
+                        break;
 
-                            case 2:
+                    case 2:
 
-                            case 9:
+                    case 9:
 
-                            case 7:
+                    case 7:
 
-                            case 5:
+                    case 5:
 
-                            case 3:
+                    case 3:
 
-                            case 4:
-                                dialog.cancel();
-                                break;
+                    case 4:
+                        dialog.cancel();
+                        break;
 
-                            case 6: // PASSWORD
-                                dialog.cancel();
-                                password.setChecked(verify.isTherePassword(database));
-                                break;
+                    case 6: /*  PASSWORD */
+                        dialog.cancel();
+                        password.setChecked(verify.isTherePassword(database));
+                        break;
 
-                            case 8: // AGGIORNAMENTI AUTOMATICI
-                                update.setChecked(verify.isThereUpdate(database));
-                                break;
-                        }
-                    });
+                    case 8: /* AGGIORNAMENTI AUTOMATICI */
+                        update.setChecked(verify.isThereUpdate(database));
+                        break;
+                }
+            });
 
         alert.setCancelable(false);
         alert.show();
@@ -1694,12 +1726,12 @@ public class MainActivity extends AppCompatActivity {
         descrizioneSpesa = findViewById(R.id.descrizioneSpesa);
         CustomSpinnerVarie adapter = new CustomSpinnerVarie(this, data);
         descrizioneSpesa.setAdapter(adapter);
-        // descrizioneSpesa.setAdapter(new CustomSpinnerVarie(this, scaricaDati.caricaSpinnerCompleto(uscita.toString())));
+        /* descrizioneSpesa.setAdapter(new CustomSpinnerVarie(this, scaricaDati.caricaSpinnerCompleto(uscita.toString()))); */
     }
 
-    // ******************************************************************
-    // START FORM
-    // ******************************************************************
+    /* *******************************************************************/
+    /* START FORM */
+    /* *******************************************************************/
 
     public void startOpzioni() {
         contentPane.removeAllViews();
@@ -1867,44 +1899,50 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void startBackup() {
-        boolean writeable = verify.IsSdPresent();
-        if (writeable) {
-            File file = new File(Environment.getDataDirectory()
-                    + "/data/com.app.persomy.v4/databases/PersoMyDB.db");
-            File fileBackupDir = new File(
-                    Environment.getExternalStorageDirectory(),
-                    "/PersoMy/backup");
-
-            if (!fileBackupDir.exists())
-                fileBackupDir.mkdirs();
-
-            if (file.exists()) {
-                File fileBackup = new File(fileBackupDir, "PersoMyDB.db");
-                try {
-                    fileBackup.createNewFile();
-                    copyFile(file, fileBackup);
-
-                    Toast.makeText(getApplicationContext(),
-                            R.string.backupOKDescr, Toast.LENGTH_LONG).show();
-
-                } catch (FileNotFoundException ex) {
-                    Toast.makeText(getApplicationContext(),
-                            R.string.backupNoFile, Toast.LENGTH_SHORT).show();
-                    System.exit(0);
-                } catch (IOException e) {
-                    Toast.makeText(getApplicationContext(),
-                            R.string.backupGenericErrorFile + e.getMessage(),
-                            Toast.LENGTH_SHORT).show();
-                    e.printStackTrace();
-                } catch (Exception e) {
-                    Toast.makeText(getApplicationContext(),
-                            R.string.backupGenericError + e.getMessage(),
-                            Toast.LENGTH_SHORT).show();
-                }
+        File file = new File(Environment.getDataDirectory() + "/data/com.app.persomy.v4/databases/PersoMyDB.db");
+        if (!file.exists()) {
+            Toast.makeText(this, "Database file not found", Toast.LENGTH_SHORT).show();
+            return;
+        }
+        try {
+            Uri backupUri = createBackupFileUri();
+            if (backupUri != null) {
+                copyFileToUri(file, backupUri);
+                Toast.makeText(this, "Backup created successfully", Toast.LENGTH_LONG).show();
+            } else {
+                Toast.makeText(this, "Failed to create backup URI", Toast.LENGTH_SHORT).show();
             }
-        } else
-            Toast.makeText(getApplicationContext(), R.string.backupSDCardError,
-                    Toast.LENGTH_SHORT).show();
+        } catch (Exception e) {
+            e.printStackTrace();
+            Toast.makeText(this, "Backup failed: " + e.getMessage(), Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    private Uri createBackupFileUri() {
+        ContentResolver resolver = getContentResolver();
+        ContentValues contentValues = new ContentValues();
+        contentValues.put(MediaStore.MediaColumns.DISPLAY_NAME, "PersoMyDB.db");  // Nome del file di backup
+        contentValues.put(MediaStore.MediaColumns.MIME_TYPE, "application/octet-stream");
+        contentValues.put(MediaStore.MediaColumns.RELATIVE_PATH, Environment.DIRECTORY_DOCUMENTS + "/PersoMyBackup");
+
+        Uri uri = null;
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+            uri = resolver.insert(MediaStore.Files.getContentUri("external"), contentValues);
+        }
+        return uri;
+    }
+
+    private void copyFileToUri(File srcFile, Uri destUri) throws IOException {
+        try (FileInputStream inStream = new FileInputStream(srcFile);
+             OutputStream outStream = getContentResolver().openOutputStream(destUri)) {
+
+            byte[] buffer = new byte[1024];
+            int bytesRead;
+            while ((bytesRead = inStream.read(buffer)) != -1) {
+                assert outStream != null;
+                outStream.write(buffer, 0, bytesRead);
+            }
+        }
     }
 
     private void startTotale() {
@@ -2204,7 +2242,7 @@ public class MainActivity extends AppCompatActivity {
         voceAutomatica.setAdapter(new CustomSpinnerVarie(this, scaricaDati
                 .caricaSpinnerCompleto(uscita.toString())));
 
-        // listview
+        /* listview */
         myMovimento = new ArrayList<>();
         myAdapterAutomatica = new MovimentoListViewAdapter(this, myMovimento);
         myListView = findViewById(R.id.listaAutomatica);
@@ -2354,9 +2392,9 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    // ******************************************************************
-    // CLICK BOTTONI
-    // ******************************************************************
+    /* *******************************************************************/
+    /* CLICK BOTTONI */
+    /* *******************************************************************/
 
     public void onAggiungiSpesaBtnPress(View v) {
 
@@ -2515,326 +2553,6 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    public void onDeleteSpesaClick(View view) {
-        if (CURRENT_LAYOUT == R.layout.activity_uscite) {
-            if (!mySpesa.isEmpty()) {
-                for (int i = mySpesa.size() - 1; i > -1; i--) {
-                    if (mySpesa.get(i).getSpesaFlaggata()) {
-                        mySpesa.remove(i);
-                        j++;
-                    }
-                }
-                myListView.setAdapter(myAdapter);
-
-                if (j == 0)
-                    Toast.makeText(getApplicationContext(),
-                                    R.string.spesaCancellaVoce, Toast.LENGTH_SHORT)
-                            .show();
-
-            } else {
-                Toast.makeText(getApplicationContext(),
-                                R.string.spesaCancellaVoce, Toast.LENGTH_SHORT)
-                        .show();
-            }
-        }
-    }
-
-    public void onSalvaSpeseClick(View view) {
-        if (CURRENT_LAYOUT == R.layout.activity_uscite) {
-            try {
-                database.beginTransaction();
-                ContentValues row = new ContentValues();
-
-                dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss",
-                        Locale.ROOT);
-                dateObj = dateFormat.parse(mYear + "-" + (mMonth + 1) + "-"
-                        + mDay + " 00:00:00");
-                database.delete("MONEY", "data=? and uscita="
-                                + ((uscita) ? 1 : 0),
-                        new String[]{dateFormat.format(dateObj)});
-
-                for (int i = 0; i < mySpesa.size(); i++) {
-                    row.put("DATA", dateFormat.format(dateObj));
-                    row.put("DESCRIZIONE", scaricaDati
-                            .getSpesaCodiceDescrizione(mySpesa.get(i)
-                                    .getSpesaName()));
-                    row.put("PREZZO", mySpesa.get(i).getSpesaPrezzo());
-                    row.put("USCITA", ((uscita) ? 1 : 0));
-
-                    database.insert("MONEY", null, row);
-                }
-
-                database.setTransactionSuccessful();
-
-            } catch (Exception e) {
-                Toast.makeText(getApplicationContext(), e.getMessage(),
-                        Toast.LENGTH_LONG).show();
-                e.printStackTrace();
-            } finally {
-                database.endTransaction();
-
-                Toast.makeText(getApplicationContext(),
-                                R.string.spesaSalvataggioOk, Toast.LENGTH_SHORT)
-                        .show();
-            }
-        } else if (CURRENT_LAYOUT == R.layout.activity_automatiche) {
-            AlertDialog.Builder builder = new AlertDialog.Builder(this);
-            builder.setCancelable(false);
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                builder.setView(R.layout.dialog_loading);
-            }
-            progressDialog = builder.create();
-            progressDialog.show();
-
-            new Thread(() -> {
-                try {
-                    message = null;
-                    database.beginTransaction();
-                    ContentValues row = new ContentValues();
-
-                    database.delete("JOB_AUTOMATICI",
-                            "id_movimento in (select id from movimenti_automatici where uscita="
-                                    + ((uscita) ? 1 : 0) + ")", null);
-                    database.delete("MOVIMENTI_AUTOMATICI", "uscita="
-                            + ((uscita) ? 1 : 0), null);
-
-                    dateFormat = new SimpleDateFormat(
-                            "yyyy-MM-dd HH:mm:ss", Locale.ROOT);
-
-                    for (int i = 0; i < myMovimento.size(); i++) {
-                        int codiceFrequenza = scaricaDati
-                                .frequenzaToNumber(myMovimento.get(i)
-                                        .getAutomaticaFrequenza());
-                        int idVoce = scaricaDati
-                                .getSpesaCodiceDescrizione(myMovimento
-                                        .get(i).getAutomaticaVoce());
-
-                        dateObj = dateFormat.parse(myMovimento.get(i)
-                                .getAutomaticaStartDate()
-                                .substring(6, 10)
-                                + "-"
-                                + myMovimento.get(i)
-                                .getAutomaticaStartDate()
-                                .substring(3, 5)
-                                + "-"
-                                + myMovimento.get(i)
-                                .getAutomaticaStartDate()
-                                .substring(0, 2)
-                                + " "
-                                + myMovimento.get(i)
-                                .getAutomaticaStartDate()
-                                .substring(11, 13)
-                                + ":"
-                                + myMovimento.get(i)
-                                .getAutomaticaStartDate()
-                                .substring(14, 16) + ":00");
-                        c.setTime(dateObj);
-
-                        int giorno, mese, anno, ore = c
-                                .get(Calendar.HOUR_OF_DAY), minuti = c
-                                .get(Calendar.MINUTE), secondi = c
-                                .get(Calendar.SECOND), giorniFrequenza = scaricaDati
-                                .getGiorniFrequenza(myMovimento.get(i)
-                                        .getAutomaticaFrequenza());
-
-                        row.clear();
-                        row.put("ID_FREQUENZA", codiceFrequenza);
-                        row.put("DATA_START",
-                                dateFormat.format(dateObj));
-                        row.put("ID_VOCE", idVoce);
-                        row.put("IMPORTO", myMovimento.get(i)
-                                .getAutomaticaImporto());
-                        row.put("USCITA", ((uscita) ? 1 : 0));
-                        database.insert("MOVIMENTI_AUTOMATICI", null,
-                                row);
-
-                        String cancellaJob = scaricaDati
-                                .getIDMovimento(
-                                        codiceFrequenza,
-                                        dateFormat.format(dateObj),
-                                        idVoce,
-                                        myMovimento.get(i)
-                                                .getAutomaticaImporto(),
-                                        uscita);
-
-                        if (giorniFrequenza == 0) {
-                            if (codiceFrequenza == 3) {
-                                for (int j = 0; j < 36; j++) {
-                                    mese = c.get(Calendar.MONTH) + 1;
-                                    anno = c.get(Calendar.YEAR);
-
-                                    row.clear();
-                                    row.put("ID_MOVIMENTO", cancellaJob);
-                                    row.put("DATA_START", dateFormat
-                                            .format(dateFormat
-                                                    .parse(anno + "-"
-                                                            + mese
-                                                            + "-"
-                                                            + "01"
-                                                            + " " + ore
-                                                            + ":"
-                                                            + minuti
-                                                            + ":00")));
-                                    database.insert("JOB_AUTOMATICI",
-                                            null, row);
-
-                                    row.clear();
-                                    row.put("ID_MOVIMENTO", cancellaJob);
-                                    row.put("DATA_START", dateFormat
-                                            .format(dateFormat
-                                                    .parse(anno + "-"
-                                                            + mese
-                                                            + "-"
-                                                            + "11"
-                                                            + " " + ore
-                                                            + ":"
-                                                            + minuti
-                                                            + ":00")));
-                                    database.insert("JOB_AUTOMATICI",
-                                            null, row);
-
-                                    row.clear();
-                                    row.put("ID_MOVIMENTO", cancellaJob);
-                                    row.put("DATA_START", dateFormat
-                                            .format(dateFormat
-                                                    .parse(anno + "-"
-                                                            + mese
-                                                            + "-"
-                                                            + "21"
-                                                            + " " + ore
-                                                            + ":"
-                                                            + minuti
-                                                            + ":00")));
-                                    database.insert("JOB_AUTOMATICI",
-                                            null, row);
-
-                                    c.add(Calendar.DATE, 30);
-                                }
-
-                                database.delete(
-                                        "JOB_AUTOMATICI",
-                                        "ID_MOVIMENTO = ? AND DATA_START < ? ",
-                                        new String[]{
-                                                cancellaJob,
-                                                dateFormat
-                                                        .format(dateObj)});
-
-                            }
-
-                            if (codiceFrequenza == 7)
-                                for (int j = 0; j < 36; j++) {
-                                    mese = c.get(Calendar.MONTH) + 1;
-                                    anno = c.get(Calendar.YEAR);
-
-                                    row.clear();
-                                    row.put("ID_MOVIMENTO", cancellaJob);
-                                    row.put("DATA_START", dateFormat
-                                            .format(dateFormat
-                                                    .parse(anno + "-"
-                                                            + mese
-                                                            + "-"
-                                                            + "01"
-                                                            + " " + ore
-                                                            + ":"
-                                                            + minuti
-                                                            + ":00")));
-                                    database.insert("JOB_AUTOMATICI",
-                                            null, row);
-
-                                    c.add(Calendar.DATE, 30);
-                                }
-
-                            if (codiceFrequenza == 8)
-                                for (int j = 0; j < 36; j++) {
-                                    giorno = c
-                                            .getActualMaximum(Calendar.DATE);
-                                    mese = c.get(Calendar.MONTH) + 1;
-                                    anno = c.get(Calendar.YEAR);
-
-                                    row.clear();
-                                    row.put("ID_MOVIMENTO", cancellaJob);
-                                    row.put("DATA_START", dateFormat
-                                            .format(dateFormat
-                                                    .parse(anno + "-"
-                                                            + mese
-                                                            + "-"
-                                                            + giorno
-                                                            + " " + ore
-                                                            + ":"
-                                                            + minuti
-                                                            + ":00")));
-                                    database.insert("JOB_AUTOMATICI",
-                                            null, row);
-
-                                    c.add(Calendar.DATE, 30);
-                                }
-                        } else {
-                            for (int j = 0; j < 1095; j++) {
-                                giorno = c.get(Calendar.DAY_OF_MONTH);
-                                mese = c.get(Calendar.MONTH) + 1;
-                                anno = c.get(Calendar.YEAR);
-
-                                row.clear();
-                                row.put("ID_MOVIMENTO", cancellaJob);
-                                row.put("DATA_START", dateFormat
-                                        .format(dateFormat.parse(anno
-                                                + "-" + mese + "-"
-                                                + giorno + " " + ore
-                                                + ":" + minuti + ":"
-                                                + secondi)));
-                                database.insert("JOB_AUTOMATICI", null,
-                                        row);
-
-                                c.add(Calendar.DATE, giorniFrequenza);
-                            }
-                        }
-                    }
-
-                    startJobAutomatici();
-                    database.setTransactionSuccessful();
-                    progressDialog.dismiss();
-
-                } catch (Exception e) {
-                    e.printStackTrace();
-                    message = e.getMessage();
-
-                } finally {
-                    database.endTransaction();
-                    message = null;
-                }
-
-                MainActivity.this.runOnUiThread(() -> {
-                    if (message == null)
-                        Toast.makeText(getApplicationContext(),
-                                R.string.spesaSalvataggioOk,
-                                Toast.LENGTH_SHORT).show();
-                    else
-                        Toast.makeText(getApplicationContext(),
-                                message,
-                                Toast.LENGTH_LONG).show();
-                });
-            }).start();
-        }
-    }
-
-    public void onHelpClick(View view) {
-        id = 10;
-        msgBox();
-    }
-
-    public void onAddDescrizioneClick(View view) {
-        id = 4;
-        msgBox();
-    }
-
-    public void onModificaDescrizioneClick(View view) {
-        id = 3;
-        descrizioneSpesa = findViewById(R.id.descrizioneSpesa);
-        if (descrizioneSpesa.getCount() > 0) {
-            msgBox();
-        }
-    }
-
     @Override
     protected void onResume() {
         super.onResume();
@@ -2842,7 +2560,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void chiamaBottoni() {
-        usciteBtn = findViewById(R.id.usciteBtn);
+        Button usciteBtn = findViewById(R.id.usciteBtn);
         if (usciteBtn != null) {
             usciteBtn.setOnClickListener(v -> {
                 uscita = true;
@@ -2853,7 +2571,7 @@ public class MainActivity extends AppCompatActivity {
             Log.e("MainActivity", "usciteBtn non trovato nel layout.");
         }
 
-        entrateBtn = findViewById(R.id.entrateBtn);
+        Button entrateBtn = findViewById(R.id.entrateBtn);
         if (entrateBtn != null) {
             entrateBtn.setOnClickListener(v -> {
                 uscita = false;
@@ -2864,7 +2582,7 @@ public class MainActivity extends AppCompatActivity {
             Log.e("MainActivity", "entrateBtn non trovato nel layout.");
         }
 
-        reportBtn = findViewById(R.id.reportBtn);
+        Button reportBtn = findViewById(R.id.reportBtn);
         if (reportBtn != null) {
             reportBtn.setOnClickListener(v -> {
                 menu_choise = R.menu.menu_report;
@@ -2874,7 +2592,7 @@ public class MainActivity extends AppCompatActivity {
             Log.e("MainActivity", "reportBtn non trovato nel layout.");
         }
 
-        automaticheBtn = findViewById(R.id.automaticheBtn);
+        Button automaticheBtn = findViewById(R.id.automaticheBtn);
         if (automaticheBtn != null) {
             automaticheBtn.setOnClickListener(v -> {
                 setTitle(getString(R.string.title_activity_main) + " - " + getString(R.string.menu_operazioni_automatiche));
@@ -2886,9 +2604,9 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-    // ******************************************************************
-    // DISPLAY
-    // ******************************************************************
+    /* *******************************************************************/
+    /* DISPLAY*/
+    /* *******************************************************************/
     private class PickDate implements DatePickerDialog.OnDateSetListener {
         public void onDateSet(DatePicker view, int year, int monthOfYear,
                               int dayOfMonth) {

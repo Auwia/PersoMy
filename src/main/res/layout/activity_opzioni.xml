@@ -9,12 +9,14 @@
         android:id="@+id/password"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:contentDescription="@string/passwordOption"
         android:text="@string/password" />
-    
-	<androidx.appcompat.widget.SwitchCompat
+
+    <androidx.appcompat.widget.SwitchCompat
         android:id="@+id/update"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:contentDescription="@string/update"
         android:text="@string/update" />
 
 </LinearLayout>

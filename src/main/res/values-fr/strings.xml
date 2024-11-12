@@ -108,6 +108,7 @@
     <string name="importoAutomaticaDesc">By this checkpoint you can select expenses (outcoming) or revenues (incoming).</string>
     <string name="soldiSpesaDesc">Insert here the import (value) amount of your in/out coming.</string>
     <string name="passwordVerifyDesc">Insert the password that you inserted before to confirm it.</string>
+    <string name="passwordOption">Enable here the possibility to configure a password to prevent unauthorized access.</string>
 
     <string-array name="frequenze">
                  <item>Quotidien</item>
