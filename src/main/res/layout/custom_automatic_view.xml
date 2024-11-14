@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <TableLayout 
-    xmlns:android="http://schemas.android.com/apk/res/android" 
+    xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
 	android:layout_height="wrap_content">
     
@@ -16,7 +16,7 @@
 	    android:layout_width="0dp"
 	    android:layout_height="wrap_content"
 	    android:layout_weight="50"
-	    android:textSize="13sp" 
+	    android:textSize="13sp"
 	    android:focusable="false"
 		android:focusableInTouchMode="false"
 		android:textIsSelectable="false" />
@@ -44,21 +44,22 @@
 		android:layout_width="0dp"
 		android:layout_height="wrap_content"
 		android:gravity="center"
-		android:layout_weight="50" 
+		android:layout_weight="50"
 		android:focusable="false"
 		android:focusableInTouchMode="false"
-		android:textSize="15sp" 
+		android:textSize="15sp"
 		android:text="" />
 	
 	<TextView
 		android:id="@+id/importoAutomatica"
 		android:layout_width="0dp"
 		android:layout_height="wrap_content"
-		android:gravity="right"
-		android:layout_weight="30" 
+		android:gravity="end"
+		android:layout_weight="30"
 		android:focusable="false"
 		android:focusableInTouchMode="false"
-		android:textSize="15sp" 
+		android:textSize="15sp"
+		android:contentDescription="@string/update"
 		android:text="" />
 		
 	<TextView
@@ -66,10 +67,10 @@
 		android:layout_width="0dp"
 		android:layout_height="wrap_content"
 		android:gravity="center"
-		android:layout_weight="5" 
+		android:layout_weight="5"
 		android:focusable="false"
 		android:focusableInTouchMode="false"
-		android:textSize="15sp" 
+		android:textSize="15sp"
 		android:textIsSelectable="false"/>
 	
 	<CheckBox

@@ -7,6 +7,8 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
+
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Currency;
@@ -27,8 +29,9 @@ public class ListaMovimentiGridViewAdapter extends ArrayAdapter<Lista>
          this.context = context;
      }
 
+     @NonNull
      @Override
-     public View getView(int position, View convertView, ViewGroup parent)
+     public View getView(int position, View convertView, @NonNull ViewGroup parent)
      {
          row = convertView;
          if(row == null)
@@ -41,11 +44,11 @@ public class ListaMovimentiGridViewAdapter extends ArrayAdapter<Lista>
 
          if(item != null)
          {   
-        	 TextView myListaData = (TextView) (row != null ? row.findViewById(R.id.dataListaCustom) : null);
-        	 TextView myListaDescription = (TextView) row.findViewById(R.id.descrizioneListaCustom);
-             TextView myListaSoldi = (TextView) row.findViewById(R.id.soldiListaCustom);
-             TextView myListaUscita = (TextView) row.findViewById(R.id.simbolo);
-             TextView mySimboloEuro = (TextView) row.findViewById(R.id.simboloEuro);
+        	 TextView myListaData = row != null ? row.findViewById(R.id.dataListaCustom) : null;
+        	 TextView myListaDescription = row.findViewById(R.id.descrizioneListaCustom);
+             TextView myListaSoldi = row.findViewById(R.id.soldiListaCustom);
+             TextView myListaUscita = row.findViewById(R.id.simbolo);
+             TextView mySimboloEuro = row.findViewById(R.id.simboloEuro);
              
 			if (mySimboloEuro != null) {
 				Locale loc = new Locale("it", "IT");

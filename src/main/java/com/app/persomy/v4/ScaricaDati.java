@@ -2,6 +2,7 @@ package com.app.persomy.v4;
 
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.util.Log;
 
 import java.text.DateFormatSymbols;
 import java.text.SimpleDateFormat;
@@ -79,7 +80,7 @@ public class ScaricaDati {
             cur = database.query("VARIE", new String[]{"descrizione"}, null, null, null, null, "descrizione");
         }
 
-        if (cur != null && cur.moveToFirst()) {
+        if (cur.moveToFirst()) {
             do {
                 listaSpinner.add(cur.getString(0));
             } while (cur.moveToNext());
@@ -106,7 +107,7 @@ public class ScaricaDati {
                 return String.valueOf(meseAppoggio);
 
         } catch (Exception e) {
-            e.printStackTrace();
+            Log.e("meseToNumber", "A generic error occurred", e);
         }
 
         return null;

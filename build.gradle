@@ -26,8 +26,8 @@ android {
         applicationId "com.app.persomy.v4"
         minSdkVersion 21
         targetSdkVersion 35
-        versionCode 300116
-        versionName "3.1.16"
+        versionCode 300117
+        versionName "3.1.17"
     }
 
     configurations.configureEach {
@@ -64,4 +64,5 @@ android {
 dependencies {
     implementation 'androidx.appcompat:appcompat:1.7.0'
     implementation 'com.google.android.play:integrity:1.4.0'
+    implementation "androidx.work:work-runtime:2.10.0"
 }

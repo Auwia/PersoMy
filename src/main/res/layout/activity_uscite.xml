@@ -27,7 +27,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
-            android:layout_marginLeft="15dp"
+            android:layout_marginStart="15dp"
             android:clickable="true"
             android:focusable="true"
             android:focusableInTouchMode="false"
@@ -55,7 +55,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:gravity="right"
+            android:gravity="end"
             android:inputType="numberDecimal"
             android:textSize="16sp"
             android:contentDescription="@string/soldiSpesaDesc"/>
@@ -65,7 +65,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
-            android:text="€"
+            android:text="@string/currency"
             android:textSize="20sp" />
 
         <ImageButton

@@ -58,7 +58,6 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.SwitchCompat;
 import androidx.core.app.ActivityCompat;
-import androidx.core.content.ContextCompat;
 
 import com.google.android.play.core.integrity.IntegrityManager;
 import com.google.android.play.core.integrity.IntegrityManagerFactory;
@@ -140,11 +139,14 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private static void copyFile(File src, File dst) throws IOException {
+        try (FileInputStream inStream = new FileInputStream(src);
+             FileOutputStream outStream = new FileOutputStream(dst);
+             FileChannel inChannel = inStream.getChannel();
+             FileChannel outChannel = outStream.getChannel()) {
 
-        try (FileChannel inChannel = new FileInputStream(src).getChannel(); FileChannel outChannel = new FileOutputStream(dst).getChannel()) {
             inChannel.transferTo(0, inChannel.size(), outChannel);
-        } catch (Exception e) {
-            e.printStackTrace();
+        } catch (IOException e) {
+            Log.e("CopyFile", "IO Exception occurred", e);
         }
     }
 
@@ -198,15 +200,14 @@ public class MainActivity extends AppCompatActivity {
 
         PersoMyDataSource datasource = new PersoMyDataSource(getApplicationContext());
         datasource.open();
-        database = openOrCreateDatabase(DATABASE_NAME,
-                Context.MODE_PRIVATE, null);
+        database = openOrCreateDatabase(DATABASE_NAME, Context.MODE_PRIVATE, null);
 
         try {
             if (PersoMyDB.latch != null)
                 PersoMyDB.latch.await();
 
         } catch (InterruptedException e) {
-            e.printStackTrace();
+            Log.e("onCreate", "Thread was interrupted", e);
         }
 
         if (verify.isTherePassword(database)) {
@@ -700,7 +701,7 @@ public class MainActivity extends AppCompatActivity {
                         progressDialog.dismiss();
 
                     } catch (Exception e) {
-                        e.printStackTrace();
+
                         message = e.getMessage();
 
                     } finally {
@@ -1176,14 +1177,14 @@ public class MainActivity extends AppCompatActivity {
         cur = database.query("VARIE", new String[]{"descrizione"}, null,
                 null, null, null, "descrizione");
         cur.moveToFirst();
-        int i = 0;
-        String[] array_spinner = new String[cur.getCount()];
+ /*        int i = 0;
+       String[] array_spinner = new String[cur.getCount()];
 
         while (!cur.isAfterLast()) {
             array_spinner[i] = cur.getString(0);
             i += 1;
             cur.moveToNext();
-        }
+        }*/
 
         cur.close();
 
@@ -1425,12 +1426,10 @@ public class MainActivity extends AppCompatActivity {
                                             row.put("DESCRIZIONE", input
                                                     .getText().toString()
                                                     .trim());
-                                            database.update("VARIE", row, "cont=?", new String[]{String
-                                                    .format("%d",
-                                                    scaricaDati
-                                                            .getSpesaCodiceDescrizione(descrizioneSpesa
-                                                                    .getSelectedItem()
-                                                                    .toString()))});
+                                            database.update("VARIE", row, "cont=?", new String[]{
+                                                    String.format(Locale.US, "%d", scaricaDati.getSpesaCodiceDescrizione(descrizioneSpesa.getSelectedItem().toString()))
+                                            });
+
                                             database.setTransactionSuccessful();
                                         } catch (Exception e) {
                                             Toast.makeText(
@@ -1667,7 +1666,7 @@ public class MainActivity extends AppCompatActivity {
                                         "application/vnd.android.package-archive");
                                 startActivity(intent);
                             } catch (Exception e) {
-                                e.printStackTrace();
+                                Log.e("msgBox", "A generic error occurred", e);
                             }
 
                             break;
@@ -1735,9 +1734,8 @@ public class MainActivity extends AppCompatActivity {
 
     public void startOpzioni() {
         contentPane.removeAllViews();
-        li = (LayoutInflater) this
-                .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        contentPane.addView(li.inflate(R.layout.activity_opzioni, null));
+        li = (LayoutInflater) this.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        contentPane.addView(li.inflate(R.layout.activity_opzioni, contentPane, false));
 
         menu_choise = R.menu.menu_solo_exit;
         invalidateOptionsMenu();
@@ -1803,7 +1801,7 @@ public class MainActivity extends AppCompatActivity {
         contentPane.removeAllViews();
         li = (LayoutInflater) this
                 .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        contentPane.addView(li.inflate(R.layout.activity_info, null));
+        contentPane.addView(li.inflate(R.layout.activity_info, contentPane, false));
 
         menu_choise = R.menu.menu_solo_exit;
         invalidateOptionsMenu();
@@ -1816,7 +1814,7 @@ public class MainActivity extends AppCompatActivity {
             info.append(String.valueOf(pInfo.versionName));
 
         } catch (Exception e) {
-            e.printStackTrace();
+            Log.e("startInfo", "A generic error occurred", e);
         }
     }
 
@@ -1831,7 +1829,7 @@ public class MainActivity extends AppCompatActivity {
         contentPane.removeAllViews();
         li = (LayoutInflater) this
                 .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        contentPane.addView(li.inflate(R.layout.activity_uscite, null));
+        contentPane.addView(li.inflate(R.layout.activity_uscite, contentPane, false));
 
         menu_choise = R.menu.menu_uscite;
 
@@ -1913,7 +1911,7 @@ public class MainActivity extends AppCompatActivity {
                 Toast.makeText(this, "Failed to create backup URI", Toast.LENGTH_SHORT).show();
             }
         } catch (Exception e) {
-            e.printStackTrace();
+            Log.e("startBackup", "A generic error occurred", e);
             Toast.makeText(this, "Backup failed: " + e.getMessage(), Toast.LENGTH_SHORT).show();
         }
     }
@@ -1952,7 +1950,7 @@ public class MainActivity extends AppCompatActivity {
         contentPane.removeAllViews();
         li = (LayoutInflater) this
                 .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        contentPane.addView(li.inflate(R.layout.activity_totale, null));
+        contentPane.addView(li.inflate(R.layout.activity_totale, contentPane, false));
 
         TextView simboloEuro = findViewById(R.id.simboloEuro);
 
@@ -1975,7 +1973,7 @@ public class MainActivity extends AppCompatActivity {
         contentPane.removeAllViews();
         li = (LayoutInflater) this
                 .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        contentPane.addView(li.inflate(R.layout.activity_anno, null));
+        contentPane.addView(li.inflate(R.layout.activity_anno, contentPane, false));
 
         TextView simboloEuro = findViewById(R.id.simboloEuro);
 
@@ -2120,7 +2118,7 @@ public class MainActivity extends AppCompatActivity {
         contentPane.removeAllViews();
         li = (LayoutInflater) this
                 .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        contentPane.addView(li.inflate(R.layout.activity_mensile, null));
+        contentPane.addView(li.inflate(R.layout.activity_mensile, contentPane, false));
 
         invalidateOptionsMenu();
 
@@ -2181,7 +2179,7 @@ public class MainActivity extends AppCompatActivity {
         contentPane.removeAllViews();
         li = (LayoutInflater) this
                 .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        contentPane.addView(li.inflate(R.layout.activity_periodo, null));
+        contentPane.addView(li.inflate(R.layout.activity_periodo, contentPane, false));
 
         invalidateOptionsMenu();
 
@@ -2220,7 +2218,7 @@ public class MainActivity extends AppCompatActivity {
         contentPane.removeAllViews();
         li = (LayoutInflater) this
                 .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        contentPane.addView(li.inflate(R.layout.activity_automatiche, null));
+        contentPane.addView(li.inflate(R.layout.activity_automatiche, contentPane, false));
 
         menu_choise = R.menu.menu_uscite;
 
@@ -2272,8 +2270,8 @@ public class MainActivity extends AppCompatActivity {
                         uscita, true, false));
                 cur.moveToNext();
             }
-        } catch (Exception ex) {
-            ex.printStackTrace();
+        } catch (Exception e) {
+            Log.e("startOperazioniAutomatiche", "A generic error occurred", e);
         } finally {
             cur.close();
         }
@@ -2324,8 +2322,8 @@ public class MainActivity extends AppCompatActivity {
                             true, false));
                     cur.moveToNext();
                 }
-            } catch (Exception ex) {
-                ex.printStackTrace();
+            } catch (Exception e) {
+                Log.e("startOperazioniAutomatiche", "A generic error occurred", e);
             } finally {
                 cur.close();
             }
@@ -2344,7 +2342,7 @@ public class MainActivity extends AppCompatActivity {
         contentPane.removeAllViews();
         li = (LayoutInflater) this
                 .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        contentPane.addView(li.inflate(R.layout.activity_voce, null));
+        contentPane.addView(li.inflate(R.layout.activity_voce, contentPane, false));
 
         ActionBar bar = getActionBar();
         if (bar != null) {

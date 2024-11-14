@@ -108,16 +108,27 @@
     <string name="soldiSpesaDesc">Insert here the import (value) amount of your in/out coming.</string>
     <string name="passwordVerifyDesc">Insert the password that you inserted before to confirm it.</string>
     <string name="passwordOption">Enable here the possibility to configure a password to prevent unauthorized access.</string>
+    <string name="importoAutomatica">Please insert an amount (value).</string>
 
     <string-array name="frequenze">
-                         <item>Diario</item>
-                         <item>Semanal</item>
-                         <item>Decenal</item>
-                         <item>Mensual</item>
-                         <item>Semestre</item>
-                         <item>Anual</item>
-                         <item>El primer día del mes</item>
-                         <item>Último día del mes</item>
+                
+        <item>Diario</item>
+                
+        <item>Semanal</item>
+                
+        <item>Decenal</item>
+                
+        <item>Mensual</item>
+                
+        <item>Semestre</item>
+                
+        <item>Anual</item>
+                
+        <item>El primer día del mes</item>
+                
+        <item>Último día del mes</item>
     </string-array>
     <string name="err_UnknownHostException">Unknown Host</string>
+    <string name="currency">€</string>
+    <string name="oraCalendario">Icon to be clicked to set the exact time of the financial operation.</string>
 </resources>

@@ -7,6 +7,8 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
+
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 
@@ -25,8 +27,9 @@ public class ReportAnnoGridViewAdapter extends ArrayAdapter<ListaReportAnno>
          this.context = context;
      }
 
+     @NonNull
      @Override
-     public View getView(int position, View convertView, ViewGroup parent)
+     public View getView(int position, View convertView, @NonNull ViewGroup parent)
      {
          row = convertView;
          if(row == null)
@@ -38,10 +41,11 @@ public class ReportAnnoGridViewAdapter extends ArrayAdapter<ListaReportAnno>
          ListaReportAnno item = myLista.get(position);
 
          if(item != null)
-         {   
-        	 TextView myListaMese = (TextView) (row != null ? row.findViewById(R.id.meseReportAnno) : null);
-        	 TextView myListaEntrata = (TextView) row.findViewById(R.id.entrateReportAnno);
-             TextView myListaUscita = (TextView) row.findViewById(R.id.usciteReportAnno);
+         {
+             assert row != null;
+        	 TextView myListaMese = row.findViewById(R.id.meseReportAnno);
+             TextView myListaEntrata = row.findViewById(R.id.entrateReportAnno);
+             TextView myListaUscita = row.findViewById(R.id.usciteReportAnno);
              
              if(myListaMese != null)
              {
