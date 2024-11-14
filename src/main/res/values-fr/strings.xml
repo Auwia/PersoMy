@@ -125,5 +125,6 @@
     <string name="err_UnknownHostException">Impossible de se connecter à www.aptoide.com de mise à jour</string>
     <string name="currency">€</string>
     <string name="oraCalendario">Icon to be clicked to set the exact time of the financial operation.</string>
+    <string name="eliminaSpesa">Please select a description for the out/in coming.</string>
 
 </resources>
