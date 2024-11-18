@@ -1,76 +1,100 @@
-<?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-    	xmlns:android="http://schemas.android.com/apk/res/android"
-    	android:layout_width="fill_parent"
-		android:layout_height="fill_parent" >
-	<LinearLayout
-		android:id="@+id/widget32"
-		android:layout_width="fill_parent"
-		android:layout_height="fill_parent"
-		android:orientation="vertical" >
-		<LinearLayout
-		    android:id="@+id/widget38"
-		    android:layout_width="fill_parent"
-		    android:layout_height="wrap_content"
-		    android:layout_gravity="center"
-		    android:gravity="center_horizontal"
-		    android:orientation="horizontal" >
-			<Spinner
-				android:id="@+id/selAnno"
-				android:layout_width="wrap_content"
-				android:layout_height="wrap_content" />
-		</LinearLayout>
-		<LinearLayout
-		    android:id="@+id/widget338"
-		    android:layout_width="fill_parent"
-		    android:layout_height="wrap_content"
-		    android:layout_gravity="center"
-		    android:gravity="center_horizontal"
-		    android:orientation="horizontal" >
-			<TextView
-		        android:layout_width="0dp"
-		        android:layout_weight="3"
-		        android:layout_height="fill_parent"
-	        	android:id="@+id/menu_mese"
-				android:text="@string/menu_mese"
-				android:gravity="center"/>
-			<TextView
-		        android:layout_width="0dp"
-		        android:layout_weight="3"
-	        	android:layout_height="fill_parent"
-				android:id="@+id/entrateColumnHeader"
-				android:text="@string/menu_entrate"
-				android:gravity="center"/>
-			<TextView
-		        android:layout_width="0dp"
-		        android:layout_weight="3"
-	        	android:layout_height="fill_parent"
-				android:id="@+id/usciteColumnHeader"
-				android:text="@string/menu_uscite"
-				android:gravity="center"/>
-		</LinearLayout>
-		<LinearLayout
-			android:id="@+id/widget45"
-			android:layout_width="fill_parent"
-			android:layout_height="wrap_content"
-			android:orientation="horizontal">
-			<GridView
-			    android:id="@+id/listaMovimentiAnno"
-			    android:layout_height="wrap_content"
-			    android:layout_width="wrap_content"
-			    android:gravity="center"
-			    android:numColumns="1"
-			    android:scrollbars="vertical|horizontal"
-			    android:stretchMode="columnWidth" />
-		</LinearLayout>
-	</LinearLayout>
-	
-	<include
-	    layout="@layout/totali_importi_bottom"
-	    android:id="@+id/idImportVoce"
-	    android:layout_width="match_parent"
-	    android:layout_height="wrap_content"
-		android:layout_alignParentBottom="true" >
-	</include>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <!-- Spinner e Titolo in alto -->
+    <LinearLayout
+        android:id="@+id/widget32"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:paddingTop="80dp"
+        android:paddingBottom="8dp">
+
+        <LinearLayout
+            android:id="@+id/widget38"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:paddingBottom="8dp">
+
+            <Spinner
+                android:id="@+id/selAnno"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+
+        <!-- Intestazione delle Colonne -->
+        <LinearLayout
+            android:id="@+id/widget338"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#DDDDDD"
+            android:orientation="horizontal"
+            android:padding="8dp">
+
+            <TextView
+                android:id="@+id/menu_mese"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:padding="4dp"
+                android:text="@string/menu_mese"
+                android:textSize="14sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/entrateColumnHeader"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:padding="4dp"
+                android:text="@string/menu_entrate"
+                android:textSize="14sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/usciteColumnHeader"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:padding="4dp"
+                android:text="@string/menu_uscite"
+                android:textSize="14sp"
+                android:textStyle="bold" />
+        </LinearLayout>
+    </LinearLayout>
+
+    <!-- Lista Movimenti -->
+    <LinearLayout
+        android:id="@+id/widget45"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_above="@id/idImportVoce"
+        android:layout_below="@id/widget32"
+        android:orientation="vertical"
+        android:padding="8dp">
+
+        <GridView
+            android:id="@+id/listaMovimentiAnno"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:horizontalSpacing="8dp"
+            android:numColumns="1"
+            android:stretchMode="columnWidth"
+            android:verticalSpacing="8dp" />
+    </LinearLayout>
+
+    <!-- Footer -->
+    <include
+        android:id="@+id/idImportVoce"
+        layout="@layout/totali_importi_bottom"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:layout_alignParentBottom="true" />
 
 </RelativeLayout>

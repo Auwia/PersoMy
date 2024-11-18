@@ -2,24 +2,28 @@
     android:id="@+id/contentPane"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:gravity="top"
     android:orientation="vertical">
 
     <TableRow
         android:id="@+id/widget33"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="25"
-        android:gravity="center">
+        android:layout_weight="1"
+        android:gravity="center"
+        android:paddingTop="4dp"
+        android:paddingBottom="4dp">
+
 
         <Button
             android:id="@+id/usciteBtn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="50"
             android:background="@android:color/transparent"
-            android:contentDescription="@string/dataCalendario"
+            android:contentDescription="@string/uscite_description"
             android:drawableTop="@drawable/uscite"
             android:gravity="center"
+            android:padding="4dp"
             android:text="@string/menu_uscite"
             android:textSize="14sp" />
 
@@ -27,11 +31,11 @@
             android:id="@+id/entrateBtn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="50"
             android:background="@android:color/transparent"
-            android:contentDescription="@string/dataCalendario"
+            android:contentDescription="@string/entrate_description"
             android:drawableTop="@drawable/entrate"
             android:gravity="center"
+            android:padding="4dp"
             android:text="@string/menu_entrate"
             android:textSize="14sp" />
 
@@ -41,18 +45,18 @@
         android:id="@+id/widget133"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="25"
+        android:layout_weight="1"
         android:gravity="center">
 
         <Button
             android:id="@+id/reportBtn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="50"
             android:background="@android:color/transparent"
-            android:contentDescription="@string/dataCalendario"
+            android:contentDescription="@string/report_description"
             android:drawableTop="@drawable/report"
             android:gravity="center"
+            android:padding="4dp"
             android:text="@string/menu_report"
             android:textSize="14sp" />
 
@@ -60,11 +64,11 @@
             android:id="@+id/automaticheBtn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="50"
             android:background="@android:color/transparent"
-            android:contentDescription="@string/dataCalendario"
+            android:contentDescription="@string/operazioni_automatiche_description"
             android:drawableTop="@drawable/operazioniautomatiche"
             android:gravity="center"
+            android:padding="4dp"
             android:text="@string/menu_operazioni_automatiche"
             android:textSize="14sp" />
 
@@ -74,19 +78,19 @@
         android:id="@+id/widget136"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="25"
+        android:layout_weight="1"
         android:gravity="center">
 
         <Button
             android:id="@+id/backupBtn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="50"
             android:background="@android:color/transparent"
-            android:contentDescription="@string/dataCalendario"
+            android:contentDescription="@string/backup_description"
             android:drawableTop="@drawable/backup"
             android:gravity="center"
             android:onClick="onBackupBtnPress"
+            android:padding="4dp"
             android:text="@string/menu_file_backup"
             android:textSize="14sp" />
 
@@ -94,12 +98,12 @@
             android:id="@+id/optionsBtn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="50"
             android:background="@android:color/transparent"
-            android:contentDescription="@string/dataCalendario"
+            android:contentDescription="@string/opzioni_description"
             android:drawableTop="@drawable/opzioni"
             android:gravity="center"
             android:onClick="onOptionsBtnPress"
+            android:padding="4dp"
             android:text="@string/menu_opzioni"
             android:textSize="14sp" />
 
@@ -109,19 +113,19 @@
         android:id="@+id/widget137"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="25"
+        android:layout_weight="1"
         android:gravity="center">
 
         <Button
             android:id="@+id/eliminaBtn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="50"
             android:background="@android:color/transparent"
-            android:contentDescription="@string/dataCalendario"
+            android:contentDescription="@string/elimina_description"
             android:drawableTop="@drawable/deleteform"
             android:gravity="center"
             android:onClick="onEliminaBtnPress"
+            android:padding="4dp"
             android:text="@string/menu_elimina"
             android:textSize="14sp" />
 
@@ -129,12 +133,12 @@
             android:id="@+id/exitBtn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="50"
             android:background="@android:color/transparent"
-            android:contentDescription="@string/dataCalendario"
+            android:contentDescription="@string/exit_description"
             android:drawableTop="@drawable/exit"
             android:gravity="center"
             android:onClick="onExitBtnPress"
+            android:padding="4dp"
             android:text="@string/menu_exit"
             android:textSize="14sp" />
 

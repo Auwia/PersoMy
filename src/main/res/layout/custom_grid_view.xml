@@ -9,7 +9,7 @@
     <TextView
         android:id="@+id/dataListaCustom"
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
+        android:layout_height="48dp"
         android:layout_weight="23"
         android:focusable="false"
         android:focusableInTouchMode="false"
@@ -19,7 +19,7 @@
     <TextView
         android:id="@+id/descrizioneListaCustom"
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
+        android:layout_height="48dp"
         android:layout_weight="52"
         android:focusable="false"
         android:focusableInTouchMode="false"
@@ -28,7 +28,7 @@
     <TextView
         android:id="@+id/simbolo"
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
+        android:layout_height="48dp"
         android:layout_weight="4"
         android:focusable="false"
         android:focusableInTouchMode="false"
@@ -38,9 +38,9 @@
     <TextView
         android:id="@+id/soldiListaCustom"
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:contentDescription="@string/soldiSpesaDesc"
+        android:layout_height="48dp"
         android:layout_weight="16"
+        android:contentDescription="@string/soldiSpesaDesc"
         android:focusable="false"
         android:focusableInTouchMode="false"
         android:gravity="end"
@@ -49,7 +49,7 @@
     <TextView
         android:id="@+id/simboloEuro"
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
+        android:layout_height="48dp"
         android:layout_weight="5"
         android:focusable="false"
         android:focusableInTouchMode="false"

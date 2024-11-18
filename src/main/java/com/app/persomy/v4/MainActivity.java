@@ -809,7 +809,7 @@ public class MainActivity extends AppCompatActivity {
 
         descrizioneSpesa = findViewById(R.id.descrizioneSpesa);
         all = findViewById(R.id.selectAll);
-        if (all.isChecked()) {
+        if (all.isChecked() && descrizioneSpesa.getSelectedItem() != null) {
             cur = database.query(
                     "MONEY a INNER JOIN VARIE B ON (a.DESCRIZIONE=b.CONT)",
                     new String[]{"a.DATA", "b.DESCRIZIONE", "a.prezzo",
