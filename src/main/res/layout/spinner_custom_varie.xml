@@ -14,6 +14,7 @@
 		android:gravity="start|center_vertical"
 		android:layout_gravity="center_vertical"
 		android:padding="@dimen/text_padding"
+		android:contentDescription="@string/menu_voce"
 		android:textColor="@android:color/black"
 		tools:text="" />
 

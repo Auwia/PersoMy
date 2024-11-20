@@ -48,6 +48,7 @@
 
     <TextView
         android:id="@+id/simboloEuro"
+        android:contentDescription="@string/currency"
         android:layout_width="0dp"
         android:layout_height="48dp"
         android:layout_weight="5"

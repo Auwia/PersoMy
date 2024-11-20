@@ -19,13 +19,14 @@
 		android:layout_weight="20"
 		android:layout_height="wrap_content" 
 		android:text=""
-		android:gravity="center_vertical|right" 
+		android:gravity="center_vertical|end"
 		android:textSize="12sp"/>
 	<TextView
 		android:id="@+id/simboloEuro"
 		android:layout_width="0dp"
 		android:layout_weight="5"
 		android:layout_height="wrap_content"
+		android:contentDescription="@string/currency"
 		android:text=""
 		android:textSize="12sp" />
 
@@ -41,12 +42,13 @@
 		android:layout_width="0dp"
 		android:layout_weight="20"
 		android:layout_height="wrap_content" 
-		android:gravity="center_vertical|right" 
+		android:gravity="center_vertical|end"
 		android:textSize="12sp"/>
 	<TextView
 		android:id="@+id/simboloEuro2"
 		android:layout_width="0dp"
 		android:layout_weight="5"
+		android:contentDescription="@string/currency"
 		android:layout_height="wrap_content"
 		android:textSize="12sp" />
 </TableRow>

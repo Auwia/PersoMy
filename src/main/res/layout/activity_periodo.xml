@@ -23,7 +23,7 @@
                 android:layout_height="25dp"
                 android:layout_gravity="center_vertical"
                 android:background="@android:drawable/ic_menu_my_calendar"
-                android:contentDescription="@string/dataCalendario"
+                android:contentDescription="@string/dataCalendarioAuto"
                 android:focusable="false"
                 android:focusableInTouchMode="false"
                 android:onClick="onDataPeriodoDaBtnPress"
@@ -31,6 +31,7 @@
 
             <TextView
                 android:id="@+id/dataAutomaticaTxtDa"
+                android:contentDescription="@string/dataCalendarioAutoTxt"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="45"
@@ -90,6 +91,7 @@
 
             <Spinner
                 android:id="@+id/descrizioneSpesa"
+                android:contentDescription="@string/menu_voce"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
 

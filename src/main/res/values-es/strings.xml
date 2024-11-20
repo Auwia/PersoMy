@@ -129,6 +129,9 @@
                 
         <item>Último día del mes</item>
     </string-array>
+    <string name="dataCalendarioAuto">Select a date for automatic booking of expensive or revenue automatically.</string>
+    <string name="dataCalendarioAutoTxt">Select a date for automatic booking of expensive or revenue automatically via text link.</string>
+
     <string name="err_UnknownHostException">Unknown Host</string>
     <string name="currency">€</string>
     <string name="oraCalendario">Icon to be clicked to set the exact time of the financial operation.</string>
@@ -140,5 +143,7 @@
     <string name="backup_description">By clicking here you can create a backup or restore it.</string>
     <string name="opzioni_description">Here you can set some options, like automatic update or set a password to access the app.</string>
     <string name="elimina_description">Here you can fully delete an item, but please be aware if you have no backup, you cannot revert back.</string>
-    <string name="exit_description">Click here to quit the app.</string>
+    <string name="exit_description">Quit the app.</string>
+    <string name="selectAnno">Please select a Year available to display data.</string>
+
 </resources>

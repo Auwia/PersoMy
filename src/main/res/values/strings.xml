@@ -58,7 +58,9 @@
     <string name="menu_ripristino_backup">Restore Backup</string>
     <string name="aggiungiVoceGriglia">Add</string>
     <string name="togliVoceGriglia">Delete</string>
-    <string name="dataCalendario">Select date</string>
+    <string name="dataCalendario">Select a date</string>
+    <string name="dataCalendarioAuto">Select a date for automatic booking of expensive or revenue automatically via button.</string>
+    <string name="dataCalendarioAutoTxt">Select a date for automatic booking of expensive or revenue automatically via text link.</string>
     <string name="menu_voce">Item</string>
     <string name="selectAll">All</string>
     <string name="update">Automatic Update</string>
@@ -141,5 +143,6 @@
     <string name="backup_description">By clicking here you can create a backup or restore it.</string>
     <string name="opzioni_description">Here you can set some options, like automatic update or set a password to access the app.</string>
     <string name="elimina_description">Here you can fully delete an item, but please be aware if you have no backup, you cannot revert back.</string>
-    <string name="exit_description">Click here to quit the app.</string>
+    <string name="exit_description">Quit the app.</string>
+    <string name="selectAnno">Please select a Year available to display data.</string>
 </resources>

@@ -939,6 +939,17 @@ public class MainActivity extends AppCompatActivity {
                 mDay);
         dialogDateA = new DatePickerDialog(this, new PickDate(), mYear, mMonth,
                 mDay);
+
+        dialogDate.setOnShowListener(dialog -> {
+            DatePicker datePicker = dialogDate.getDatePicker();
+            datePicker.setContentDescription(getString(R.string.dataCalendario));
+        });
+
+        dialogDateA.setOnShowListener(dialog -> {
+            DatePicker datePicker = dialogDateA.getDatePicker();
+            datePicker.setContentDescription(getString(R.string.dataCalendario));
+        });
+
         dialogDate.updateDate(mYear, mMonth, mDay);
         dialogDateA.updateDate(mYear, mMonth, mDay);
         updateDisplay(0);
@@ -1237,6 +1248,7 @@ public class MainActivity extends AppCompatActivity {
         LayoutInflater inflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         AlertDialog.Builder alert = new AlertDialog.Builder(this);
         input = new EditText(this);
+        input.setContentDescription(getString(R.string.spesaAggiungiVoce));
 
         switch (id) {
             case 1:

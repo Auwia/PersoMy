@@ -46,6 +46,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:contentDescription="@string/menu_voce"
             android:drawSelectorOnTop="true"
             android:prompt="@string/menu_selezione_voce"
             android:textColor="#000000" />
@@ -55,13 +56,14 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:contentDescription="@string/soldiSpesaDesc"
             android:gravity="end"
             android:inputType="numberDecimal"
-            android:textSize="16sp"
-            android:contentDescription="@string/soldiSpesaDesc"/>
+            android:textSize="16sp" />
 
         <TextView
             android:id="@+id/simboloEuro"
+            android:contentDescription="@string/currency"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"

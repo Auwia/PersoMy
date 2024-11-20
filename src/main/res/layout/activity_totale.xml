@@ -1,92 +1,108 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-	android:id="@+id/widget32"
-	android:layout_width="fill_parent"
-	android:layout_height="fill_parent"
-	android:orientation="vertical"
-	xmlns:android="http://schemas.android.com/apk/res/android">
-	<TableRow
-		android:id="@+id/widget145"
-		android:paddingTop="7dp"
-		android:layout_width="fill_parent"
-		android:layout_height="fill_parent">	
-		<TextView
-			android:id="@+id/widget47"
-			android:layout_width="wrap_content"
-			android:layout_height="wrap_content"
-			android:text="@string/TOTEntrate"
-			android:textSize="15sp" />
-		<TextView
-			android:id="@+id/totaleEntrate"
-			android:layout_width="wrap_content"
-			android:layout_height="wrap_content" 
-			android:text=""
-			android:paddingLeft="15dp"
-			android:textSize="15sp"
-			android:gravity="right"
-			android:layout_gravity="right" />
-		<TextView
-			android:id="@+id/simboloEuro"
-			android:layout_width="wrap_content"
-			android:layout_height="wrap_content"
-			android:text=""
-			android:textSize="15sp"
-			android:width="10dp" />
-	</TableRow>
-	<TableRow
-		android:id="@+id/widget1450"
-		android:paddingTop="7dp"
-		android:layout_width="fill_parent"
-		android:layout_height="fill_parent" >
-		<TextView
-			android:id="@+id/widget51"
-			android:layout_width="wrap_content"
-			android:layout_height="wrap_content"
-			android:text="@string/TOTUscite"
-			android:textSize="15sp" />
-		<TextView
-			android:id="@+id/totaleUscite"
-			android:layout_width="wrap_content"
-			android:layout_height="wrap_content" 
-			android:paddingLeft="15dp"
-			android:text=""
-			android:gravity="right"
-			android:layout_gravity="right"
-			android:textSize="15sp" />
-		<TextView
-			android:id="@+id/simboloEuro2"
-			android:layout_width="wrap_content"
-			android:layout_height="wrap_content"
-			android:text=""
-			android:textSize="15sp"
-			android:width="10dp" />
-	</TableRow>
-	<TableRow
-		android:id="@+id/widget1451"
-		android:paddingTop="7dp"
-		android:layout_width="fill_parent"
-		android:layout_height="fill_parent" >
-		<TextView
-			android:id="@+id/widget55"
-			android:layout_width="wrap_content"
-			android:layout_height="wrap_content"
-			android:text="@string/saldo"
-			android:textSize="15sp" />
-		<TextView
-			android:id="@+id/totaleSaldo"
-			android:layout_width="wrap_content"
-			android:layout_height="wrap_content" 
-			android:paddingLeft="15dp"
-			android:text=""
-			android:gravity="right"
-			android:layout_gravity="right"
-			android:textSize="15sp" />
-		<TextView
-			android:id="@+id/simboloEuro3"
-			android:layout_width="wrap_content"
-			android:layout_height="wrap_content"
-			android:text=""
-			android:textSize="15sp"
-			android:width="10dp" />
-	</TableRow>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/widget32"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:orientation="vertical">
+
+    <TableRow
+        android:id="@+id/widget145"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:paddingTop="7dp">
+
+        <TextView
+            android:id="@+id/widget47"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/TOTEntrate"
+            android:textSize="15sp" />
+
+        <TextView
+            android:id="@+id/totaleEntrate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end"
+            android:gravity="end"
+            android:paddingLeft="15dp"
+            android:text=""
+            android:textSize="15sp" />
+
+        <TextView
+            android:id="@+id/simboloEuro"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:width="10dp"
+            android:contentDescription="@string/currency"
+            android:text=""
+            android:textSize="15sp" />
+    </TableRow>
+
+    <TableRow
+        android:id="@+id/widget1450"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:paddingTop="7dp">
+
+        <TextView
+            android:id="@+id/widget51"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/TOTUscite"
+            android:textSize="15sp" />
+
+        <TextView
+            android:id="@+id/totaleUscite"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end"
+            android:gravity="end"
+            android:paddingStart="15dp"
+            android:paddingEnd="5dp"
+            android:text=""
+            android:textSize="15sp" />
+
+        <TextView
+            android:id="@+id/simboloEuro2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:width="10dp"
+            android:contentDescription="@string/currency"
+            android:text=""
+            android:textSize="15sp" />
+    </TableRow>
+
+    <TableRow
+        android:id="@+id/widget1451"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:paddingTop="7dp">
+
+        <TextView
+            android:id="@+id/widget55"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/saldo"
+            android:textSize="15sp" />
+
+        <TextView
+            android:id="@+id/totaleSaldo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end"
+            android:gravity="end"
+            android:paddingStart="15dp"
+            android:paddingEnd="5dp"
+            android:text=""
+            android:textSize="15sp" />
+
+        <TextView
+            android:id="@+id/simboloEuro3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:width="10dp"
+            android:contentDescription="@string/currency"
+            android:text=""
+            android:textSize="15sp" />
+    </TableRow>
 </LinearLayout>
