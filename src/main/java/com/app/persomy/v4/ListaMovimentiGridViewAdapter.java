@@ -45,7 +45,8 @@ public class ListaMovimentiGridViewAdapter extends ArrayAdapter<Lista>
          if(item != null)
          {   
         	 TextView myListaData = row != null ? row.findViewById(R.id.dataListaCustom) : null;
-        	 TextView myListaDescription = row.findViewById(R.id.descrizioneListaCustom);
+             assert row != null;
+             TextView myListaDescription = row.findViewById(R.id.descrizioneListaCustom);
              TextView myListaSoldi = row.findViewById(R.id.soldiListaCustom);
              TextView myListaUscita = row.findViewById(R.id.simbolo);
              TextView mySimboloEuro = row.findViewById(R.id.simboloEuro);
@@ -71,7 +72,7 @@ public class ListaMovimentiGridViewAdapter extends ArrayAdapter<Lista>
              if(myListaSoldi != null)
              {
             	 DecimalFormat df = new DecimalFormat("###,##0.00");
-            	 myListaSoldi.setText(String.valueOf(df.format(item.getListaPrezzo())));
+            	 myListaSoldi.setText(df.format(item.getListaPrezzo()));
             	 myListaSoldi.setTextSize(12);
              }
              

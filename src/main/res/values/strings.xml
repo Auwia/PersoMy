@@ -109,6 +109,8 @@
     <string name="passwordVerifyDesc">Insert the password that you inserted before to confirm it.</string>
     <string name="passwordOption">Enable here the possibility to configure a password to prevent unauthorized access.</string>
     <string name="importoAutomatica">Please insert an amount (value).</string>
+    <string name="manage_external_storage_permission_reason">This app needs full file access to manage and back up data efficiently.</string>
+
 
     <string-array name="frequenze">
                 

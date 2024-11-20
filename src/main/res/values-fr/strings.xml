@@ -110,16 +110,25 @@
     <string name="passwordVerifyDesc">Insert the password that you inserted before to confirm it.</string>
     <string name="passwordOption">Enable here the possibility to configure a password to prevent unauthorized access.</string>
     <string name="importoAutomatica">Please insert an amount (value).</string>
+    <string name="manage_external_storage_permission_reason">This app needs full file access to manage and back up data efficiently.</string>
 
     <string-array name="frequenze">
-                 <item>Quotidien</item>
-                 <item>Hebdo</item>
-                 <item>Decadal</item>
-                 <item>Mensuellement</item>
-                 <item>Demi-année</item>
-                 <item>Annuel</item>
-                 <item>Premier jour du mois</item>
-                 <item>Dernier jour du mois</item>
+                
+        <item>Quotidien</item>
+                
+        <item>Hebdo</item>
+                
+        <item>Decadal</item>
+                
+        <item>Mensuellement</item>
+                
+        <item>Demi-année</item>
+                
+        <item>Annuel</item>
+                
+        <item>Premier jour du mois</item>
+                
+        <item>Dernier jour du mois</item>
     </string-array>
 
     <string name="err_UnknownHostException">Impossible de se connecter à www.aptoide.com de mise à jour</string>

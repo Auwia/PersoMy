@@ -3,7 +3,6 @@ package com.app.persomy.v4;
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.CheckBox;
@@ -62,22 +61,18 @@ public class SpesaListViewAdapter extends ArrayAdapter<Spesa> {
 
             if (mySpesaSoldi != null) {
                 DecimalFormat df = new DecimalFormat("###,##0.00");
-                mySpesaSoldi.setText(String.valueOf(df.format(item
-                        .getSpesaPrezzo())));
+                mySpesaSoldi.setText(df.format(item
+                        .getSpesaPrezzo()));
             }
 
             if (mySpesaFlaggata != null)
                 mySpesaFlaggata.setChecked(item.getSpesaFlaggata());
 
             if (mySpesaFlaggata != null) {
-                mySpesaFlaggata.setOnClickListener(new OnClickListener() {
-                    public void onClick(View v) {
-                        mySpesa.set(pos, new Spesa(mySpesa.get(pos)
-                                .getSpesaName(), mySpesa.get(pos)
-                                .getSpesaPrezzo(), mySpesa.get(pos)
-                                .getSpesaSalvata(), ((CheckBox) v).isChecked()));
-                    }
-                });
+                mySpesaFlaggata.setOnClickListener(v -> mySpesa.set(pos, new Spesa(mySpesa.get(pos)
+                        .getSpesaName(), mySpesa.get(pos)
+                        .getSpesaPrezzo(), mySpesa.get(pos)
+                        .getSpesaSalvata(), ((CheckBox) v).isChecked())));
             }
         }
 

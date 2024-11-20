@@ -103,7 +103,7 @@ public class PersoMyDB extends SQLiteOpenHelper {
     private static final String CREATE_INDEX_JOB_AUTOMATICI = "CREATE INDEX [IDX_JOB_AUTOMATICI_ID_MOVIMENTO] ON [JOB_AUTOMATICI] ([ID_MOVIMENTO] ASC);";
     private static final String CREATE_INDEX_IDX_MOVIMENTI_AUTOMATICI_ID = "CREATE UNIQUE INDEX [IDX_MOVIMENTI_AUTOMATICI_ID] ON [MOVIMENTI_AUTOMATICI] ([ID] ASC);";
     public static CountDownLatch latch;
-    private Context myContext;
+    private final Context myContext;
     private SQLiteDatabase myDatabase;
 
     public PersoMyDB(Context context) {
@@ -119,39 +119,29 @@ public class PersoMyDB extends SQLiteOpenHelper {
 
         createTableIndex();
 
-        new Thread(new Runnable() {
-            public void run() {
-                insertFasamentoIniziale(R.raw.popola_money);
-                latch.countDown();
-            }
+        new Thread(() -> {
+            insertFasamentoIniziale(R.raw.popola_money);
+            latch.countDown();
         }).start();
 
-        new Thread(new Runnable() {
-            public void run() {
-                insertFasamentoIniziale(R.raw.popola_orario);
-                latch.countDown();
-            }
+        new Thread(() -> {
+            insertFasamentoIniziale(R.raw.popola_orario);
+            latch.countDown();
         }).start();
 
-        new Thread(new Runnable() {
-            public void run() {
-                insertFasamentoIniziale(R.raw.popola_sede);
-                latch.countDown();
-            }
+        new Thread(() -> {
+            insertFasamentoIniziale(R.raw.popola_sede);
+            latch.countDown();
         }).start();
 
-        new Thread(new Runnable() {
-            public void run() {
-                insertFasamentoIniziale(R.raw.popola_varie);
-                latch.countDown();
-            }
+        new Thread(() -> {
+            insertFasamentoIniziale(R.raw.popola_varie);
+            latch.countDown();
         }).start();
 
-        new Thread(new Runnable() {
-            public void run() {
-                insertFasamentoIniziale(R.raw.popola_opzioni);
-                latch.countDown();
-            }
+        new Thread(() -> {
+            insertFasamentoIniziale(R.raw.popola_opzioni);
+            latch.countDown();
         }).start();
     }
 

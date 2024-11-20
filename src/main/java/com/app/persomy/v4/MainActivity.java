@@ -59,13 +59,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.SwitchCompat;
 import androidx.core.app.ActivityCompat;
 
-import com.google.android.play.core.integrity.IntegrityManager;
-import com.google.android.play.core.integrity.IntegrityManagerFactory;
-import com.google.android.play.core.integrity.IntegrityTokenRequest;
-
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
@@ -78,7 +73,6 @@ import java.util.Currency;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
-import java.util.UUID;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -86,7 +80,6 @@ public class MainActivity extends AppCompatActivity {
     /* VARIABILI DATA BASE */
     private static final String DATABASE_NAME = "PersoMyDB.db";
     private static final int REQUEST_WRITE_STORAGE = 112;
-    public static int CURRENT_VERSION = -1;
     private static Boolean uscita = true;
     /* CALENDARI E OROLOGI */
     private final Calendar c = Calendar.getInstance();
@@ -166,35 +159,31 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+            if (!Environment.isExternalStorageManager()) {
+                Intent intent = new Intent(Settings.ACTION_MANAGE_APP_ALL_FILES_ACCESS_PERMISSION);
+                intent.setData(Uri.parse("package:" + getPackageName()));
+                startActivity(intent);
+            }
+        } else {
+            /* For devices running Android 10 or lower */
+            ActivityCompat.requestPermissions(this, new String[]{
+                    Manifest.permission.READ_EXTERNAL_STORAGE,
+                    Manifest.permission.WRITE_EXTERNAL_STORAGE}, 1);
+        }
+
         String deviceId = Utils.getId(getApplicationContext());
         Log.i("Main:onCreate", deviceId);
 
         myFrequenza = new ArrayList<>();
-        myFrequenza.add(new Frequenza(1, "Giornaliero", 1));
-        myFrequenza.add(new Frequenza(2, "Settimanale", 7));
-        myFrequenza.add(new Frequenza(3, "Decadale", 0));
-        myFrequenza.add(new Frequenza(4, "Mensile", 30));
-        myFrequenza.add(new Frequenza(5, "Semestrale", 180));
-        myFrequenza.add(new Frequenza(6, "Annuale", 365));
-        myFrequenza.add(new Frequenza(7, "Primo giorno del mese", 0));
-        myFrequenza.add(new Frequenza(8, "Ultimo giorno del mese", 0));
-
-        String nonce = UUID.randomUUID().toString();
-        IntegrityManager integrityManager = IntegrityManagerFactory.create(this);
-        integrityManager.requestIntegrityToken(
-                        IntegrityTokenRequest.builder()
-                                .setCloudProjectNumber(45902672061L)
-                                .setNonce(nonce)
-                                .build())
-                .addOnCompleteListener(task -> {
-                    if (task.isSuccessful()) {
-                        String integrityToken = task.getResult().token();
-                        /* Invia il token al server backend per la verifica */
-                    } else {
-                        /* Gestisci l'errore, ad esempio mancanza di connessione */
-                    }
-                });
-
+        myFrequenza.add(new Frequenza("Giornaliero"));
+        myFrequenza.add(new Frequenza("Settimanale"));
+        myFrequenza.add(new Frequenza("Decadale"));
+        myFrequenza.add(new Frequenza("Mensile"));
+        myFrequenza.add(new Frequenza("Semestrale"));
+        myFrequenza.add(new Frequenza("Annuale"));
+        myFrequenza.add(new Frequenza("Primo giorno del mese"));
+        myFrequenza.add(new Frequenza("Ultimo giorno del mese"));
 
         contentPane = findViewById(R.id.contentPane);
 
@@ -786,141 +775,160 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void onSearchBtnPress(View v) {
+        try {
+            if (mDateDisplayDa == null || mDateDisplayA == null ||
+                    mDateDisplayDa.getText().toString().isEmpty() ||
+                    mDateDisplayA.getText().toString().isEmpty()) {
+                Toast.makeText(this, "Inserire le date richieste", Toast.LENGTH_SHORT).show();
+                return;
+            }
+
+            dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.ROOT);
+            dateObj = dateFormat.parse(mDateDisplayDa.getText().toString().substring(6, 10)
+                    + "-" + mDateDisplayDa.getText().toString().substring(3, 5)
+                    + "-" + mDateDisplayDa.getText().toString().substring(0, 2)
+                    + " 00:00:00");
+            dateObjA = dateFormat.parse(mDateDisplayA.getText().toString().substring(6, 10)
+                    + "-" + mDateDisplayA.getText().toString().substring(3, 5)
+                    + "-" + mDateDisplayA.getText().toString().substring(0, 2)
+                    + " 00:00:00");
+
+            if (dateObj == null || dateObjA == null) {
+                Toast.makeText(this, "Errore nel parsing delle date", Toast.LENGTH_SHORT).show();
+                return;
+            }
+
+        } catch (Exception e) {
+            Log.e("onSearchBtnPress", "Errore nel parsing delle date", e);
+            Toast.makeText(this, "Errore nel parsing delle date: " + e.getMessage(), Toast.LENGTH_SHORT).show();
+            return;
+        }
 
         try {
-            dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss",
-                    Locale.ROOT);
-            dateObj = dateFormat.parse(mDateDisplayDa.getText().toString()
-                    .substring(6, 10)
-                    + "-"
-                    + mDateDisplayDa.getText().toString().substring(3, 5)
-                    + "-"
-                    + mDateDisplayDa.getText().toString().substring(0, 2)
-                    + " 00:00:00");
-            dateObjA = dateFormat.parse(mDateDisplayA.getText().toString()
-                    .substring(6, 10)
-                    + "-"
-                    + mDateDisplayA.getText().toString().substring(3, 5)
-                    + "-"
-                    + mDateDisplayA.getText().toString().substring(0, 2)
-                    + " 00:00:00");
-        } catch (Exception ignored) {
-        }
+            descrizioneSpesa = findViewById(R.id.descrizioneSpesa);
+            all = findViewById(R.id.selectAll);
 
-        descrizioneSpesa = findViewById(R.id.descrizioneSpesa);
-        all = findViewById(R.id.selectAll);
-        if (all.isChecked() && descrizioneSpesa.getSelectedItem() != null) {
-            cur = database.query(
-                    "MONEY a INNER JOIN VARIE B ON (a.DESCRIZIONE=b.CONT)",
-                    new String[]{"a.DATA", "b.DESCRIZIONE", "a.prezzo",
-                            "a.uscita"},
-                    "data>=? and data<=?",
-                    new String[]{dateFormat.format(dateObj),
-                            dateFormat.format(dateObjA)}, null, null,
-                    "a.DATA, a.uscita");
-        } else {
-            cur = database.query(
-                    "MONEY a INNER JOIN VARIE B ON (a.DESCRIZIONE=b.CONT)",
-                    new String[]{"a.DATA", "b.DESCRIZIONE", "a.prezzo",
-                            "a.uscita"},
-                    "data>=? and data<=? and b.descrizione=?",
-                    new String[]{dateFormat.format(dateObj),
-                            dateFormat.format(dateObjA),
-                            descrizioneSpesa.getSelectedItem().toString()},
-                    null, null, "a.DATA, a.uscita");
-        }
-        myLista = new ArrayList<>();
-
-        cur.moveToFirst();
-
-        while (cur.getCount() > 0 && !cur.isAfterLast()) {
-            try {
-                dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss",
-                        Locale.ROOT);
-                Date date = dateFormat.parse(cur.getString(0));
-                dateFormat.applyPattern("dd/MM/yyyy");
-
-                Boolean a = (cur.getString(3).equals("1"));
-
-                myLista.add(new Lista(dateFormat.format(date),
-                        cur.getString(1), Double.parseDouble(cur.getString(2)),
-                        a));
-                cur.moveToNext();
-            } catch (Exception ignored) {
+            if (descrizioneSpesa == null || all == null) {
+                Toast.makeText(this, "Errore: Componenti mancanti nel layout", Toast.LENGTH_SHORT).show();
+                return;
             }
+
+            if (all.isChecked() && descrizioneSpesa.getSelectedItem() != null) {
+                cur = database.query(
+                        "MONEY a INNER JOIN VARIE B ON (a.DESCRIZIONE=b.CONT)",
+                        new String[]{"a.DATA", "b.DESCRIZIONE", "a.prezzo", "a.uscita"},
+                        "data>=? and data<=?",
+                        new String[]{dateFormat.format(dateObj), dateFormat.format(dateObjA)},
+                        null, null, "a.DATA, a.uscita");
+            } else if (descrizioneSpesa.getSelectedItem() != null) {
+                cur = database.query(
+                        "MONEY a INNER JOIN VARIE B ON (a.DESCRIZIONE=b.CONT)",
+                        new String[]{"a.DATA", "b.DESCRIZIONE", "a.prezzo", "a.uscita"},
+                        "data>=? and data<=? and b.descrizione=?",
+                        new String[]{dateFormat.format(dateObj), dateFormat.format(dateObjA),
+                                descrizioneSpesa.getSelectedItem().toString()},
+                        null, null, "a.DATA, a.uscita");
+            } else {
+                Toast.makeText(this, "Selezionare una descrizione", Toast.LENGTH_SHORT).show();
+                return;
+            }
+
+            if (cur == null || cur.getCount() == 0) {
+                Toast.makeText(this, "Nessun dato trovato", Toast.LENGTH_SHORT).show();
+                return;
+            }
+
+            myLista = new ArrayList<>();
+            cur.moveToFirst();
+
+            while (!cur.isAfterLast()) {
+                try {
+                    Date date = dateFormat.parse(cur.getString(0));
+                    dateFormat.applyPattern("dd/MM/yyyy");
+                    Boolean uscita = "1".equals(cur.getString(3));
+                    myLista.add(new Lista(dateFormat.format(date), cur.getString(1),
+                            Double.parseDouble(cur.getString(2)), uscita));
+                    cur.moveToNext();
+                } catch (Exception e) {
+                    Log.e("onSearchBtnPress", "Errore durante la lettura del database", e);
+                }
+            }
+
+            cur.close();
+
+            // Imposta l'adapter per la GridView
+            myAdapterLista = new ListaMovimentiGridViewAdapter(this, myLista);
+            myGridView = findViewById(R.id.listaMovimenti);
+
+            if (myGridView != null) {
+                myGridView.setAdapter(myAdapterLista);
+                Display display = getWindowManager().getDefaultDisplay();
+                Point size = new Point();
+                display.getSize(size);
+                LayoutParams lp = myGridView.getLayoutParams();
+                lp.height = size.y * 70 / 100;
+                myGridView.setLayoutParams(lp);
+            } else {
+                Toast.makeText(this, "Errore: GridView non trovata", Toast.LENGTH_SHORT).show();
+            }
+
+            // Calcolo Totali
+            calculateTotals(dateObj, dateObjA, descrizioneSpesa, all);
+
+        } catch (Exception e) {
+            Log.e("onSearchBtnPress", "Errore durante l'elaborazione", e);
+            Toast.makeText(this, "Errore durante l'elaborazione: " + e.getMessage(), Toast.LENGTH_SHORT).show();
         }
+    }
 
-        cur.close();
+    private void calculateTotals(Date dateObj, Date dateObjA, Spinner descrizioneSpesa, CheckBox all) {
+        try {
+            TextView totUscite = findViewById(R.id.totaleUscite);
+            TextView totEntrate = findViewById(R.id.totaleEntrate);
 
-        myAdapterLista = new ListaMovimentiGridViewAdapter(this, myLista);
-        myGridView = findViewById(R.id.listaMovimenti);
-        myGridView.setAdapter(myAdapterLista);
+            if (totUscite == null || totEntrate == null) {
+                Toast.makeText(this, "Errore: TextView per totali non trovate", Toast.LENGTH_SHORT).show();
+                return;
+            }
 
-        Display display = getWindowManager().getDefaultDisplay();
-        Point size = new Point();
-        display.getSize(size);
-        LayoutParams lp = myGridView.getLayoutParams();
-        lp.height = size.y * 70 / 100;
-        myGridView.setLayoutParams(lp);
+            String[] dateRange = {dateFormat.format(dateObj), dateFormat.format(dateObjA)};
 
-        dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.ROOT);
-        if (all.isChecked())
-            cur = database.query(
-                    "MONEY",
-                    new String[]{"SUM(prezzo)"},
-                    "uscita=0 and data>=? and data<=?",
-                    new String[]{dateFormat.format(dateObj),
-                            dateFormat.format(dateObjA)}, null, null, null);
-        else
-            cur = database.query(
-                    "MONEY a INNER JOIN VARIE B ON (a.DESCRIZIONE=b.CONT)",
-                    new String[]{"SUM(prezzo)"},
-                    "uscita=0 and data>=? and data<=? and b.descrizione=?",
-                    new String[]{dateFormat.format(dateObj),
-                            dateFormat.format(dateObjA),
-                            descrizioneSpesa.getSelectedItem().toString()},
-                    null, null, null);
-        cur.moveToFirst();
+            cur = all.isChecked()
+                    ? database.query("MONEY", new String[]{"SUM(prezzo)"},
+                    "uscita=0 and data>=? and data<=?", dateRange, null, null, null)
+                    : database.query("MONEY a INNER JOIN VARIE B ON (a.DESCRIZIONE=b.CONT)",
+                    new String[]{"SUM(prezzo)"}, "uscita=0 and data>=? and data<=? and b.descrizione=?",
+                    new String[]{dateFormat.format(dateObj), dateFormat.format(dateObjA),
+                            descrizioneSpesa.getSelectedItem().toString()}, null, null, null);
 
-        TextView totUscite = findViewById(R.id.totaleUscite);
-        TextView totEntrate = findViewById(R.id.totaleEntrate);
+            if (cur != null && cur.moveToFirst() && cur.getString(0) != null) {
+                totEntrate.setText(df.format(Double.parseDouble(cur.getString(0))));
+            } else {
+                totEntrate.setText("0");
+            }
 
-        if (cur.getCount() > 0 && cur.getString(0) != null
-                && Double.parseDouble(cur.getString(0)) > 0) {
-            totEntrate.setText(df.format(Double.parseDouble(cur
-                    .getString(0))));
-        } else
-            totEntrate.setText("0");
+            if (cur != null) cur.close();
 
-        cur.close();
+            cur = all.isChecked()
+                    ? database.query("MONEY", new String[]{"SUM(prezzo)"},
+                    "uscita=1 and data>=? and data<=?", dateRange, null, null, null)
+                    : database.query("MONEY a INNER JOIN VARIE B ON (a.DESCRIZIONE=b.CONT)",
+                    new String[]{"SUM(prezzo)"}, "uscita=1 and data>=? and data<=? and b.descrizione=?",
+                    new String[]{dateFormat.format(dateObj), dateFormat.format(dateObjA),
+                            descrizioneSpesa.getSelectedItem().toString()}, null, null, null);
 
-        if (all.isChecked())
-            cur = database.query(
-                    "MONEY",
-                    new String[]{"SUM(prezzo)"},
-                    "uscita=1 and data>=? and data<=?",
-                    new String[]{dateFormat.format(dateObj),
-                            dateFormat.format(dateObjA)}, null, null, null);
-        else
-            cur = database.query(
-                    "MONEY a INNER JOIN VARIE B ON (a.DESCRIZIONE=b.CONT)",
-                    new String[]{"SUM(prezzo)"},
-                    "uscita=1 and data>=? and data<=? and b.descrizione=?",
-                    new String[]{dateFormat.format(dateObj),
-                            dateFormat.format(dateObjA),
-                            descrizioneSpesa.getSelectedItem().toString()},
-                    null, null, null);
-        cur.moveToFirst();
+            if (cur != null && cur.moveToFirst() && cur.getString(0) != null) {
+                totUscite.setText(df.format(Double.parseDouble(cur.getString(0))));
+            } else {
+                totUscite.setText("0");
+            }
 
-        if (totUscite != null && cur.getCount() > 0 && cur.getString(0) != null && Double.parseDouble(cur.getString(0)) > 0)
-            totUscite.setText(df.format(Double.parseDouble(cur
-                    .getString(0))));
-        else {
-            assert totUscite != null;
-            totUscite.setText("0");
+            if (cur != null) cur.close();
+
+        } catch (Exception e) {
+            Log.e("calculateTotals", "Errore nel calcolo dei totali", e);
+            Toast.makeText(this, "Errore nel calcolo dei totali", Toast.LENGTH_SHORT).show();
         }
-
-        cur.close();
     }
 
     private void resetCalendario() {
@@ -1177,14 +1185,6 @@ public class MainActivity extends AppCompatActivity {
         cur = database.query("VARIE", new String[]{"descrizione"}, null,
                 null, null, null, "descrizione");
         cur.moveToFirst();
- /*        int i = 0;
-       String[] array_spinner = new String[cur.getCount()];
-
-        while (!cur.isAfterLast()) {
-            array_spinner[i] = cur.getString(0);
-            i += 1;
-            cur.moveToNext();
-        }*/
 
         cur.close();
 
@@ -1358,54 +1358,26 @@ public class MainActivity extends AppCompatActivity {
                             break;
 
                         case 2:
-                            if (verify.IsSdPresent()) {
-                                File file = new File(
-                                        Environment.getDataDirectory()
-                                                + "/data/com.app.persomy.v4/databases/PersoMyDB.db");
-                                File fileBackupDir = new File(Environment
-                                        .getExternalStorageDirectory(),
-                                        "/PersoMy/backup");
+                            File file = getDatabasePath("PersoMyDB.db");
+                            File fileBackupDir = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOCUMENTS), "PersoMy/backup");
 
-                                if (!fileBackupDir.exists())
-                                    Toast.makeText(getApplicationContext(),
-                                            R.string.backupNotFound,
-                                            Toast.LENGTH_SHORT).show();
+                            if (!fileBackupDir.exists() || !fileBackupDir.isDirectory()) {
+                                Toast.makeText(this, "Backup directory not found", Toast.LENGTH_SHORT).show();
+                                return;
+                            }
 
-                                if (file.exists()) {
-                                    File fileBackup = new File(fileBackupDir,
-                                            "PersoMyDB.db");
-                                    try {
-                                        fileBackup.createNewFile();
-                                        copyFile(fileBackup, file);
+                            File fileBackup = new File(fileBackupDir, "PersoMyDB.db");
+                            if (!fileBackup.exists()) {
+                                Toast.makeText(this, "Backup file not found", Toast.LENGTH_SHORT).show();
+                                return;
+                            }
 
-                                        Toast.makeText(getApplicationContext(),
-                                                R.string.backupRestoredOK,
-                                                Toast.LENGTH_SHORT).show();
-
-                                    } catch (FileNotFoundException ex) {
-                                        Toast.makeText(getApplicationContext(),
-                                                R.string.backupNotFound,
-                                                Toast.LENGTH_SHORT).show();
-                                        System.exit(0);
-                                    } catch (IOException e) {
-                                        Toast.makeText(
-                                                getApplicationContext(),
-                                                R.string.backupGenericErrorFile
-                                                        + e.getMessage(),
-                                                Toast.LENGTH_SHORT).show();
-                                    } catch (Exception e) {
-                                        Toast.makeText(
-                                                getApplicationContext(),
-                                                R.string.backupGenericError
-                                                        + e.getMessage(),
-                                                Toast.LENGTH_SHORT).show();
-                                    }
-                                }
-                            } else {
-                                Toast.makeText(getApplicationContext(),
-                                        R.string.backupSDCardError,
-                                        Toast.LENGTH_SHORT).show();
-                                System.exit(0);
+                            try {
+                                copyFile(fileBackup, file);
+                                Toast.makeText(this, "Backup restored successfully", Toast.LENGTH_SHORT).show();
+                            } catch (IOException e) {
+                                Log.e("startRestoreBackup", "Error restoring backup", e);
+                                Toast.makeText(this, "Restore failed: " + e.getMessage(), Toast.LENGTH_SHORT).show();
                             }
                             break;
 
@@ -1897,21 +1869,24 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void startBackup() {
-        File file = new File(Environment.getDataDirectory() + "/data/com.app.persomy.v4/databases/PersoMyDB.db");
+        File file = getDatabasePath("PersoMyDB.db");
         if (!file.exists()) {
             Toast.makeText(this, "Database file not found", Toast.LENGTH_SHORT).show();
             return;
         }
+
+        File fileBackupDir = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOCUMENTS), "PersoMy/backup");
+        if (!fileBackupDir.exists() && !fileBackupDir.mkdirs()) {
+            Toast.makeText(this, "Failed to create backup directory", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        File fileBackup = new File(fileBackupDir, "PersoMyDB.db");
         try {
-            Uri backupUri = createBackupFileUri();
-            if (backupUri != null) {
-                copyFileToUri(file, backupUri);
-                Toast.makeText(this, "Backup created successfully", Toast.LENGTH_LONG).show();
-            } else {
-                Toast.makeText(this, "Failed to create backup URI", Toast.LENGTH_SHORT).show();
-            }
-        } catch (Exception e) {
-            Log.e("startBackup", "A generic error occurred", e);
+            copyFile(file, fileBackup);
+            Toast.makeText(this, "Backup created successfully", Toast.LENGTH_LONG).show();
+        } catch (IOException e) {
+            Log.e("startBackup", "Error creating backup", e);
             Toast.makeText(this, "Backup failed: " + e.getMessage(), Toast.LENGTH_SHORT).show();
         }
     }
@@ -2212,7 +2187,7 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-    private void startOperazioniAutomatiche() {
+    private void startOpAutomatiche() {
         CURRENT_LAYOUT = R.layout.activity_automatiche;
 
         contentPane.removeAllViews();
@@ -2271,7 +2246,7 @@ public class MainActivity extends AppCompatActivity {
                 cur.moveToNext();
             }
         } catch (Exception e) {
-            Log.e("startOperazioniAutomatiche", "A generic error occurred", e);
+            Log.e("startOpAutomatiche", "A generic error occurred", e);
         } finally {
             cur.close();
         }
@@ -2323,7 +2298,7 @@ public class MainActivity extends AppCompatActivity {
                     cur.moveToNext();
                 }
             } catch (Exception e) {
-                Log.e("startOperazioniAutomatiche", "A generic error occurred", e);
+                Log.e("startOpAutomatiche", "A generic error occurred", e);
             } finally {
                 cur.close();
             }
@@ -2594,7 +2569,7 @@ public class MainActivity extends AppCompatActivity {
         if (automaticheBtn != null) {
             automaticheBtn.setOnClickListener(v -> {
                 setTitle(getString(R.string.title_activity_main) + " - " + getString(R.string.menu_operazioni_automatiche));
-                startOperazioniAutomatiche();
+                startOpAutomatiche();
             });
         } else {
             Log.e("MainActivity", "automaticheBtn non trovato nel layout.");

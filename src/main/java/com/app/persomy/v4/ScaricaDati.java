@@ -14,8 +14,8 @@ import java.util.Locale;
 
 public class ScaricaDati {
 
+    private final SQLiteDatabase database;
     private Cursor cur;
-    private SQLiteDatabase database;
     private SimpleDateFormat dateFormat;
     private Date dateObj;
 
@@ -114,37 +114,37 @@ public class ScaricaDati {
     }
 
     public int frequenzaToNumber(String frequenza) {
-        if (frequenza.equals("Giornaliero") || frequenza.equals("Daily")) return 1;
-        if (frequenza.equals("Settimanale") || frequenza.equals("Weekly")) return 2;
-        if (frequenza.equals("Decadale") || frequenza.equals("Decadal")) return 3;
-        if (frequenza.equals("Mensile") || frequenza.equals("Monthly")) return 4;
-        if (frequenza.equals("Semestrale") || frequenza.equals("Half")) return 5;
-        if (frequenza.equals("Annuale") || frequenza.equals("Annual")) return 6;
-        if (frequenza.equals("Primo giorno del mese") || frequenza.equals("First day of the month"))
-            return 7;
-        if (frequenza.equals("Ultimo giorno del mese") || frequenza.equals("Last day of the month"))
-            return 8;
+        return switch (frequenza) {
+            case "Giornaliero", "Daily" -> 1;
+            case "Settimanale", "Weekly" -> 2;
+            case "Decadale", "Decadal" -> 3;
+            case "Mensile", "Monthly" -> 4;
+            case "Semestrale", "Half" -> 5;
+            case "Annuale", "Annual" -> 6;
+            case "Primo giorno del mese", "First day of the month" -> 7;
+            case "Ultimo giorno del mese", "Last day of the month" -> 8;
+            default -> -1;
+        };
 
-        return -1;
     }
 
     public int getGiorniFrequenza(String frequenza) {
-        if (frequenza.equals("Giornaliero") || frequenza.equals("Daily")) return 1;
-        if (frequenza.equals("Settimanale") || frequenza.equals("Weekly")) return 7;
-        if (frequenza.equals("Decadale") || frequenza.equals("Decadal")) return 0;
-        if (frequenza.equals("Mensile") || frequenza.equals("Monthly")) return 30;
-        if (frequenza.equals("Semestrale") || frequenza.equals("Half")) return 180;
-        if (frequenza.equals("Annuale") || frequenza.equals("Annual")) return 365;
-        if (frequenza.equals("Primo giorno del mese") || frequenza.equals("First day of the month"))
-            return 0;
-        if (frequenza.equals("Ultimo giorno del mese") || frequenza.equals("Last day of the month"))
-            return 0;
+        return switch (frequenza) {
+            case "Giornaliero", "Daily" -> 1;
+            case "Settimanale", "Weekly" -> 7;
+            case "Decadale", "Decadal" -> 0;
+            case "Mensile", "Monthly" -> 30;
+            case "Semestrale", "Half" -> 180;
+            case "Annuale", "Annual" -> 365;
+            case "Primo giorno del mese", "First day of the month" -> 0;
+            case "Ultimo giorno del mese", "Last day of the month" -> 0;
+            default -> -1;
+        };
 
-        return -1;
     }
 
     public String[] caricaSpinnerMese() {
-        String array_spinner[] = new String[12];
+        String[] array_spinner = new String[12];
 
         for (int i = 0; i < 12; i++)
             array_spinner[i] = new DateFormatSymbols().getMonths()[i];

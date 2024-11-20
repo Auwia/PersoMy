@@ -5,20 +5,13 @@ import android.database.SQLException;
 
 public class PersoMyDataSource {
 
-	private PersoMyDB dbHelper;
-	
-	public PersoMyDataSource(Context context) 
-	{
-	    dbHelper = new PersoMyDB(context);
-	}
+    private final PersoMyDB dbHelper;
 
-	public void open() throws SQLException 
-	{
-		dbHelper.getWritableDatabase();
-	}
+    public PersoMyDataSource(Context context) {
+        dbHelper = new PersoMyDB(context);
+    }
 
-	public void close() 
-	{
-		dbHelper.close();
-	}
+    public void open() throws SQLException {
+        dbHelper.getWritableDatabase();
+    }
 }

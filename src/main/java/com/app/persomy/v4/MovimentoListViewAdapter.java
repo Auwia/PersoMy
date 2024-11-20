@@ -3,7 +3,6 @@ package com.app.persomy.v4;
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.CheckBox;
@@ -70,30 +69,26 @@ public class MovimentoListViewAdapter extends ArrayAdapter<Movimento> {
 
             if (myMovimentoImporto != null) {
                 DecimalFormat df = new DecimalFormat("###,##0.00");
-                myMovimentoImporto.setText(String.valueOf(df.format(item
-                        .getAutomaticaImporto())));
+                myMovimentoImporto.setText(df.format(item
+                        .getAutomaticaImporto()));
             }
 
             if (myMovimentoFlaggata != null)
                 myMovimentoFlaggata.setChecked(item.getAutomaticaFlaggata());
 
             assert myMovimentoFlaggata != null;
-            myMovimentoFlaggata.setOnClickListener(new OnClickListener() {
-                public void onClick(View v) {
-                    myMovimento.set(
-                            pos,
-                            new Movimento(
-                                    myMovimento.get(pos)
-                                            .getAutomaticaFrequenza(),
-                                    myMovimento.get(pos)
-                                            .getAutomaticaStartDate(),
-                                    myMovimento.get(pos).getAutomaticaVoce(),
-                                    myMovimento.get(pos).getAutomaticaImporto(),
-                                    myMovimento.get(pos).getAutomaticaUscita(),
-                                    myMovimento.get(pos).getAutomaticaSalvata(),
-                                    ((CheckBox) v).isChecked()));
-                }
-            });
+            myMovimentoFlaggata.setOnClickListener(v -> myMovimento.set(
+                    pos,
+                    new Movimento(
+                            myMovimento.get(pos)
+                                    .getAutomaticaFrequenza(),
+                            myMovimento.get(pos)
+                                    .getAutomaticaStartDate(),
+                            myMovimento.get(pos).getAutomaticaVoce(),
+                            myMovimento.get(pos).getAutomaticaImporto(),
+                            myMovimento.get(pos).getAutomaticaUscita(),
+                            myMovimento.get(pos).getAutomaticaSalvata(),
+                            ((CheckBox) v).isChecked())));
         }
 
         return row;
