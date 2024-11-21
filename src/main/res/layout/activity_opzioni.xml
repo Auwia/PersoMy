@@ -1,14 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/widget32"
-    android:layout_width="fill_parent"
-    android:layout_height="fill_parent"
-    android:orientation="vertical">
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="16dp">
 
     <androidx.appcompat.widget.SwitchCompat
         android:id="@+id/password"
         android:layout_width="wrap_content"
         android:layout_height="48dp"
+        android:layout_marginBottom="8dp"
         android:contentDescription="@string/passwordOption"
         android:text="@string/password" />
 
@@ -16,7 +18,8 @@
         android:id="@+id/update"
         android:layout_width="wrap_content"
         android:layout_height="48dp"
-        android:contentDescription="@string/update"
+        android:layout_marginBottom="8dp"
+        android:contentDescription="@string/setUpdate"
         android:text="@string/update" />
 
 </LinearLayout>

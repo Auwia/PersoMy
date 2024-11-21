@@ -1,116 +1,114 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="fill_parent"
-    android:layout_height="fill_parent">
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
 
+    <!-- Main Container -->
     <LinearLayout
         android:id="@+id/widget32"
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:orientation="vertical">
 
+        <!-- Date Picker Row -->
         <LinearLayout
             android:id="@+id/widget38"
-            android:layout_width="fill_parent"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
             android:gravity="center"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:padding="8dp">
 
+            <!-- Start Date Button and Text -->
             <ImageButton
                 android:id="@+id/dataAutomaticaBtnDa"
                 android:layout_width="25dp"
                 android:layout_height="25dp"
-                android:layout_gravity="center_vertical"
                 android:background="@android:drawable/ic_menu_my_calendar"
                 android:contentDescription="@string/dataCalendarioAuto"
-                android:focusable="false"
-                android:focusableInTouchMode="false"
-                android:onClick="onDataPeriodoDaBtnPress"
-                android:text="@string/pickDate" />
+                android:onClick="onDataPeriodoDaBtnPress" />
 
             <TextView
                 android:id="@+id/dataAutomaticaTxtDa"
-                android:contentDescription="@string/dataCalendarioAutoTxt"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="45"
+                android:layout_weight="1"
                 android:clickable="true"
+                android:contentDescription="@string/dataCalendarioAutoTxt"
                 android:focusable="true"
-                android:focusableInTouchMode="false"
                 android:onClick="onDataPeriodoDaBtnPress"
                 android:text=""
-                android:textSize="12pt"
+                android:textSize="12sp"
                 android:textStyle="bold" />
 
+            <!-- End Date Button and Text -->
             <ImageButton
                 android:id="@+id/dataAutomaticaBtnA"
                 android:layout_width="25dp"
                 android:layout_height="25dp"
-                android:layout_gravity="center_vertical"
                 android:background="@android:drawable/ic_menu_my_calendar"
                 android:contentDescription="@string/dataCalendario"
-                android:focusable="true"
-                android:focusableInTouchMode="false"
-                android:onClick="onDataPeriodoABtnPress"
-                android:text="@string/pickDate" />
+                android:onClick="onDataPeriodoABtnPress" />
 
             <TextView
                 android:id="@+id/dataAutomaticaTxtA"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="45"
+                android:layout_weight="1"
                 android:clickable="true"
+                android:contentDescription="@string/dataCalendarioAutoTxt"
                 android:focusable="true"
-                android:focusableInTouchMode="false"
                 android:onClick="onDataPeriodoABtnPress"
                 android:text=""
-                android:textSize="12pt"
+                android:textSize="12sp"
                 android:textStyle="bold" />
 
+            <!-- Search Button -->
             <ImageButton
                 android:id="@+id/search"
                 android:layout_width="35dp"
                 android:layout_height="35dp"
-                android:layout_gravity="center_vertical"
                 android:background="@android:drawable/ic_menu_search"
-                android:contentDescription="@string/dataCalendario"
-                android:focusable="false"
-                android:focusableInTouchMode="false"
-                android:onClick="onSearchBtnPress"
-                android:text="@string/pickDate" />
+                android:contentDescription="@string/searchData"
+                android:onClick="onSearchBtnPress" />
         </LinearLayout>
 
+        <!-- Filter Row -->
         <LinearLayout
             android:id="@+id/widget39"
-            android:layout_width="fill_parent"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
             android:gravity="center_horizontal"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:padding="8dp">
 
+            <!-- Item Selection Spinner -->
             <Spinner
                 android:id="@+id/descrizioneSpesa"
-                android:contentDescription="@string/menu_voce"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:contentDescription="@string/menu_voce" />
 
+            <!-- Select All Checkbox -->
             <CheckBox
                 android:id="@+id/selectAll"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:contentDescription="@string/selectAllCheckbox"
                 android:text="@string/selectAll" />
         </LinearLayout>
 
+        <!-- Movements Grid -->
         <LinearLayout
             android:id="@+id/widget45"
-            android:layout_width="fill_parent"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:padding="8dp">
 
             <GridView
                 android:id="@+id/listaMovimenti"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center"
                 android:numColumns="1"
@@ -119,6 +117,7 @@
         </LinearLayout>
     </LinearLayout>
 
+    <!-- Bottom Totals -->
     <include
         android:id="@+id/idImportVoce"
         layout="@layout/totali_importi_bottom"

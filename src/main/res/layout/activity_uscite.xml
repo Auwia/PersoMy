@@ -3,8 +3,10 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:gravity="top"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:padding="8dp">
 
+    <!-- Date Picker Section -->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -29,12 +31,15 @@
             android:layout_gravity="center_vertical"
             android:layout_marginStart="15dp"
             android:clickable="true"
+            android:contentDescription="@string/display_selected_date"
             android:focusable="true"
             android:focusableInTouchMode="false"
             android:onClick="onDataUsciteBtnPress"
+            android:text=""
             android:textStyle="bold" />
     </LinearLayout>
 
+    <!-- Expense Entry Section -->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -46,7 +51,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:contentDescription="@string/menu_voce"
+            android:contentDescription="@string/choose_expense_description_spinner"
             android:drawSelectorOnTop="true"
             android:prompt="@string/menu_selezione_voce"
             android:textColor="#000000" />
@@ -58,15 +63,16 @@
             android:layout_weight="1"
             android:contentDescription="@string/soldiSpesaDesc"
             android:gravity="end"
+            android:hint="@string/importoAutomatica"
             android:inputType="numberDecimal"
             android:textSize="16sp" />
 
         <TextView
             android:id="@+id/simboloEuro"
-            android:contentDescription="@string/currency"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
+            android:contentDescription="@string/euro_symbol"
             android:text="@string/currency"
             android:textSize="20sp" />
 
@@ -76,15 +82,17 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
             android:background="@android:drawable/ic_menu_add"
-            android:contentDescription="@string/addSpesa"
+            android:contentDescription="@string/addSpesa_descrizione"
             android:onClick="onAddSpesaBtnPress" />
     </LinearLayout>
 
+    <!-- Expense List Section -->
     <ListView
         android:id="@+id/listaSpesa"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:clickable="true"
+        android:contentDescription="@string/expense_list"
         android:fadingEdge="vertical"
         android:focusable="true"
         android:focusableInTouchMode="false" />

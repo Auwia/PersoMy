@@ -21,9 +21,9 @@
 
             <Spinner
                 android:id="@+id/selAnno"
-                android:contentDescription="@string/selectAnno"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:contentDescription="@string/selectAnno" />
         </LinearLayout>
 
         <!-- Intestazione delle Colonne -->
@@ -40,6 +40,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
+                android:contentDescription="@string/menu_mese"
                 android:gravity="center"
                 android:padding="4dp"
                 android:text="@string/menu_mese"
@@ -51,6 +52,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
+                android:contentDescription="@string/entrate_column"
                 android:gravity="center"
                 android:padding="4dp"
                 android:text="@string/menu_entrate"
@@ -62,6 +64,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
+                android:contentDescription="@string/uscite_column"
                 android:gravity="center"
                 android:padding="4dp"
                 android:text="@string/menu_uscite"
@@ -84,7 +87,9 @@
             android:id="@+id/listaMovimentiAnno"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:contentDescription="@string/lista_movimenti_anno"
             android:horizontalSpacing="8dp"
+            android:importantForAccessibility="yes"
             android:numColumns="1"
             android:stretchMode="columnWidth"
             android:verticalSpacing="8dp" />

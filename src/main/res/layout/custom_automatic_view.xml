@@ -1,84 +1,92 @@
 <?xml version="1.0" encoding="utf-8"?>
-<TableLayout 
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="fill_parent"
-	android:layout_height="wrap_content">
-    
-<TableRow
-	android:id="@+id/widget32"
-	android:layout_width="fill_parent"
-	android:layout_height="wrap_content"
-	android:focusable="false"
-	android:focusableInTouchMode="false">
-	
-	<TextView
-	    android:id="@+id/frequenzaAutomatica"
-	    android:layout_width="0dp"
-	    android:layout_height="wrap_content"
-	    android:layout_weight="50"
-	    android:textSize="13sp"
-	    android:focusable="false"
-		android:focusableInTouchMode="false"
-		android:textIsSelectable="false" />
-	
-	<TextView
-		android:id="@+id/startDateAutomatica"
-		android:layout_width="0dp"
-		android:layout_height="wrap_content"
-		android:layout_weight="50"
-		android:gravity="center"
-		android:focusable="false"
-		android:focusableInTouchMode="false"
-		android:textIsSelectable="false" />
-	</TableRow>
-	
-<TableRow 
-    android:id="@+id/widget1"
-	android:layout_width="fill_parent"
-	android:layout_height="wrap_content"
-	android:focusable="false"
-	android:focusableInTouchMode="false">
-	
-	<TextView
-		android:id="@+id/voceAutomatica"
-		android:layout_width="0dp"
-		android:layout_height="wrap_content"
-		android:gravity="center"
-		android:layout_weight="50"
-		android:focusable="false"
-		android:focusableInTouchMode="false"
-		android:textSize="15sp"
-		android:text="" />
-	
-	<TextView
-		android:id="@+id/importoAutomatica"
-		android:layout_width="0dp"
-		android:layout_height="wrap_content"
-		android:gravity="end"
-		android:layout_weight="30"
-		android:focusable="false"
-		android:focusableInTouchMode="false"
-		android:textSize="15sp"
-		android:contentDescription="@string/update"
-		android:text="" />
-		
-	<TextView
-		android:id="@+id/simboloEuro"
-		android:layout_width="0dp"
-		android:layout_height="wrap_content"
-		android:gravity="center"
-		android:layout_weight="5"
-		android:focusable="false"
-		android:focusableInTouchMode="false"
-		android:textSize="15sp"
-		android:textIsSelectable="false"/>
-	
-	<CheckBox
-	    android:layout_width="0dp"
-	    android:layout_weight="15"
-		android:layout_height="wrap_content"
-	    android:id="@+id/flaggataAutomatica"
-	    android:clickable="true"
-		android:focusable="true"/>
-</TableRow>
+<TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <!-- First Row: Frequency and Start Date -->
+    <TableRow
+        android:id="@+id/widget32"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:focusable="false"
+        android:focusableInTouchMode="false">
+
+        <TextView
+            android:id="@+id/frequenzaAutomatica"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="50"
+            android:contentDescription="@string/choose_frequency_label"
+            android:focusable="false"
+            android:focusableInTouchMode="false"
+            android:text=""
+            android:textIsSelectable="false"
+            android:textSize="13sp" />
+
+        <TextView
+            android:id="@+id/startDateAutomatica"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="50"
+            android:contentDescription="@string/display_selected_date"
+            android:focusable="false"
+            android:focusableInTouchMode="false"
+            android:gravity="center"
+            android:text=""
+            android:textIsSelectable="false" />
+    </TableRow>
+
+    <!-- Second Row: Item, Amount, Currency, and Checkbox -->
+    <TableRow
+        android:id="@+id/widget1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:focusable="false"
+        android:focusableInTouchMode="false">
+
+        <TextView
+            android:id="@+id/voceAutomatica"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="50"
+            android:contentDescription="@string/choose_expense_description_spinner"
+            android:focusable="false"
+            android:focusableInTouchMode="false"
+            android:gravity="center"
+            android:text=""
+            android:textSize="15sp" />
+
+        <TextView
+            android:id="@+id/importoAutomatica"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="30"
+            android:contentDescription="@string/soldiSpesaDesc"
+            android:focusable="false"
+            android:focusableInTouchMode="false"
+            android:gravity="end"
+            android:text=""
+            android:textSize="15sp" />
+
+        <TextView
+            android:id="@+id/simboloEuro"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="5"
+            android:contentDescription="@string/euro_symbol"
+            android:focusable="false"
+            android:focusableInTouchMode="false"
+            android:gravity="center"
+            android:text="@string/currency"
+            android:textSize="15sp" />
+
+        <CheckBox
+            android:id="@+id/flaggataAutomatica"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="15"
+            android:clickable="true"
+            android:contentDescription="@string/select_expenses"
+            android:focusable="true" />
+    </TableRow>
 </TableLayout>

@@ -3,6 +3,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
+    <!-- Main Content Section -->
     <LinearLayout
         android:id="@+id/widget32"
         android:layout_width="match_parent"
@@ -10,6 +11,7 @@
         android:layout_weight="1"
         android:orientation="vertical">
 
+        <!-- Spinner Section -->
         <LinearLayout
             android:id="@+id/widget38"
             android:layout_width="match_parent"
@@ -21,11 +23,12 @@
                 android:id="@+id/descrizioneSpesa"
                 android:layout_width="wrap_content"
                 android:layout_height="48dp"
-                android:contentDescription="@string/eliminaSpesa"
+                android:contentDescription="@string/choose_expense_description_spinner"
                 android:paddingStart="15dp"
                 android:paddingEnd="15dp" />
         </LinearLayout>
 
+        <!-- GridView Section -->
         <LinearLayout
             android:id="@+id/widget45"
             android:layout_width="match_parent"
@@ -36,12 +39,14 @@
                 android:id="@+id/listaMovimenti"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:contentDescription="@string/lista_movimenti_anno"
                 android:gravity="center"
                 android:numColumns="1"
                 android:stretchMode="columnWidth" />
         </LinearLayout>
     </LinearLayout>
 
+    <!-- Footer Section -->
     <include
         android:id="@+id/idImportVoce"
         layout="@layout/totali_importi_bottom"

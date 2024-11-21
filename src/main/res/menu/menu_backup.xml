@@ -1,4 +1,15 @@
-<menu xmlns:android="http://schemas.android.com/apk/res/android" >
-    <item android:title="@string/menu_backup" android:id="@+id/menu_backup"/>
-	<item android:title="@string/menu_ripristino_backup" android:id="@+id/menu_ripristino_backup"/>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <!-- Backup Menu -->
+    <item
+        android:id="@+id/menu_backup"
+        android:contentDescription="@string/menu_backup_description"
+        android:title="@string/menu_backup" />
+
+    <!-- Ripristino Backup Menu -->
+    <item
+        android:id="@+id/menu_ripristino_backup"
+        android:contentDescription="@string/menu_ripristino_backup_description"
+        android:title="@string/menu_ripristino_backup" />
+
 </menu>

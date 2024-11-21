@@ -1,36 +1,38 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/widget00"
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="fill_parent"
-	android:layout_height="fill_parent" 
-	android:orientation="vertical">
-	
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
     <TextView
-        	android:id="@+id/widget47"
-			android:layout_height="0dp"
-	    	android:layout_width="fill_parent"
-			android:layout_weight="20"
-			android:text="@string/PersoMy"
-			android:textSize="17sp"
-			android:gravity="center_vertical"/>
-		
-	<TextView
-		    android:id="@+id/widget51"
-			android:layout_height="0dp"
-	    	android:layout_width="fill_parent"
-			android:layout_weight="70"
-		    android:text="@string/PersoMyHistory"
-		    android:textSize="12sp"
-		    android:gravity="center_vertical"/>
-		
-	<TextView
-		    android:id="@+id/versionPersoMy"
-			android:layout_height="0dp"
-	    	android:layout_width="fill_parent"
-			android:layout_weight="10"
-			android:gravity="center|right"
-		    android:text="@string/PersoMyVersion"
-		    android:textSize="12sp" />
-		
+        android:id="@+id/widget47"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="20"
+        android:contentDescription="@string/PersoMyHistory"
+        android:gravity="center_vertical"
+        android:text="@string/PersoMy"
+        android:textSize="17sp" />
+
+    <TextView
+        android:id="@+id/widget51"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="70"
+        android:contentDescription="@string/PersoMy"
+        android:gravity="center_vertical"
+        android:text="@string/PersoMyHistory"
+        android:textSize="12sp" />
+
+    <TextView
+        android:id="@+id/versionPersoMy"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="10"
+        android:contentDescription="@string/PersoMy_app_version"
+        android:gravity="center|end"
+        android:text="@string/PersoMyVersion"
+        android:textSize="12sp" />
+
 </LinearLayout>

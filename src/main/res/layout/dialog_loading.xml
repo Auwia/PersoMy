@@ -6,15 +6,17 @@
     android:padding="20dp">
 
     <ProgressBar
+        android:id="@+id/loadingProgressBar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:contentDescription="@string/loading"
         android:indeterminate="true" />
 
     <TextView
+        android:id="@+id/loadingText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
-        android:layout_marginLeft="16dp"
         android:text="@string/loading"
         android:textSize="16sp" />
 </LinearLayout>

@@ -1,11 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/widget32"
-    android:layout_width="fill_parent"
-    android:layout_height="fill_parent"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
     android:layout_gravity="center_vertical"
-    android:focusable="false"
-    android:focusableInTouchMode="false"
     android:gravity="center_vertical"
     android:orientation="horizontal">
 
@@ -15,19 +13,17 @@
         android:layout_height="wrap_content"
         android:layout_weight="67"
         android:contentDescription="@string/addSpesa_descrizione"
-        android:focusable="false"
-        android:focusableInTouchMode="false"
+        android:importantForAccessibility="yes"
         android:textSize="13sp" />
 
     <TextView
         android:id="@+id/soldiSpesaCustom"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:contentDescription="@string/importoAutomaticaDesc"
         android:layout_weight="18"
-        android:focusable="false"
-        android:focusableInTouchMode="false"
-        android:gravity="end" />
+        android:contentDescription="@string/importoAutomaticaDesc"
+        android:gravity="end"
+        android:importantForAccessibility="yes" />
 
     <TextView
         android:id="@+id/simboloEuro"
@@ -35,9 +31,8 @@
         android:layout_height="wrap_content"
         android:layout_weight="5"
         android:contentDescription="@string/currency"
-        android:focusable="false"
-        android:focusableInTouchMode="false"
         android:gravity="center"
+        android:importantForAccessibility="no"
         android:text=""
         android:textSize="15sp" />
 
@@ -47,6 +42,7 @@
         android:layout_height="wrap_content"
         android:layout_weight="10"
         android:clickable="true"
-        android:focusable="true" />
-
+        android:contentDescription="@string/flag_checkbox"
+        android:focusable="true"
+        android:importantForAccessibility="yes" />
 </LinearLayout>

@@ -1,20 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/widget32"
-    android:layout_width="fill_parent"
-    android:layout_height="fill_parent"
-    android:orientation="vertical">
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="8dp">
 
+    <!-- Total Revenues Row -->
     <TableRow
         android:id="@+id/widget145"
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:paddingTop="7dp">
 
         <TextView
             android:id="@+id/widget47"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:contentDescription="@string/TOTEntrate"
             android:text="@string/TOTEntrate"
             android:textSize="15sp" />
 
@@ -23,8 +26,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="end"
+            android:contentDescription="@string/totaleEntrateDesc"
             android:gravity="end"
-            android:paddingLeft="15dp"
+            android:paddingStart="15dp"
             android:text=""
             android:textSize="15sp" />
 
@@ -32,22 +36,23 @@
             android:id="@+id/simboloEuro"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:width="10dp"
-            android:contentDescription="@string/currency"
-            android:text=""
+            android:contentDescription="@string/euro_symbol"
+            android:text="@string/currency"
             android:textSize="15sp" />
     </TableRow>
 
+    <!-- Total Expenses Row -->
     <TableRow
         android:id="@+id/widget1450"
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:paddingTop="7dp">
 
         <TextView
             android:id="@+id/widget51"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:contentDescription="@string/TOTUscite"
             android:text="@string/TOTUscite"
             android:textSize="15sp" />
 
@@ -56,9 +61,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="end"
+            android:contentDescription="@string/totaleUsciteDesc"
             android:gravity="end"
             android:paddingStart="15dp"
-            android:paddingEnd="5dp"
             android:text=""
             android:textSize="15sp" />
 
@@ -66,22 +71,23 @@
             android:id="@+id/simboloEuro2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:width="10dp"
-            android:contentDescription="@string/currency"
-            android:text=""
+            android:contentDescription="@string/euro_symbol"
+            android:text="@string/currency"
             android:textSize="15sp" />
     </TableRow>
 
+    <!-- Balance Row -->
     <TableRow
         android:id="@+id/widget1451"
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:paddingTop="7dp">
 
         <TextView
             android:id="@+id/widget55"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:contentDescription="@string/saldo"
             android:text="@string/saldo"
             android:textSize="15sp" />
 
@@ -90,9 +96,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="end"
+            android:contentDescription="@string/totaleSaldoDesc"
             android:gravity="end"
             android:paddingStart="15dp"
-            android:paddingEnd="5dp"
             android:text=""
             android:textSize="15sp" />
 
@@ -100,9 +106,9 @@
             android:id="@+id/simboloEuro3"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:width="10dp"
-            android:contentDescription="@string/currency"
-            android:text=""
+            android:contentDescription="@string/euro_symbol"
+            android:text="@string/currency"
             android:textSize="15sp" />
     </TableRow>
+
 </LinearLayout>

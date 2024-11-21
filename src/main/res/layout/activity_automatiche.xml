@@ -9,6 +9,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
+        android:contentDescription="@string/select_income_or_expenses"
         android:gravity="center"
         android:orientation="horizontal">
 
@@ -17,12 +18,14 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:checked="true"
+            android:contentDescription="@string/select_expenses"
             android:text="@string/menu_uscite" />
 
         <RadioButton
             android:id="@+id/entrateRB"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:contentDescription="@string/select_income"
             android:text="@string/menu_entrate" />
 
     </RadioGroup>
@@ -40,6 +43,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="3"
+            android:contentDescription="@string/choose_frequency_label"
             android:gravity="center_vertical"
             android:text="@string/automaticaFrequenza"
             android:textStyle="bold" />
@@ -49,6 +53,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="7"
+            android:contentDescription="@string/choose_frequency_spinner"
             android:entries="@array/frequenze"
             android:gravity="center_vertical" />
 
@@ -74,6 +79,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:clickable="true"
+            android:contentDescription="@string/display_selected_date"
             android:focusable="true"
             android:onClick="onDataAutomaticaBtnPress"
             android:text=""
@@ -94,6 +100,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:clickable="true"
+            android:contentDescription="@string/display_selected_time"
             android:focusable="true"
             android:onClick="onOraAutomaticaBtnPress"
             android:text=""
@@ -114,8 +121,8 @@
             android:id="@+id/descrizioneSpesa"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:contentDescription="@string/menu_voce"
-            android:layout_weight="3" />
+            android:layout_weight="3"
+            android:contentDescription="@string/choose_expense_description_spinner" />
 
         <EditText
             android:id="@+id/importoAutomatica"
@@ -124,8 +131,8 @@
             android:layout_weight="1"
             android:contentDescription="@string/importoAutomatica"
             android:gravity="end"
-            android:inputType="numberDecimal"
             android:hint="@string/importoAutomatica"
+            android:inputType="numberDecimal"
             android:maxLength="7"
             android:textSize="16sp" />
 
@@ -133,6 +140,7 @@
             android:id="@+id/simboloEuro"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:contentDescription="@string/euro_symbol"
             android:text="@string/currency"
             android:textSize="20sp" />
 
@@ -158,6 +166,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:clickable="true"
+            android:contentDescription="@string/expense_list"
             android:fadingEdge="vertical"
             android:focusable="true" />
 

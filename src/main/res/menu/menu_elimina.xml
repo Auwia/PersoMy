@@ -1,11 +1,14 @@
-<menu xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
-    <item android:id="@+id/menu_elimina_varie"
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+        android:id="@+id/menu_elimina_varie"
+        android:icon="@android:drawable/ic_menu_delete"
         android:title="@string/menu_elimina"
-        app:showAsAction="never"
-        android:icon="@android:drawable/ic_menu_delete" />
-    
-    <item android:id="@+id/menu_exit_spese"
+        app:showAsAction="never" />
+
+    <item
+        android:id="@+id/menu_exit_spese"
+        android:icon="@android:drawable/ic_menu_revert"
         android:title="@string/menu_exit"
-        app:showAsAction="never"
-        android:icon="@android:drawable/ic_menu_revert" />
+        app:showAsAction="never" />
 </menu>

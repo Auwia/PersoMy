@@ -9,6 +9,7 @@ import android.app.TimePickerDialog;
 import android.content.ContentResolver;
 import android.content.ContentValues;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
@@ -960,6 +961,14 @@ public class MainActivity extends AppCompatActivity {
         mMinute = c.get(Calendar.MINUTE);
         dialogTime = new TimePickerDialog(this, new PickTime(), mHourOfDay,
                 mMinute, DateFormat.is24HourFormat(this));
+
+        dialogTime.setOnShowListener(dialog -> {
+            dialogTime.getButton(DialogInterface.BUTTON_POSITIVE)
+                    .setContentDescription(getString(R.string.confirm_time_selection));
+            dialogTime.getButton(DialogInterface.BUTTON_NEGATIVE)
+                    .setContentDescription(getString(R.string.cancel_time_selection));
+        });
+
         dialogTime.updateTime(mHourOfDay, mMinute);
         updateDisplay(1);
     }

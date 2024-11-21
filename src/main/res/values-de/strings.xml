@@ -145,5 +145,33 @@
     <string name="elimina_description">Here you can fully delete an item, but please be aware if you have no backup, you cannot revert back.</string>
     <string name="exit_description">Quit the app.</string>
     <string name="selectAnno">Please select a Year available to display data.</string>
-
+    <string name="month_view_description">Calendar showing the current month</string>
+    <string name="dataTime">Select the time</string>
+    <string name="confirm_time_selection">Confirm time selection</string>
+    <string name="cancel_time_selection">Cancel time selection</string>
+    <string name="select_month">Select a month</string>
+    <string name="select_year">Select a year</string>
+    <string name="entrate_column">Income column header</string>
+    <string name="uscite_column">Expenses column header</string>
+    <string name="lista_movimenti_anno">List of movements for the selected year</string>
+    <string name="select_income_or_expenses">Select whether this is an income or expense</string>
+    <string name="select_expenses">Select expenses</string>
+    <string name="select_income">Select income</string>
+    <string name="choose_frequency_label">Choose the frequency</string>
+    <string name="choose_frequency_spinner">Select a frequency for the automatic entry</string>
+    <string name="display_selected_time">Selected time</string>
+    <string name="display_selected_date">Selected date</string>
+    <string name="choose_expense_description_spinner">Select an expense description</string>
+    <string name="euro_symbol">Euro symbol</string>
+    <string name="expense_list">List of automatic expenses</string>
+    <string name="PersoMy_app_version">PersoMy App Version Information</string>
+    <string name="searchData">Tap to search for records based on selected dates and filters.</string>
+    <string name="selectAllCheckbox">Check to include all items in the search.</string>
+    <string name="totaleEntrateDesc">Displays total revenue amount</string>
+    <string name="totaleUsciteDesc">Displays total expense amount</string>
+    <string name="totaleSaldoDesc">Displays balance after calculating revenues and expenses</string>
+    <string name="flag_checkbox">Select or deselect the item</string>
+    <string name="menu_info_description">Application information</string>
+    <string name="menu_backup_description">Create a backup of your data</string>
+    <string name="menu_ripristino_backup_description">Restore data from a backup</string>
 </resources>

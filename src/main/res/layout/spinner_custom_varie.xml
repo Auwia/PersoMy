@@ -1,21 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 <TableRow xmlns:android="http://schemas.android.com/apk/res/android"
-	xmlns:tools="http://schemas.android.com/tools"
-	android:layout_width="fill_parent"
-	android:layout_height="wrap_content"
-	android:orientation="vertical"
-	android:padding="3dip">
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="3dp">
 
-	<TextView
-		android:id="@+id/descrizioneSpesa"
-		android:layout_width="0dp"
-		android:layout_height="wrap_content"
-		android:layout_weight="8"
-		android:gravity="start|center_vertical"
-		android:layout_gravity="center_vertical"
-		android:padding="@dimen/text_padding"
-		android:contentDescription="@string/menu_voce"
-		android:textColor="@android:color/black"
-		tools:text="" />
-
+    <TextView
+        android:id="@+id/descrizioneSpesa"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
+        android:layout_weight="8"
+        android:contentDescription="@string/menu_voce"
+        android:gravity="start|center_vertical"
+        android:padding="@dimen/text_padding"
+        android:textColor="@android:color/black"
+        android:textSize="14sp"
+        tools:text="Example description" />
 </TableRow>
