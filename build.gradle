@@ -26,8 +26,8 @@ android {
         applicationId "com.app.persomy.v4"
         minSdkVersion 21
         targetSdkVersion 35
-        versionCode 300126
-        versionName "3.1.26"
+        versionCode 300127
+        versionName "3.1.27"
     }
 
     configurations.configureEach {
@@ -65,4 +65,8 @@ dependencies {
     implementation 'androidx.appcompat:appcompat:1.7.0'
     implementation 'com.google.android.play:integrity:1.4.0'
     implementation "androidx.work:work-runtime:2.10.0"
+}
+
+tasks.withType(JavaCompile) {
+    options.compilerArgs << "-Xlint:deprecation"
 }

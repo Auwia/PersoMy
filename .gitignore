@@ -13,9 +13,15 @@ bin/
 gen/
 certificato/
 .idea
+.vscode
 
 # Gradle files
 .gradle/
+gradle/
+gradlew
+gradlew.bat
+gradle.properties
+.classpath
 build/
 /*/build/
 
@@ -29,3 +35,7 @@ proguard/
 *.log
 
 release
+
+src/main/assets/
+
+

@@ -29,6 +29,7 @@
             android:contentDescription="@string/totaleEntrateDesc"
             android:gravity="end"
             android:paddingStart="15dp"
+            android:paddingEnd="15dp"
             android:text=""
             android:textSize="15sp" />
 
@@ -64,6 +65,7 @@
             android:contentDescription="@string/totaleUsciteDesc"
             android:gravity="end"
             android:paddingStart="15dp"
+            android:paddingEnd="15dp"
             android:text=""
             android:textSize="15sp" />
 
@@ -99,6 +101,7 @@
             android:contentDescription="@string/totaleSaldoDesc"
             android:gravity="end"
             android:paddingStart="15dp"
+            android:paddingEnd="15dp"
             android:text=""
             android:textSize="15sp" />
 

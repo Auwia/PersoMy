@@ -1,0 +1,29 @@
+<resources>
+
+    <string name="OK">موافق</string>
+    <string name="PersoMy">PersoMy © eng. Massimo Manganiello</string>
+    <string name="PersoMyHistory">PersoMy هو برنامج محاسبة بسيط يتيح لك تتبع كل الإيرادات والنفقات في ميزانية أسرتك. ما عليك سوى تتبع نفقاتك وأرباحك لحظة في ميزانية الأسرة، وجمع الإحصائيات، والحصول على نظرة عامة على الشهر الحالي والتحقق من السيولة المتاحة.</string>
+    <string name="PersoMyIcon">PersoMy</string>
+    <string name="PersoMyVersion">الإصدار: </string>
+    <string name="PersoMy_app_version">معلومات إصدار تطبيق PersoMy</string>
+    <string name="NO">لا</string>
+    <string name="SI">نعم</string>
+    <string name="addDescrizione">إضافة عنصر جديد</string>
+    <string name="addDescrizioneVolo">إضافة وصف</string>
+    <!-- Altri valori omessi per brevità -->
+    <string name="uscite_column">عنوان العمود للمصروفات</string>
+    <string name="uscite_description">بالنقر هنا يمكنك إدخال مصاريفك (نفقات).</string>
+
+    <!-- String Arrays -->
+    <string-array name="frequenze">
+        <item>يومياً</item>
+        <item>أسبوعياً</item>
+        <item>كل عشرة أيام</item>
+        <item>شهرياً</item>
+        <item>نصف شهرياً</item>
+        <item>سنوياً</item>
+        <item>أول يوم من الشهر</item>
+        <item>آخر يوم من الشهر</item>
+    </string-array>
+
+</resources>

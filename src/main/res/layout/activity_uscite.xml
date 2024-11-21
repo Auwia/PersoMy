@@ -48,11 +48,14 @@
 
         <Spinner
             android:id="@+id/descrizioneSpesa"
-            android:layout_width="0dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:contentDescription="@string/choose_expense_description_spinner"
             android:drawSelectorOnTop="true"
+            android:minWidth="48dp"
+            android:minHeight="48dp"
+            android:padding="8dp"
             android:prompt="@string/menu_selezione_voce"
             android:textColor="#000000" />
 
@@ -61,7 +64,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:contentDescription="@string/soldiSpesaDesc"
+            android:autofillHints="false"
             android:gravity="end"
             android:hint="@string/importoAutomatica"
             android:inputType="numberDecimal"

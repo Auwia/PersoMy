@@ -6,7 +6,6 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
-import android.content.ContentResolver;
 import android.content.ContentValues;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -16,11 +15,11 @@ import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Point;
+import android.graphics.Rect;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
-import android.provider.MediaStore;
 import android.provider.Settings;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -37,6 +36,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup.LayoutParams;
+import android.view.WindowMetrics;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.ArrayAdapter;
@@ -64,7 +64,6 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.OutputStream;
 import java.nio.channels.FileChannel;
 import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
@@ -126,7 +125,7 @@ public class MainActivity extends AppCompatActivity {
     private DatePickerDialog dialogDate, dialogDateA = null;
     private TimePickerDialog dialogTime = null;
     private SimpleDateFormat dateFormat;
-    private Date dateObj, dateObjA;
+    private Date dateObj;
 
 
     public MainActivity() {
@@ -172,9 +171,6 @@ public class MainActivity extends AppCompatActivity {
                     Manifest.permission.READ_EXTERNAL_STORAGE,
                     Manifest.permission.WRITE_EXTERNAL_STORAGE}, 1);
         }
-
-        String deviceId = Utils.getId(getApplicationContext());
-        Log.i("Main:onCreate", deviceId);
 
         myFrequenza = new ArrayList<>();
         myFrequenza.add(new Frequenza("Giornaliero"));
@@ -776,6 +772,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void onSearchBtnPress(View v) {
+        Date dateObjA;
         try {
             if (mDateDisplayDa == null || mDateDisplayA == null ||
                     mDateDisplayDa.getText().toString().isEmpty() ||
@@ -834,7 +831,7 @@ public class MainActivity extends AppCompatActivity {
                 return;
             }
 
-            if (cur == null || cur.getCount() == 0) {
+            if (cur.getCount() == 0) {
                 Toast.makeText(this, "Nessun dato trovato", Toast.LENGTH_SHORT).show();
                 return;
             }
@@ -863,12 +860,13 @@ public class MainActivity extends AppCompatActivity {
 
             if (myGridView != null) {
                 myGridView.setAdapter(myAdapterLista);
-                Display display = getWindowManager().getDefaultDisplay();
-                Point size = new Point();
-                display.getSize(size);
+
+                int screenHeight = getScreenHeight();
+
                 LayoutParams lp = myGridView.getLayoutParams();
-                lp.height = size.y * 70 / 100;
+                lp.height = screenHeight * 70 / 100;
                 myGridView.setLayoutParams(lp);
+
             } else {
                 Toast.makeText(this, "Errore: GridView non trovata", Toast.LENGTH_SHORT).show();
             }
@@ -880,6 +878,22 @@ public class MainActivity extends AppCompatActivity {
             Log.e("onSearchBtnPress", "Errore durante l'elaborazione", e);
             Toast.makeText(this, "Errore durante l'elaborazione: " + e.getMessage(), Toast.LENGTH_SHORT).show();
         }
+    }
+
+    private int getScreenHeight() {
+        int screenHeight;
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+            WindowMetrics metrics = getWindowManager().getCurrentWindowMetrics();
+            Rect bounds = metrics.getBounds();
+            screenHeight = bounds.height();
+        } else {
+            Display display = getWindowManager().getDefaultDisplay();
+            Point size = new Point();
+            display.getSize(size);
+            screenHeight = size.y;
+        }
+        return screenHeight;
     }
 
     private void calculateTotals(Date dateObj, Date dateObjA, Spinner descrizioneSpesa, CheckBox all) {
@@ -902,7 +916,7 @@ public class MainActivity extends AppCompatActivity {
                     new String[]{dateFormat.format(dateObj), dateFormat.format(dateObjA),
                             descrizioneSpesa.getSelectedItem().toString()}, null, null, null);
 
-            if (cur != null && cur.moveToFirst() && cur.getString(0) != null) {
+            if (cur.moveToFirst() && cur.getString(0) != null) {
                 totEntrate.setText(df.format(Double.parseDouble(cur.getString(0))));
             } else {
                 totEntrate.setText("0");
@@ -918,7 +932,7 @@ public class MainActivity extends AppCompatActivity {
                     new String[]{dateFormat.format(dateObj), dateFormat.format(dateObjA),
                             descrizioneSpesa.getSelectedItem().toString()}, null, null, null);
 
-            if (cur != null && cur.moveToFirst() && cur.getString(0) != null) {
+            if (cur.moveToFirst() && cur.getString(0) != null) {
                 totUscite.setText(df.format(Double.parseDouble(cur.getString(0))));
             } else {
                 totUscite.setText("0");
@@ -1018,12 +1032,12 @@ public class MainActivity extends AppCompatActivity {
             myGridView = findViewById(R.id.listaMovimenti);
             myGridView.setAdapter(myAdapterLista);
 
-            Display display = getWindowManager().getDefaultDisplay();
-            Point size = new Point();
-            display.getSize(size);
+            int screenHeight = getScreenHeight();
+
             LayoutParams lp = myGridView.getLayoutParams();
-            lp.height = size.y * 78 / 100;
+            lp.height = screenHeight * 70 / 100; // Calcola il 70% dell'altezza
             myGridView.setLayoutParams(lp);
+
 
             cur = database.query("MONEY", new String[]{"SUM(prezzo)"},
                     "uscita=0 and descrizione=?", new String[]{String
@@ -1102,11 +1116,10 @@ public class MainActivity extends AppCompatActivity {
             myGridView = findViewById(R.id.listaMovimenti);
             myGridView.setAdapter(myAdapterLista);
 
-            Display display = getWindowManager().getDefaultDisplay();
-            Point size = new Point();
-            display.getSize(size);
+            int screenHeight = getScreenHeight();
+
             LayoutParams lp = myGridView.getLayoutParams();
-            lp.height = size.y * 78 / 100;
+            lp.height = screenHeight * 70 / 100; // Calcola il 70% dell'altezza
             myGridView.setLayoutParams(lp);
 
             cur = database
@@ -1912,33 +1925,6 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    private Uri createBackupFileUri() {
-        ContentResolver resolver = getContentResolver();
-        ContentValues contentValues = new ContentValues();
-        contentValues.put(MediaStore.MediaColumns.DISPLAY_NAME, "PersoMyDB.db");  // Nome del file di backup
-        contentValues.put(MediaStore.MediaColumns.MIME_TYPE, "application/octet-stream");
-        contentValues.put(MediaStore.MediaColumns.RELATIVE_PATH, Environment.DIRECTORY_DOCUMENTS + "/PersoMyBackup");
-
-        Uri uri = null;
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
-            uri = resolver.insert(MediaStore.Files.getContentUri("external"), contentValues);
-        }
-        return uri;
-    }
-
-    private void copyFileToUri(File srcFile, Uri destUri) throws IOException {
-        try (FileInputStream inStream = new FileInputStream(srcFile);
-             OutputStream outStream = getContentResolver().openOutputStream(destUri)) {
-
-            byte[] buffer = new byte[1024];
-            int bytesRead;
-            while ((bytesRead = inStream.read(buffer)) != -1) {
-                assert outStream != null;
-                outStream.write(buffer, 0, bytesRead);
-            }
-        }
-    }
-
     private void startTotale() {
 
         CURRENT_LAYOUT = R.layout.activity_totale;
@@ -2261,7 +2247,7 @@ public class MainActivity extends AppCompatActivity {
                         cur.getString(1).length() - 3));
                 dateFormat.applyPattern("dd/MM/yyyy HH:mm");
                 myMovimento.add(new Movimento(myFrequenza.get(cur.getInt(0))
-                        .getDescrizioneFrequenza(), dateFormat.format(dateObj),
+                        .descrizioneFrequenza(), dateFormat.format(dateObj),
                         cur.getString(2), Double.parseDouble(cur.getString(3)),
                         uscita, true, false));
                 cur.moveToNext();
@@ -2312,7 +2298,7 @@ public class MainActivity extends AppCompatActivity {
                     dateFormat.applyPattern("dd/MM/yyyy HH:mm");
 
                     myMovimento.add(new Movimento(myFrequenza.get(
-                            cur.getInt(0)).getDescrizioneFrequenza(),
+                            cur.getInt(0)).descrizioneFrequenza(),
                             dateFormat.format(dateObj), cur.getString(2),
                             Double.parseDouble(cur.getString(3)), uscita,
                             true, false));

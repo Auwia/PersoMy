@@ -87,7 +87,10 @@
                 android:id="@+id/descrizioneSpesa"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:contentDescription="@string/menu_voce" />
+                android:contentDescription="@string/menu_voce"
+                android:minWidth="48dp"
+                android:minHeight="48dp"
+                android:padding="8dp" />
 
             <!-- Select All Checkbox -->
             <CheckBox

@@ -22,8 +22,11 @@
             <Spinner
                 android:id="@+id/descrizioneSpesa"
                 android:layout_width="wrap_content"
-                android:layout_height="48dp"
+                android:layout_height="wrap_content"
                 android:contentDescription="@string/choose_expense_description_spinner"
+                android:minWidth="48dp"
+                android:minHeight="48dp"
+                android:padding="8dp"
                 android:paddingStart="15dp"
                 android:paddingEnd="15dp" />
         </LinearLayout>

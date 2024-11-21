@@ -15,9 +15,12 @@
 
         <ImageButton
             android:id="@+id/menu_salva_spese"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:layout_marginLeft="10dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:minWidth="48dp"
+            android:minHeight="48dp"
+            android:padding="8dp"
+            android:layout_marginStart="10dp"
             android:background="@android:drawable/ic_menu_save"
             android:contentDescription="@string/menu_salva" />
 
@@ -25,7 +28,7 @@
             android:id="@+id/menu_salva_descrizione"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="15dp"
+            android:layout_marginStart="15dp"
             android:text="@string/menu_salva_descrizione"
             android:textStyle="bold" />
     </TableRow>
@@ -40,9 +43,12 @@
 
         <ImageButton
             android:id="@+id/addDescrizione"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:layout_marginLeft="10dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:minWidth="48dp"
+            android:minHeight="48dp"
+            android:padding="8dp"
+            android:layout_marginStart="10dp"
             android:background="@android:drawable/ic_input_add"
             android:contentDescription="@string/addDescrizione" />
 
@@ -50,7 +56,7 @@
             android:id="@+id/addDescrizione_descrizione"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="15dp"
+            android:layout_marginStart="15dp"
             android:text="@string/addDescrizione_descrizione"
             android:textStyle="bold" />
     </TableRow>
@@ -65,9 +71,12 @@
 
         <ImageButton
             android:id="@+id/modificaDescrizione"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:layout_marginLeft="10dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:minWidth="48dp"
+            android:minHeight="48dp"
+            android:padding="8dp"
+            android:layout_marginStart="10dp"
             android:background="@android:drawable/ic_menu_edit"
             android:contentDescription="@string/menu_modifica" />
 
@@ -75,7 +84,7 @@
             android:id="@+id/modificaDescrizione_descrizione"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="15dp"
+            android:layout_marginStart="15dp"
             android:text="@string/modificaDescrizione_descrizione"
             android:textStyle="bold" />
     </TableRow>
@@ -90,9 +99,12 @@
 
         <ImageButton
             android:id="@+id/deleteSpesa"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:layout_marginLeft="10dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:minWidth="48dp"
+            android:minHeight="48dp"
+            android:padding="8dp"
+            android:layout_marginStart="10dp"
             android:background="@android:drawable/ic_menu_delete"
             android:contentDescription="@string/deleteSpesa" />
 
@@ -100,7 +112,7 @@
             android:id="@+id/deleteSpesa_descrizione"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="15dp"
+            android:layout_marginStart="15dp"
             android:text="@string/deleteSpesa_descrizione"
             android:textStyle="bold" />
     </TableRow>
@@ -115,9 +127,12 @@
 
         <ImageButton
             android:id="@+id/addSpesa"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:layout_marginLeft="10dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:minWidth="48dp"
+            android:minHeight="48dp"
+            android:padding="8dp"
+            android:layout_marginStart="10dp"
             android:background="@android:drawable/ic_menu_add"
             android:contentDescription="@string/addSpesa" />
 
@@ -125,7 +140,7 @@
             android:id="@+id/addSpesa_descrizione"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="15dp"
+            android:layout_marginStart="15dp"
             android:text="@string/addSpesa_descrizione"
             android:textStyle="bold" />
     </TableRow>

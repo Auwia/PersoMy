@@ -9,11 +9,14 @@
 
     <TextView
         android:id="@+id/descrizioneSpesaCustom"
-        android:layout_width="0dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_weight="67"
         android:contentDescription="@string/addSpesa_descrizione"
         android:importantForAccessibility="yes"
+        android:minWidth="48dp"
+        android:minHeight="48dp"
+        android:padding="8dp"
         android:textSize="13sp" />
 
     <TextView

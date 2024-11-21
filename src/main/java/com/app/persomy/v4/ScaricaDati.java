@@ -132,12 +132,11 @@ public class ScaricaDati {
         return switch (frequenza) {
             case "Giornaliero", "Daily" -> 1;
             case "Settimanale", "Weekly" -> 7;
-            case "Decadale", "Decadal" -> 0;
+            case "Decadale", "Decadal", "Primo giorno del mese", "First day of the month",
+                 "Ultimo giorno del mese", "Last day of the month" -> 0;
             case "Mensile", "Monthly" -> 30;
             case "Semestrale", "Half" -> 180;
             case "Annuale", "Annual" -> 365;
-            case "Primo giorno del mese", "First day of the month" -> 0;
-            case "Ultimo giorno del mese", "Last day of the month" -> 0;
             default -> -1;
         };
 
