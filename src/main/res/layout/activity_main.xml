@@ -24,7 +24,8 @@
             android:gravity="center"
             android:padding="4dp"
             android:text="@string/menu_uscite"
-            android:textSize="14sp" />
+            android:textSize="14sp"
+            android:textColor="@color/dark_teal"/>
 
         <Button
             android:id="@+id/entrateBtn"
@@ -36,7 +37,8 @@
             android:gravity="center"
             android:padding="4dp"
             android:text="@string/menu_entrate"
-            android:textSize="14sp" />
+            android:textSize="14sp"
+            android:textColor="@color/dark_teal"/>
 
     </TableRow>
 
@@ -57,7 +59,8 @@
             android:gravity="center"
             android:padding="4dp"
             android:text="@string/menu_report"
-            android:textSize="14sp" />
+            android:textSize="14sp"
+            android:textColor="@color/dark_teal"/>
 
         <Button
             android:id="@+id/automaticheBtn"
@@ -69,7 +72,8 @@
             android:gravity="center"
             android:padding="4dp"
             android:text="@string/menu_operazioni_automatiche"
-            android:textSize="14sp" />
+            android:textSize="14sp"
+            android:textColor="@color/dark_teal" />
 
     </TableRow>
 
@@ -91,7 +95,8 @@
             android:onClick="onBackupBtnPress"
             android:padding="4dp"
             android:text="@string/menu_file_backup"
-            android:textSize="14sp" />
+            android:textSize="14sp"
+            android:textColor="@color/dark_teal"/>
 
         <Button
             android:id="@+id/optionsBtn"
@@ -104,7 +109,8 @@
             android:onClick="onOptionsBtnPress"
             android:padding="4dp"
             android:text="@string/menu_opzioni"
-            android:textSize="14sp" />
+            android:textSize="14sp"
+            android:textColor="@color/dark_teal"/>
 
     </TableRow>
 
@@ -126,7 +132,8 @@
             android:onClick="onEliminaBtnPress"
             android:padding="4dp"
             android:text="@string/menu_elimina"
-            android:textSize="14sp" />
+            android:textSize="14sp"
+            android:textColor="@color/dark_teal"/>
 
         <Button
             android:id="@+id/exitBtn"
@@ -139,7 +146,8 @@
             android:onClick="onExitBtnPress"
             android:padding="4dp"
             android:text="@string/menu_exit"
-            android:textSize="14sp" />
+            android:textSize="14sp"
+            android:textColor="@color/dark_teal"/>
 
     </TableRow>
 

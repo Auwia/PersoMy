@@ -83,10 +83,14 @@
         <CheckBox
             android:id="@+id/flaggataAutomatica"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_height="48dp"
             android:layout_weight="15"
             android:clickable="true"
             android:contentDescription="@string/select_expenses"
-            android:focusable="true" />
+            android:focusable="true"
+            android:gravity="center_vertical"
+            android:paddingTop="8dp"
+            android:paddingBottom="8dp" />
+
     </TableRow>
 </TableLayout>

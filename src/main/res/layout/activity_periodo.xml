@@ -22,12 +22,14 @@
             <!-- Start Date Button and Text -->
             <ImageButton
                 android:id="@+id/dataAutomaticaBtnDa"
-                android:layout_width="25dp"
-                android:layout_height="25dp"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
                 style="@style/CustomImageButtonStyle"
                 android:background="@android:drawable/ic_menu_my_calendar"
                 android:contentDescription="@string/dataCalendarioAuto"
-                android:onClick="onDataPeriodoDaBtnPress" />
+                android:onClick="onDataPeriodoDaBtnPress"
+                android:padding="8dp" />
+
 
             <TextView
                 android:id="@+id/dataAutomaticaTxtDa"
@@ -42,15 +44,16 @@
                 android:textSize="12sp"
                 android:textStyle="bold" />
 
-            <!-- End Date Button and Text -->
             <ImageButton
-                android:id="@+id/dataAutomaticaBtnA"
-                android:layout_width="25dp"
-                android:layout_height="25dp"
-                android:background="@android:drawable/ic_menu_my_calendar"
-                android:contentDescription="@string/dataCalendario"
                 style="@style/CustomImageButtonStyle"
-                android:onClick="onDataPeriodoABtnPress" />
+                android:id="@+id/addSpesa"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:layout_gravity="center_vertical"
+                android:background="@android:drawable/ic_menu_add"
+                android:contentDescription="@string/addSpesa_descrizione"
+                android:onClick="onAddSpesaBtnPress"
+                android:padding="8dp" />
 
             <TextView
                 android:id="@+id/dataAutomaticaTxtA"
@@ -68,12 +71,14 @@
             <!-- Search Button -->
             <ImageButton
                 android:id="@+id/search"
-                android:layout_width="35dp"
-                android:layout_height="35dp"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
                 style="@style/CustomImageButtonStyle"
                 android:background="@android:drawable/ic_menu_search"
                 android:contentDescription="@string/searchData"
-                android:onClick="onSearchBtnPress" />
+                android:onClick="onSearchBtnPress"
+                android:padding="8dp" />
+
         </LinearLayout>
 
         <!-- Filter Row -->
@@ -99,9 +104,13 @@
             <CheckBox
                 android:id="@+id/selectAll"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="48dp"
                 android:contentDescription="@string/selectAllCheckbox"
-                android:text="@string/selectAll" />
+                android:text="@string/selectAll"
+                android:gravity="center_vertical"
+                android:paddingTop="8dp"
+                android:paddingBottom="8dp" />
+
         </LinearLayout>
 
         <!-- Movements Grid -->

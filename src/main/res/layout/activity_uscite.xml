@@ -16,25 +16,30 @@
         <ImageButton
             android:id="@+id/pickDate"
             style="@style/CustomImageButtonStyle"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
             android:layout_gravity="center_horizontal"
             android:background="@android:drawable/ic_menu_my_calendar"
             android:contentDescription="@string/dataCalendario"
             android:focusable="true"
-            android:onClick="onDataUsciteBtnPress" />
+            android:onClick="onDataUsciteBtnPress"
+            android:padding="8dp" />
 
         <TextView
             android:id="@+id/dateSpesa"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="48dp"
             android:layout_gravity="center_vertical"
             android:layout_marginStart="15dp"
             android:clickable="true"
             android:focusable="true"
             android:hint="@string/display_selected_date"
             android:onClick="onDataUsciteBtnPress"
-            android:textStyle="bold" />
+            android:textStyle="bold"
+            android:gravity="center_vertical"
+            android:paddingTop="8dp"
+            android:paddingBottom="8dp" />
+
     </LinearLayout>
 
     <!-- Expense Entry Section -->
@@ -60,12 +65,14 @@
         <EditText
             android:id="@+id/soldiSpesa"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_height="48dp"
             android:layout_weight="1"
-            android:gravity="end"
+            android:gravity="end|center_vertical"
             android:hint="@string/importoAutomatica"
             android:inputType="numberDecimal"
-            android:textSize="16sp" />
+            android:textSize="16sp"
+            android:paddingTop="8dp"
+            android:paddingBottom="8dp" />
 
         <TextView
             android:id="@+id/simboloEuro"
@@ -76,13 +83,16 @@
             android:textSize="20sp" />
 
         <ImageButton
+            style="@style/CustomImageButtonStyle"
             android:id="@+id/addSpesa"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
             android:layout_gravity="center_vertical"
             android:background="@android:drawable/ic_menu_add"
             android:contentDescription="@string/addSpesa_descrizione"
-            android:onClick="onAddSpesaBtnPress" />
+            android:onClick="onAddSpesaBtnPress"
+            android:padding="8dp" />
+
     </LinearLayout>
 
     <!-- Expense List Section -->

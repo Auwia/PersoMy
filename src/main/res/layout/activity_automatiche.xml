@@ -16,17 +16,23 @@
         <RadioButton
             android:id="@+id/usciteRB"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="48dp"
             android:checked="true"
             android:contentDescription="@string/select_expenses"
-            android:text="@string/menu_uscite" />
+            android:text="@string/menu_uscite"
+            android:gravity="center_vertical"
+            android:paddingTop="8dp"
+            android:paddingBottom="8dp" />
 
         <RadioButton
             android:id="@+id/entrateRB"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="48dp"
             android:contentDescription="@string/select_income"
-            android:text="@string/menu_entrate" />
+            android:text="@string/menu_entrate"
+            android:gravity="center_vertical"
+            android:paddingTop="8dp"
+            android:paddingBottom="8dp" />
 
     </RadioGroup>
 
@@ -51,11 +57,13 @@
         <Spinner
             android:id="@+id/frequenza"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_height="48dp"
             android:layout_weight="7"
             android:contentDescription="@string/choose_frequency_spinner"
             android:entries="@array/frequenze"
-            android:gravity="center_vertical" />
+            android:gravity="center_vertical"
+            android:paddingTop="8dp"
+            android:paddingBottom="8dp" />
 
     </LinearLayout>
 
@@ -68,16 +76,18 @@
         <ImageButton
             android:id="@+id/dataAutomaticaBtn"
             style="@style/CustomImageButtonStyle"
-            android:layout_width="25dp"
-            android:layout_height="25dp"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:layout_gravity="center_vertical"
             android:background="@android:drawable/ic_menu_my_calendar"
             android:contentDescription="@string/dataCalendario"
-            android:onClick="onDataAutomaticaBtnPress" />
+            android:onClick="onDataAutomaticaBtnPress"
+            android:padding="8dp" />
 
         <TextView
             android:id="@+id/dataAutomaticaTxt"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_height="48dp"
             android:layout_weight="1"
             android:clickable="true"
             android:contentDescription="@string/display_selected_date"
@@ -85,21 +95,25 @@
             android:onClick="onDataAutomaticaBtnPress"
             android:text=""
             android:textSize="12sp"
-            android:textStyle="bold" />
+            android:textStyle="bold"
+            android:gravity="center"
+            android:paddingTop="8dp"
+            android:paddingBottom="8dp" />
 
         <ImageButton
             android:id="@+id/oraAutomaticaBtn"
             style="@style/CustomImageButtonStyle"
-            android:layout_width="25dp"
-            android:layout_height="25dp"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
             android:background="@android:drawable/ic_lock_idle_alarm"
             android:contentDescription="@string/oraCalendario"
-            android:onClick="onOraAutomaticaBtnPress" />
+            android:onClick="onOraAutomaticaBtnPress"
+            android:padding="8dp" />
 
         <TextView
             android:id="@+id/oraAutomaticaTxt"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_height="48dp"
             android:layout_weight="1"
             android:clickable="true"
             android:contentDescription="@string/display_selected_time"
@@ -107,7 +121,9 @@
             android:onClick="onOraAutomaticaBtnPress"
             android:text=""
             android:textSize="12sp"
-            android:textStyle="bold" />
+            android:textStyle="bold"
+            android:gravity="center_vertical"
+            android:padding="8dp" />
 
     </LinearLayout>
 
@@ -132,14 +148,17 @@
         <EditText
             android:id="@+id/importoAutomatica"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_height="48dp"
             android:layout_weight="1"
             android:autofillHints="false"
-            android:gravity="end"
+            android:gravity="end|center_vertical"
             android:hint="@string/importoAutomatica"
             android:inputType="numberDecimal"
             android:maxLength="7"
-            android:textSize="16sp" />
+            android:textSize="16sp"
+            android:paddingTop="8dp"
+            android:paddingBottom="8dp" />
+
 
         <TextView
             android:id="@+id/simboloEuro"
@@ -150,13 +169,15 @@
             android:textSize="20sp" />
 
         <ImageButton
-            android:id="@+id/addSpesa"
             style="@style/CustomImageButtonStyle"
-            android:layout_width="25dp"
-            android:layout_height="25dp"
+            android:id="@+id/addSpesa"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:layout_gravity="center_vertical"
             android:background="@android:drawable/ic_menu_add"
-            android:contentDescription="@string/addSpesa"
-            android:onClick="onAggiungiSpesaBtnPress" />
+            android:contentDescription="@string/addSpesa_descrizione"
+            android:onClick="onAddSpesaBtnPress"
+            android:padding="8dp" />
 
     </LinearLayout>
 

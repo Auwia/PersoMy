@@ -1,0 +1,7 @@
+<resources>
+    <!-- Colori esistenti -->
+    <color name="primary_color">#4CAF50</color>
+    <color name="dark_gray">#616161</color>
+    <color name="light_teal_background">#E0F2F1</color>
+    <color name="dark_teal">#00796B</color>
+</resources>

@@ -36,7 +36,10 @@
     <!-- Stile per i bottoni immagine -->
     <style name="CustomImageButtonStyle">
         <item name="android:tint">#000000</item> <!-- Colore nero per migliorare il contrasto -->
+        <item name="android:stateListAnimator">@null</item> <!-- Evita effetti non necessari -->
+        <item name="android:backgroundTint">#FFFFFF</item> <!-- Sfondo chiaro per contrasto -->
     </style>
+
 
     <!-- Stile per i TextView delle intestazioni -->
     <style name="HeaderTextViewStyle">

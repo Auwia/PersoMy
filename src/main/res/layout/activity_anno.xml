@@ -22,8 +22,13 @@
             <Spinner
                 android:id="@+id/selAnno"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:contentDescription="@string/selectAnno" />
+                android:layout_height="48dp"
+                android:contentDescription="@string/select_year"
+                android:paddingStart="15dp"
+                android:paddingEnd="15dp"
+                android:paddingTop="8dp"
+                android:paddingBottom="8dp" />
+
         </LinearLayout>
 
         <!-- Intestazione delle Colonne -->

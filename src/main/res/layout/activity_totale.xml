@@ -35,11 +35,15 @@
 
         <TextView
             android:id="@+id/simboloEuro"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:contentDescription="@string/euro_symbol"
-            android:text="@string/currency"
-            android:textSize="15sp" />
+            android:layout_width="32dp"
+            android:layout_height="48dp"
+            android:layout_weight="5"
+            android:contentDescription="@string/currency"
+            android:gravity="center"
+            android:text=""
+            android:textSize="15sp"
+            android:padding="8dp" />
+
     </TableRow>
 
     <!-- Total Expenses Row -->
