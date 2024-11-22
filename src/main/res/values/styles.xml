@@ -1,7 +1,66 @@
 <resources>
 
+    <!-- Tema principale dell'app -->
     <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+        <item name="colorPrimary">#6200EE</item> <!-- Colore principale -->
+        <item name="colorPrimaryDark">#3700B3</item> <!-- Colore barra di stato -->
+        <item name="colorAccent">#03DAC5</item> <!-- Colore degli accenti -->
+    </style>
 
+    <!-- Tema personalizzato per il TimePicker -->
+    <style name="CustomTimePickerTheme" parent="Theme.AppCompat.Light.Dialog">
+        <!-- Colori personalizzati -->
+        <item name="android:textColorPrimary">#FFFFFF</item> <!-- Testo principale -->
+        <item name="android:textColorSecondary">#B0BEC5</item> <!-- Testo secondario -->
+        <item name="android:background">#4CAF50</item> <!-- Sfondo del picker -->
+        <item name="android:buttonStyle">@style/CustomButtonStyle
+        </item> <!-- Pulsanti personalizzati -->
+    </style>
+
+    <!-- Tema personalizzato per il DatePicker -->
+    <style name="CustomDatePickerTheme" parent="Theme.AppCompat.Light.Dialog">
+        <!-- Colori personalizzati -->
+        <item name="android:textColorPrimary">#FFFFFF</item> <!-- Testo principale -->
+        <item name="android:textColorSecondary">#B0BEC5</item> <!-- Testo secondario -->
+        <item name="android:background">#4CAF50</item> <!-- Sfondo del picker -->
+        <item name="android:buttonStyle">@style/CustomButtonStyle
+        </item> <!-- Pulsanti personalizzati -->
+    </style>
+
+    <!-- Stile per i pulsanti -->
+    <style name="CustomButtonStyle" parent="Widget.AppCompat.Button">
+        <item name="android:backgroundTint">#6200EE</item> <!-- Colore di sfondo -->
+        <item name="android:textColor">#FFFFFF</item> <!-- Colore del testo -->
+    </style>
+
+    <!-- Stile per i bottoni immagine -->
+    <style name="CustomImageButtonStyle">
+        <item name="android:tint">#000000</item> <!-- Colore nero per migliorare il contrasto -->
+    </style>
+
+    <!-- Stile per i TextView delle intestazioni -->
+    <style name="HeaderTextViewStyle">
+        <item name="android:textSize">14sp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textColor">#000000</item> <!-- Testo nero per alto contrasto -->
+        <item name="android:gravity">center</item>
+        <item name="android:padding">4dp</item>
+    </style>
+
+    <!-- Stile generale per il GridView -->
+    <style name="GridViewStyle">
+        <item name="android:background">#FFFFFF</item> <!-- Sfondo bianco -->
+        <item name="android:horizontalSpacing">8dp</item>
+        <item name="android:verticalSpacing">8dp</item>
+        <item name="android:numColumns">1</item>
+        <item name="android:stretchMode">columnWidth</item>
+    </style>
+
+    <!-- Stile per il contenitore delle colonne -->
+    <style name="ColumnHeaderContainerStyle">
+        <item name="android:background">#DDDDDD</item> <!-- Sfondo grigio chiaro -->
+        <item name="android:padding">8dp</item>
+        <item name="android:orientation">horizontal</item>
     </style>
 
 </resources>

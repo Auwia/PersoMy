@@ -8,34 +8,28 @@
 
     <TextView
         android:id="@+id/meseReportAnno"
+        style="@style/HeaderTextViewStyle"
         android:layout_width="0dp"
         android:layout_height="match_parent"
         android:layout_weight="3"
         android:background="@drawable/cell_shape"
-        android:contentDescription="@null"
-        android:gravity="center"
-        android:importantForAccessibility="no"
-        android:textSize="12sp" />
+        android:contentDescription="@null" />
 
     <TextView
         android:id="@+id/entrateReportAnno"
+        style="@style/HeaderTextViewStyle"
         android:layout_width="0dp"
         android:layout_height="match_parent"
         android:layout_weight="3"
         android:background="@drawable/cell_shape"
-        android:contentDescription="@null"
-        android:gravity="end"
-        android:importantForAccessibility="no"
-        android:textSize="12sp" />
+        android:contentDescription="@null" />
 
     <TextView
         android:id="@+id/usciteReportAnno"
+        style="@style/HeaderTextViewStyle"
         android:layout_width="0dp"
         android:layout_height="match_parent"
         android:layout_weight="3"
         android:background="@drawable/cell_shape"
-        android:contentDescription="@null"
-        android:gravity="end"
-        android:importantForAccessibility="no"
-        android:textSize="12sp" />
+        android:contentDescription="@null" />
 </TableRow>

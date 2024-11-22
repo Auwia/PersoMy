@@ -15,14 +15,16 @@
 
         <ImageButton
             android:id="@+id/menu_salva_spese"
+            style="@style/CustomImageButtonStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:background="@android:color/transparent"
+            android:contentDescription="@string/menu_salva"
             android:minWidth="48dp"
             android:minHeight="48dp"
             android:padding="8dp"
-            android:layout_marginStart="10dp"
-            android:background="@android:drawable/ic_menu_save"
-            android:contentDescription="@string/menu_salva" />
+            android:src="@android:drawable/ic_menu_save" />
 
         <TextView
             android:id="@+id/menu_salva_descrizione"
@@ -30,6 +32,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="15dp"
             android:text="@string/menu_salva_descrizione"
+            android:textColor="#4F4F4F"
             android:textStyle="bold" />
     </TableRow>
 
@@ -43,14 +46,16 @@
 
         <ImageButton
             android:id="@+id/addDescrizione"
+            style="@style/CustomImageButtonStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:background="@android:color/transparent"
+            android:contentDescription="@string/addDescrizione"
             android:minWidth="48dp"
             android:minHeight="48dp"
             android:padding="8dp"
-            android:layout_marginStart="10dp"
-            android:background="@android:drawable/ic_input_add"
-            android:contentDescription="@string/addDescrizione" />
+            android:src="@android:drawable/ic_input_add" />
 
         <TextView
             android:id="@+id/addDescrizione_descrizione"
@@ -58,6 +63,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="15dp"
             android:text="@string/addDescrizione_descrizione"
+            android:textColor="#4F4F4F"
             android:textStyle="bold" />
     </TableRow>
 
@@ -71,14 +77,16 @@
 
         <ImageButton
             android:id="@+id/modificaDescrizione"
+            style="@style/CustomImageButtonStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:background="@android:color/transparent"
+            android:contentDescription="@string/menu_modifica"
             android:minWidth="48dp"
             android:minHeight="48dp"
             android:padding="8dp"
-            android:layout_marginStart="10dp"
-            android:background="@android:drawable/ic_menu_edit"
-            android:contentDescription="@string/menu_modifica" />
+            android:src="@android:drawable/ic_menu_edit" />
 
         <TextView
             android:id="@+id/modificaDescrizione_descrizione"
@@ -86,6 +94,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="15dp"
             android:text="@string/modificaDescrizione_descrizione"
+            android:textColor="#4F4F4F"
             android:textStyle="bold" />
     </TableRow>
 
@@ -99,14 +108,16 @@
 
         <ImageButton
             android:id="@+id/deleteSpesa"
+            style="@style/CustomImageButtonStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:background="@android:color/transparent"
+            android:contentDescription="@string/deleteSpesa"
             android:minWidth="48dp"
             android:minHeight="48dp"
             android:padding="8dp"
-            android:layout_marginStart="10dp"
-            android:background="@android:drawable/ic_menu_delete"
-            android:contentDescription="@string/deleteSpesa" />
+            android:src="@android:drawable/ic_menu_delete" />
 
         <TextView
             android:id="@+id/deleteSpesa_descrizione"
@@ -114,6 +125,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="15dp"
             android:text="@string/deleteSpesa_descrizione"
+            android:textColor="#4F4F4F"
             android:textStyle="bold" />
     </TableRow>
 
@@ -127,14 +139,16 @@
 
         <ImageButton
             android:id="@+id/addSpesa"
+            style="@style/CustomImageButtonStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:background="@android:color/transparent"
+            android:contentDescription="@string/addSpesa"
             android:minWidth="48dp"
             android:minHeight="48dp"
             android:padding="8dp"
-            android:layout_marginStart="10dp"
-            android:background="@android:drawable/ic_menu_add"
-            android:contentDescription="@string/addSpesa" />
+            android:src="@android:drawable/ic_menu_add" />
 
         <TextView
             android:id="@+id/addSpesa_descrizione"
@@ -142,6 +156,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="15dp"
             android:text="@string/addSpesa_descrizione"
+            android:textColor="#4F4F4F"
             android:textStyle="bold" />
     </TableRow>
 </LinearLayout>

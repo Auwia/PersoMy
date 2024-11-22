@@ -16,81 +16,88 @@ import java.util.Currency;
 import java.util.Locale;
 
 public class MovimentoListViewAdapter extends ArrayAdapter<Movimento> {
-    public View row;
-    ArrayList<Movimento> myMovimento;
-    int resLayout;
-    Context context;
 
-    public MovimentoListViewAdapter(Context context,
-                                    ArrayList<Movimento> myMovimento) {
+    private final ArrayList<Movimento> myMovimento;
+    private final int resLayout;
+    private final LayoutInflater inflater;
+
+    public MovimentoListViewAdapter(Context context, ArrayList<Movimento> myMovimento) {
         super(context, R.layout.custom_automatic_view, myMovimento);
         this.myMovimento = myMovimento;
-        resLayout = R.layout.custom_automatic_view;
-        this.context = context;
+        this.resLayout = R.layout.custom_automatic_view;
+        this.inflater = LayoutInflater.from(context);
     }
 
     @NonNull
     @Override
     public View getView(int position, View convertView, @NonNull ViewGroup parent) {
-        row = convertView;
-        if (row == null) {
-            LayoutInflater ll = (LayoutInflater) context
-                    .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            row = ll.inflate(resLayout, parent, false);
+        ViewHolder holder;
+
+        if (convertView == null) {
+            convertView = inflater.inflate(resLayout, parent, false);
+            holder = new ViewHolder();
+            holder.myMovimentoFrequenza = convertView.findViewById(R.id.frequenzaAutomatica);
+            holder.myMovimentoStartData = convertView.findViewById(R.id.startDateAutomatica);
+            holder.myMovimentoVoce = convertView.findViewById(R.id.voceAutomatica);
+            holder.myMovimentoImporto = convertView.findViewById(R.id.importoAutomatica);
+            holder.myMovimentoFlaggata = convertView.findViewById(R.id.flaggataAutomatica);
+            holder.mySimboloEuro = convertView.findViewById(R.id.simboloEuro);
+            convertView.setTag(holder);
+        } else {
+            holder = (ViewHolder) convertView.getTag();
         }
 
         Movimento item = myMovimento.get(position);
-        final int pos = position;
 
         if (item != null) {
-            TextView myMovimentoFrequenza = row != null ? row.findViewById(R.id.frequenzaAutomatica) : null;
-            assert row != null;
-            TextView myMovimentoStartData = row.findViewById(R.id.startDateAutomatica);
-            TextView myMovimentoVoce = row.findViewById(R.id.voceAutomatica);
-            TextView myMovimentoImporto = row.findViewById(R.id.importoAutomatica);
-            CheckBox myMovimentoFlaggata = row.findViewById(R.id.flaggataAutomatica);
-            TextView mySimboloEuro = row.findViewById(R.id.simboloEuro);
-
-            if (mySimboloEuro != null) {
-
-                Locale loc = new Locale("it", "IT");
-                mySimboloEuro.setText(Currency.getInstance(loc).getSymbol());
-
+            Locale loc = new Locale("it", "IT");
+            if (holder.mySimboloEuro != null) {
+                holder.mySimboloEuro.setText(Currency.getInstance(loc).getSymbol());
             }
 
-            if (myMovimentoFrequenza != null)
-                myMovimentoFrequenza.setText(item.getAutomaticaFrequenza());
+            if (holder.myMovimentoFrequenza != null) {
+                holder.myMovimentoFrequenza.setText(item.getAutomaticaFrequenza());
+            }
 
-            if (myMovimentoStartData != null)
-                myMovimentoStartData.setText(item.getAutomaticaStartDate());
+            if (holder.myMovimentoStartData != null) {
+                holder.myMovimentoStartData.setText(item.getAutomaticaStartDate());
+            }
 
-            if (myMovimentoVoce != null)
-                myMovimentoVoce.setText(item.getAutomaticaVoce());
+            if (holder.myMovimentoVoce != null) {
+                holder.myMovimentoVoce.setText(item.getAutomaticaVoce());
+            }
 
-            if (myMovimentoImporto != null) {
+            if (holder.myMovimentoImporto != null) {
                 DecimalFormat df = new DecimalFormat("###,##0.00");
-                myMovimentoImporto.setText(df.format(item
-                        .getAutomaticaImporto()));
+                holder.myMovimentoImporto.setText(df.format(item.getAutomaticaImporto()));
             }
 
-            if (myMovimentoFlaggata != null)
-                myMovimentoFlaggata.setChecked(item.getAutomaticaFlaggata());
+            if (holder.myMovimentoFlaggata != null) {
+                holder.myMovimentoFlaggata.setChecked(item.getAutomaticaFlaggata());
 
-            assert myMovimentoFlaggata != null;
-            myMovimentoFlaggata.setOnClickListener(v -> myMovimento.set(
-                    pos,
-                    new Movimento(
-                            myMovimento.get(pos)
-                                    .getAutomaticaFrequenza(),
-                            myMovimento.get(pos)
-                                    .getAutomaticaStartDate(),
-                            myMovimento.get(pos).getAutomaticaVoce(),
-                            myMovimento.get(pos).getAutomaticaImporto(),
-                            myMovimento.get(pos).getAutomaticaUscita(),
-                            myMovimento.get(pos).getAutomaticaSalvata(),
-                            ((CheckBox) v).isChecked())));
+                holder.myMovimentoFlaggata.setOnClickListener(v -> myMovimento.set(
+                        position,
+                        new Movimento(
+                                item.getAutomaticaFrequenza(),
+                                item.getAutomaticaStartDate(),
+                                item.getAutomaticaVoce(),
+                                item.getAutomaticaImporto(),
+                                item.getAutomaticaUscita(),
+                                item.getAutomaticaSalvata(),
+                                ((CheckBox) v).isChecked()
+                        )));
+            }
         }
 
-        return row;
+        return convertView;
+    }
+
+    static class ViewHolder {
+        TextView myMovimentoFrequenza;
+        TextView myMovimentoStartData;
+        TextView myMovimentoVoce;
+        TextView myMovimentoImporto;
+        CheckBox myMovimentoFlaggata;
+        TextView mySimboloEuro;
     }
 }

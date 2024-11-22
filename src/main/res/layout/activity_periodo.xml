@@ -24,6 +24,7 @@
                 android:id="@+id/dataAutomaticaBtnDa"
                 android:layout_width="25dp"
                 android:layout_height="25dp"
+                style="@style/CustomImageButtonStyle"
                 android:background="@android:drawable/ic_menu_my_calendar"
                 android:contentDescription="@string/dataCalendarioAuto"
                 android:onClick="onDataPeriodoDaBtnPress" />
@@ -48,6 +49,7 @@
                 android:layout_height="25dp"
                 android:background="@android:drawable/ic_menu_my_calendar"
                 android:contentDescription="@string/dataCalendario"
+                style="@style/CustomImageButtonStyle"
                 android:onClick="onDataPeriodoABtnPress" />
 
             <TextView
@@ -68,6 +70,7 @@
                 android:id="@+id/search"
                 android:layout_width="35dp"
                 android:layout_height="35dp"
+                style="@style/CustomImageButtonStyle"
                 android:background="@android:drawable/ic_menu_search"
                 android:contentDescription="@string/searchData"
                 android:onClick="onSearchBtnPress" />

@@ -15,13 +15,13 @@
 
         <ImageButton
             android:id="@+id/pickDate"
+            style="@style/CustomImageButtonStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
             android:background="@android:drawable/ic_menu_my_calendar"
             android:contentDescription="@string/dataCalendario"
-            android:focusable="false"
-            android:focusableInTouchMode="false"
+            android:focusable="true"
             android:onClick="onDataUsciteBtnPress" />
 
         <TextView
@@ -31,11 +31,9 @@
             android:layout_gravity="center_vertical"
             android:layout_marginStart="15dp"
             android:clickable="true"
-            android:contentDescription="@string/display_selected_date"
             android:focusable="true"
-            android:focusableInTouchMode="false"
+            android:hint="@string/display_selected_date"
             android:onClick="onDataUsciteBtnPress"
-            android:text=""
             android:textStyle="bold" />
     </LinearLayout>
 
@@ -64,7 +62,6 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:autofillHints="false"
             android:gravity="end"
             android:hint="@string/importoAutomatica"
             android:inputType="numberDecimal"
@@ -75,7 +72,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
-            android:contentDescription="@string/euro_symbol"
             android:text="@string/currency"
             android:textSize="20sp" />
 
@@ -94,9 +90,7 @@
         android:id="@+id/listaSpesa"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:clickable="true"
         android:contentDescription="@string/expense_list"
         android:fadingEdge="vertical"
-        android:focusable="true"
-        android:focusableInTouchMode="false" />
+        android:focusable="true" />
 </LinearLayout>

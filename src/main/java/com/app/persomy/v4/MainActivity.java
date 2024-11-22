@@ -950,9 +950,9 @@ public class MainActivity extends AppCompatActivity {
         mYear = c.get(Calendar.YEAR);
         mMonth = c.get(Calendar.MONTH);
         mDay = c.get(Calendar.DAY_OF_MONTH);
-        dialogDate = new DatePickerDialog(this, new PickDate(), mYear, mMonth,
+        dialogDate = new DatePickerDialog(this, R.style.CustomDatePickerTheme, new PickDate(), mYear, mMonth,
                 mDay);
-        dialogDateA = new DatePickerDialog(this, new PickDate(), mYear, mMonth,
+        dialogDateA = new DatePickerDialog(this, R.style.CustomDatePickerTheme, new PickDate(), mYear, mMonth,
                 mDay);
 
         dialogDate.setOnShowListener(dialog -> {
@@ -973,7 +973,7 @@ public class MainActivity extends AppCompatActivity {
     private void resetTime() {
         mHourOfDay = c.get(Calendar.HOUR_OF_DAY);
         mMinute = c.get(Calendar.MINUTE);
-        dialogTime = new TimePickerDialog(this, new PickTime(), mHourOfDay,
+        dialogTime = new TimePickerDialog(this, R.style.CustomTimePickerTheme, new PickTime(), mHourOfDay,
                 mMinute, DateFormat.is24HourFormat(this));
 
         dialogTime.setOnShowListener(dialog -> {

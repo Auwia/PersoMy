@@ -14,12 +14,11 @@
         android:paddingTop="4dp"
         android:paddingBottom="4dp">
 
-
         <Button
             android:id="@+id/usciteBtn"
+            style="?android:attr/buttonBarButtonStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="@android:color/transparent"
             android:contentDescription="@string/uscite_description"
             android:drawableTop="@drawable/uscite"
             android:gravity="center"
@@ -29,9 +28,9 @@
 
         <Button
             android:id="@+id/entrateBtn"
+            style="?android:attr/buttonBarButtonStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="@android:color/transparent"
             android:contentDescription="@string/entrate_description"
             android:drawableTop="@drawable/entrate"
             android:gravity="center"
@@ -50,9 +49,9 @@
 
         <Button
             android:id="@+id/reportBtn"
+            style="?android:attr/buttonBarButtonStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="@android:color/transparent"
             android:contentDescription="@string/report_description"
             android:drawableTop="@drawable/report"
             android:gravity="center"
@@ -62,9 +61,9 @@
 
         <Button
             android:id="@+id/automaticheBtn"
+            style="?android:attr/buttonBarButtonStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="@android:color/transparent"
             android:contentDescription="@string/operazioni_automatiche_description"
             android:drawableTop="@drawable/operazioniautomatiche"
             android:gravity="center"
@@ -83,9 +82,9 @@
 
         <Button
             android:id="@+id/backupBtn"
+            style="?android:attr/buttonBarButtonStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="@android:color/transparent"
             android:contentDescription="@string/backup_description"
             android:drawableTop="@drawable/backup"
             android:gravity="center"
@@ -96,9 +95,9 @@
 
         <Button
             android:id="@+id/optionsBtn"
+            style="?android:attr/buttonBarButtonStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="@android:color/transparent"
             android:contentDescription="@string/opzioni_description"
             android:drawableTop="@drawable/opzioni"
             android:gravity="center"
@@ -118,9 +117,9 @@
 
         <Button
             android:id="@+id/eliminaBtn"
+            style="?android:attr/buttonBarButtonStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="@android:color/transparent"
             android:contentDescription="@string/elimina_description"
             android:drawableTop="@drawable/deleteform"
             android:gravity="center"
@@ -131,9 +130,9 @@
 
         <Button
             android:id="@+id/exitBtn"
+            style="?android:attr/buttonBarButtonStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="@android:color/transparent"
             android:contentDescription="@string/exit_description"
             android:drawableTop="@drawable/exit"
             android:gravity="center"

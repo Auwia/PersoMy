@@ -67,6 +67,7 @@
 
         <ImageButton
             android:id="@+id/dataAutomaticaBtn"
+            style="@style/CustomImageButtonStyle"
             android:layout_width="25dp"
             android:layout_height="25dp"
             android:background="@android:drawable/ic_menu_my_calendar"
@@ -88,6 +89,7 @@
 
         <ImageButton
             android:id="@+id/oraAutomaticaBtn"
+            style="@style/CustomImageButtonStyle"
             android:layout_width="25dp"
             android:layout_height="25dp"
             android:background="@android:drawable/ic_lock_idle_alarm"
@@ -149,6 +151,7 @@
 
         <ImageButton
             android:id="@+id/addSpesa"
+            style="@style/CustomImageButtonStyle"
             android:layout_width="25dp"
             android:layout_height="25dp"
             android:background="@android:drawable/ic_menu_add"

@@ -14,75 +14,75 @@ import java.util.ArrayList;
 import java.util.Currency;
 import java.util.Locale;
 
-public class ListaMovimentiGridViewAdapter extends ArrayAdapter<Lista>
-{
-     ArrayList<Lista> myLista;
-     int resLayout;
-     Context context;
+public class ListaMovimentiGridViewAdapter extends ArrayAdapter<Lista> {
 
-    public View row;
-     
-     public ListaMovimentiGridViewAdapter(Context context, ArrayList<Lista> myLista) {
-         super(context, R.layout.custom_grid_view, myLista);
-         this.myLista = myLista;
-         resLayout = R.layout.custom_grid_view;
-         this.context = context;
-     }
+    private final ArrayList<Lista> myLista;
+    private final int resLayout;
+    private final LayoutInflater inflater;
 
-     @NonNull
-     @Override
-     public View getView(int position, View convertView, @NonNull ViewGroup parent)
-     {
-         row = convertView;
-         if(row == null)
-         {
-             LayoutInflater ll = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-             row = ll.inflate(resLayout, parent, false);
-         }
+    public ListaMovimentiGridViewAdapter(Context context, ArrayList<Lista> myLista) {
+        super(context, R.layout.custom_grid_view, myLista);
+        this.myLista = myLista;
+        this.resLayout = R.layout.custom_grid_view;
+        this.inflater = LayoutInflater.from(context);
+    }
 
-         Lista item = myLista.get(position);
+    @NonNull
+    @Override
+    public View getView(int position, View convertView, @NonNull ViewGroup parent) {
+        ViewHolder holder;
 
-         if(item != null)
-         {   
-        	 TextView myListaData = row != null ? row.findViewById(R.id.dataListaCustom) : null;
-             assert row != null;
-             TextView myListaDescription = row.findViewById(R.id.descrizioneListaCustom);
-             TextView myListaSoldi = row.findViewById(R.id.soldiListaCustom);
-             TextView myListaUscita = row.findViewById(R.id.simbolo);
-             TextView mySimboloEuro = row.findViewById(R.id.simboloEuro);
-             
-			if (mySimboloEuro != null) {
-				Locale loc = new Locale("it", "IT");
-				mySimboloEuro.setText(Currency.getInstance(loc).getSymbol());
-			}
+        if (convertView == null) {
+            convertView = inflater.inflate(resLayout, parent, false);
+            holder = new ViewHolder();
+            holder.myListaData = convertView.findViewById(R.id.dataListaCustom);
+            holder.myListaDescription = convertView.findViewById(R.id.descrizioneListaCustom);
+            holder.myListaSoldi = convertView.findViewById(R.id.soldiListaCustom);
+            holder.myListaUscita = convertView.findViewById(R.id.simbolo);
+            holder.mySimboloEuro = convertView.findViewById(R.id.simboloEuro);
+            convertView.setTag(holder);
+        } else {
+            holder = (ViewHolder) convertView.getTag();
+        }
 
-             if(myListaData != null)
-             {
-            	 myListaData.setText(item.getDataMovimento());
-            	 myListaData.setTextSize(12);
-             }
-            	 
-             if(myListaDescription != null)
-             {
-            	 myListaDescription.setText(item.getListaName());
-            	 myListaDescription.setTextSize(12);
-             }
-                 
-             
-             if(myListaSoldi != null)
-             {
-            	 DecimalFormat df = new DecimalFormat("###,##0.00");
-            	 myListaSoldi.setText(df.format(item.getListaPrezzo()));
-            	 myListaSoldi.setTextSize(12);
-             }
-             
-             if(myListaUscita != null)
-             {
-            	 myListaUscita.setText(item.getUscitaMovimento());
-            	 myListaUscita.setTextSize(12);
-             }
-         }
-     
-     return row;
-     }
+        final Lista item = myLista.get(position);
+
+        if (item != null) {
+            Locale loc = new Locale("it", "IT");
+            if (holder.mySimboloEuro != null) {
+                holder.mySimboloEuro.setText(Currency.getInstance(loc).getSymbol());
+            }
+
+            if (holder.myListaData != null) {
+                holder.myListaData.setText(item.getDataMovimento());
+                holder.myListaData.setTextSize(12);
+            }
+
+            if (holder.myListaDescription != null) {
+                holder.myListaDescription.setText(item.getListaName());
+                holder.myListaDescription.setTextSize(12);
+            }
+
+            if (holder.myListaSoldi != null) {
+                DecimalFormat df = new DecimalFormat("###,##0.00");
+                holder.myListaSoldi.setText(df.format(item.getListaPrezzo()));
+                holder.myListaSoldi.setTextSize(12);
+            }
+
+            if (holder.myListaUscita != null) {
+                holder.myListaUscita.setText(item.getUscitaMovimento());
+                holder.myListaUscita.setTextSize(12);
+            }
+        }
+
+        return convertView;
+    }
+
+    static class ViewHolder {
+        TextView myListaData;
+        TextView myListaDescription;
+        TextView myListaSoldi;
+        TextView myListaUscita;
+        TextView mySimboloEuro;
+    }
 }

@@ -21,31 +21,28 @@
 
     <TextView
         android:id="@+id/soldiSpesaCustom"
+        style="@style/HeaderTextViewStyle"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_weight="18"
-        android:contentDescription="@string/importoAutomaticaDesc"
-        android:gravity="end"
-        android:importantForAccessibility="yes" />
+        android:contentDescription="@string/importoAutomaticaDesc" />
 
     <TextView
         android:id="@+id/simboloEuro"
+        style="@style/HeaderTextViewStyle"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_weight="5"
         android:contentDescription="@string/currency"
-        android:gravity="center"
-        android:importantForAccessibility="no"
-        android:text=""
-        android:textSize="15sp" />
+        android:text="" />
 
     <CheckBox
         android:id="@+id/flaggataSpesaCustom"
+        style="@style/HeaderTextViewStyle"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_weight="10"
         android:clickable="true"
         android:contentDescription="@string/flag_checkbox"
-        android:focusable="true"
-        android:importantForAccessibility="yes" />
+        android:focusable="true" />
 </LinearLayout>

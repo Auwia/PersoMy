@@ -1,29 +1,133 @@
 <resources>
-
     <string name="OK">موافق</string>
-    <string name="PersoMy">PersoMy © eng. Massimo Manganiello</string>
-    <string name="PersoMyHistory">PersoMy هو برنامج محاسبة بسيط يتيح لك تتبع كل الإيرادات والنفقات في ميزانية أسرتك. ما عليك سوى تتبع نفقاتك وأرباحك لحظة في ميزانية الأسرة، وجمع الإحصائيات، والحصول على نظرة عامة على الشهر الحالي والتحقق من السيولة المتاحة.</string>
+    <string name="PersoMy">PersoMy © المهندس ماسيمو مانجانيلو</string>
+    <string name="PersoMyHistory">PersoMy هو برنامج محاسبة بسيط يتيح لك تتبع جميع الإيرادات والمصروفات الخاصة بميزانية عائلتك. تحتاج فقط إلى تسجيل مصروفاتك وإيراداتك للحظة في ميزانية المنزل، وتجميع الإحصائيات، والحصول على نظرة عامة على الشهر الحالي والتحقق من السيولة المتاحة.</string>
     <string name="PersoMyIcon">PersoMy</string>
     <string name="PersoMyVersion">الإصدار: </string>
     <string name="PersoMy_app_version">معلومات إصدار تطبيق PersoMy</string>
-    <string name="NO">لا</string>
-    <string name="SI">نعم</string>
     <string name="addDescrizione">إضافة عنصر جديد</string>
-    <string name="addDescrizioneVolo">إضافة وصف</string>
-    <!-- Altri valori omessi per brevità -->
-    <string name="uscite_column">عنوان العمود للمصروفات</string>
-    <string name="uscite_description">بالنقر هنا يمكنك إدخال مصاريفك (نفقات).</string>
+    <string name="addDescrizione_descrizione">قم بإنشاء عنصر جديد في قاعدة بيانات المستخدم (مثل فندق، قهوة، إلخ).</string>
+    <string name="addSpesa">إضافة عنصر</string>
+    <string name="addSpesa_descrizione">أضف العنصر المحدد والمبلغ إلى قائمة المحتويات.</string>
+    <string name="automaticaFrequenza">التكرار</string>
+    <string name="backupRestore">هل تريد استعادة النسخة الاحتياطية؟</string>
+    <string name="backup_description">بالنقر هنا يمكنك إنشاء نسخة احتياطية أو استعادتها.</string>
+    <string name="cancel">إلغاء</string>
+    <string name="cancel_time_selection">إلغاء تحديد الوقت</string>
+    <string name="choose_expense_description_spinner">وصف المصروف أو الإيراد</string>
+    <string name="choose_frequency_label">اختر التكرار للمعاملة التلقائية</string>
+    <string name="choose_frequency_spinner">اختر التكرار لإدخال تلقائي</string>
+    <string name="confirm_time_selection">تأكيد اختيار الوقت</string>
+    <string name="confermaUpdate">يتطلب الاتصال بالإنترنت، هل تقبل؟</string>
+    <string name="currency">€</string>
+    <string name="dataCalendario">اختر تاريخًا</string>
+    <string name="dataCalendarioAuto">حدد تاريخًا للحجز التلقائي للمصروفات أو الإيرادات عبر الزر تلقائيًا.</string>
+    <string name="dataCalendarioAutoTxt">اضغط لتحديد تاريخ البدء.</string>
+    <string name="deleteSpesa">حذف المصروف</string>
+    <string name="deleteSpesa_descrizione">احذف العنصر المحدد في قائمة المحتويات.</string>
+    <string name="display_selected_date">التاريخ المحدد للإدخال</string>
+    <string name="display_selected_time">الوقت المحدد</string>
+    <string name="elimina_description">هنا يمكنك حذف عنصر بالكامل، ولكن يرجى ملاحظة أنه في حالة عدم وجود نسخة احتياطية، لا يمكنك التراجع.</string>
+    <string name="enter_password_description">يمكنك هنا إدخال كلمة مرور ستقوم بتأكيدها في الحقل أدناه.</string>
+    <string name="entrate_column">رأس عمود الإيرادات</string>
+    <string name="entrate_description">بالنقر هنا يمكنك إدخال إيراداتك (الدخل).</string>
+    <string name="euro_symbol">رمز اليورو (€)</string>
+    <string name="exit_description">إغلاق التطبيق.</string>
+    <string name="expense_list">قائمة المصروفات المضافة</string>
+    <string name="flag_checkbox">حدد أو ألغِ تحديد العنصر</string>
+    <string name="help">مساعدة</string>
+    <string name="importoAutomatica">يرجى إدخال المبلغ.</string>
+    <string name="importoAutomaticaDesc">من خلال هذا الخيار يمكنك تحديد المصروفات أو الإيرادات.</string>
+    <string name="inserirePassword">كلمة المرور:</string>
+    <string name="legenda">خريطة</string>
+    <string name="lista_movimenti_anno">قائمة الحركات للسنة المحددة</string>
+    <string name="loading">جارٍ التحميل. يرجى الانتظار…</string>
+    <string name="menu_anno">سنوياً</string>
+    <string name="menu_backup">نسخة احتياطية</string>
+    <string name="menu_backup_description">قم بإنشاء نسخة احتياطية لبياناتك</string>
+    <string name="menu_elimina">حذف</string>
+    <string name="menu_entrate">الإيرادات</string>
+    <string name="menu_exit">خروج</string>
+    <string name="menu_file_backup">نسخة احتياطية واستعادة</string>
+    <string name="menu_info">معلومات</string>
+    <string name="menu_info_description">معلومات التطبيق</string>
+    <string name="menu_mensile">شهرياً</string>
+    <string name="menu_mese">الشهر</string>
+    <string name="menu_modifica">تعديل العنصر</string>
+    <string name="menu_opzioni">خيارات</string>
+    <string name="menu_operazioni_automatiche">عمليات تلقائية</string>
+    <string name="menu_periodo">فترة مخصصة</string>
+    <string name="menu_report">تقارير</string>
+    <string name="menu_ripristino_backup">استعادة النسخة الاحتياطية</string>
+    <string name="menu_ripristino_backup_description">استعادة البيانات من النسخة الاحتياطية</string>
+    <string name="menu_salva">حفظ</string>
+    <string name="menu_salva_descrizione">احفظ قائمة المحتويات في قاعدة بيانات المستخدم.</string>
+    <string name="menu_selezione_voce">اختر العنصر</string>
+    <string name="menu_totale">المجموع</string>
+    <string name="menu_uscite">المصروفات</string>
+    <string name="menu_voce">وصف عنصر المصروف</string>
+    <string name="modificaDescrizione_descrizione">قم بتعديل العنصر المحدد (في القائمة المنسدلة وقاعدة البيانات وقائمة المحتويات).</string>
+    <string name="new_update_found">تم العثور على تحديث جديد، هل ترغب في التحديث الآن؟</string>
+    <string name="opzioni_description">هنا يمكنك ضبط بعض الخيارات، مثل التحديث التلقائي أو تعيين كلمة مرور للوصول إلى التطبيق.</string>
+    <string name="oraCalendario">أيقونة يتم النقر عليها لتحديد الوقت الدقيق للمعاملة المالية.</string>
+    <string name="operazioni_automatiche_description">بالنقر هنا يمكنك تكوين إيراداتك أو نفقاتك الثابتة. أمثلة: الإيجار، القرض، إلخ.</string>
+    <string name="password">كلمة المرور</string>
+    <string name="passwordOption">قم بتمكين هذا الخيار لتكوين كلمة مرور لمنع الوصول غير المصرح به.</string>
+    <string name="passwordVerifyDesc">أدخل كلمة المرور التي أدخلتها مسبقًا لتأكيدها.</string>
+    <string name="password_verify">تأكيد كلمة المرور:</string>
+    <string name="password_verify_ko">كلمة المرور غير صحيحة!</string>
+    <string name="persomyExit">هل أنت متأكد من الخروج؟</string>
+    <string name="report_description">بالنقر هنا يمكنك اختيار بين تقارير مختلفة.</string>
+    <string name="saldo">الرصيد</string>
+    <string name="searchData">اضغط للبحث عن السجلات بناءً على التواريخ والفلاتر المحددة.</string>
+    <string name="selectAll">الكل</string>
+    <string name="selectAllCheckbox">حدد لتضمين جميع العناصر في البحث.</string>
+    <string name="selectAnno">يرجى اختيار سنة متاحة لعرض البيانات.</string>
+    <string name="select_expenses">حدد هذا المصروف أو ألغِ التحديد</string>
+    <string name="select_income">حدد الإيرادات</string>
+    <string name="select_income_or_expenses">حدد ما إذا كان هذا إيرادًا أم مصروفًا</string>
+    <string name="select_month">اختر الشهر</string>
+    <string name="select_year">اختر السنة</string>
+    <string name="settings_pwd_equal">كلمات المرور متطابقة</string>
+    <string name="settings_pwd_not_equal">كلمات المرور غير متطابقة</string>
+    <string name="settings_password">أدخل كلمة المرور:</string>
+    <string name="settings_password2">أدخل كلمة المرور مرة أخرى:</string>
+    <string name="setPassword">تعيين كلمة مرور</string>
+    <string name="setPasswordKO">كلمة المرور معطلة</string>
+    <string name="setPasswordOK">تم تعيين كلمة المرور.</string>
+    <string name="setPasswordVuota">كلمة المرور غير صالحة.</string>
+    <string name="setUpdate">تعيين التحديث التلقائي</string>
+    <string name="setUpdateKO">التحديث التلقائي معطل.</string>
+    <string name="setUpdateOK">التحديث التلقائي مفعل.</string>
+    <string name="soldiSpesaDesc">أدخل هنا مبلغ القيمة (المبلغ) للإيرادات أو المصروفات.</string>
+    <string name="spesaAggiungiVoce">أضف عنصرًا إلى القائمة</string>
+    <string name="spesaCancellaVoce">حدد عنصرًا لحذفه من الجدول</string>
+    <string name="spesaControlloImporto">المبلغ سالب أو غير صالح!</string>
+    <string name="spesaDelete">إذا تابعت الإلغاء، فسيتم إزالة جميع الإدخالات في الجدول. هل تريد الاستمرار؟</string>
+    <string name="spesaEliminazioneOk">تم الحذف بنجاح!</string>
+    <string name="spesaModificaVoce">تغيير اسم العنصر</string>
+    <string name="spesaSalvataggioOk">تم الحفظ.</string>
+    <string name="spesaVoceDuplicata">اسم العنصر موجود مسبقًا!</string>
+    <string name="spesaVoceVuota">اسم العنصر غير صحيح!</string>
+    <string name="title_activity_main">PersoMy</string>
+    <string name="totaleEntrateDesc">عرض إجمالي مبلغ الإيرادات</string>
+    <string name="totaleSaldoDesc">عرض الرصيد بعد حساب الإيرادات والمصروفات</string>
+    <string name="totaleUsciteDesc">عرض إجمالي مبلغ المصروفات</string>
+    <string name="TOTEntrate">مجموع الإيرادات</string>
+    <string name="TOTUscite">مجموع المصروفات</string>
+    <string name="update">التحديث التلقائي</string>
+    <string name="uscite_column">رأس عمود المصروفات</string>
+    <string name="uscite_description">بالنقر هنا يمكنك إدخال المصروفات (النفقات).</string>
 
     <!-- String Arrays -->
     <string-array name="frequenze">
-        <item>يومياً</item>
-        <item>أسبوعياً</item>
-        <item>كل عشرة أيام</item>
-        <item>شهرياً</item>
-        <item>نصف شهرياً</item>
-        <item>سنوياً</item>
+        <item>يوميًا</item>
+        <item>أسبوعيًا</item>
+        <item>كل 10 أيام</item>
+        <item>شهريًا</item>
+        <item>نصف شهري</item>
+        <item>سنويًا</item>
         <item>أول يوم من الشهر</item>
         <item>آخر يوم من الشهر</item>
     </string-array>
-
 </resources>

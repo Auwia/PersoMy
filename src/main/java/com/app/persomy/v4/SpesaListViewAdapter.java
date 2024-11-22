@@ -16,66 +16,77 @@ import java.util.Currency;
 import java.util.Locale;
 
 public class SpesaListViewAdapter extends ArrayAdapter<Spesa> {
-    public View row;
-    ArrayList<Spesa> mySpesa;
-    int resLayout;
-    Context context;
+
+    private final ArrayList<Spesa> mySpesa;
+    private final int resLayout;
+    private final LayoutInflater inflater;
 
     public SpesaListViewAdapter(Context context, ArrayList<Spesa> mySpesa) {
         super(context, R.layout.list_view_custom, mySpesa);
         this.mySpesa = mySpesa;
-        resLayout = R.layout.list_view_custom;
-        this.context = context;
+        this.resLayout = R.layout.list_view_custom;
+        this.inflater = LayoutInflater.from(context);
     }
 
     @NonNull
     @Override
     public View getView(int position, View convertView, @NonNull ViewGroup parent) {
-        row = convertView;
-        if (row == null) { // inflate our custom layout. resLayout ==
-            // R.layout.row_team_layout.xml
-            LayoutInflater ll = (LayoutInflater) context
-                    .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            row = ll.inflate(resLayout, parent, false);
+        ViewHolder holder;
+
+        if (convertView == null) {
+            convertView = inflater.inflate(resLayout, parent, false);
+            holder = new ViewHolder();
+            holder.mySpesaDescription = convertView.findViewById(R.id.descrizioneSpesaCustom);
+            holder.mySpesaSoldi = convertView.findViewById(R.id.soldiSpesaCustom);
+            holder.mySpesaFlaggata = convertView.findViewById(R.id.flaggataSpesaCustom);
+            holder.mySimboloEuro = convertView.findViewById(R.id.simboloEuro);
+            convertView.setTag(holder);
+        } else {
+            holder = (ViewHolder) convertView.getTag();
         }
 
         Spesa item = mySpesa.get(position);
-        final int pos = position;
 
         if (item != null) {
-            assert row != null;
-            TextView mySpesaDescription = row.findViewById(R.id.descrizioneSpesaCustom);
-            TextView mySpesaSoldi = row.findViewById(R.id.soldiSpesaCustom);
-            CheckBox mySpesaFlaggata = row.findViewById(R.id.flaggataSpesaCustom);
-            TextView mySimboloEuro = row.findViewById(R.id.simboloEuro);
-
-            if (mySimboloEuro != null) {
-
-                Locale loc = new Locale("it", "IT");
-                mySimboloEuro.setText(Currency.getInstance(loc).getSymbol());
-
+            // Set the Euro symbol based on the Italian locale
+            Locale loc = new Locale("it", "IT");
+            if (holder.mySimboloEuro != null) {
+                holder.mySimboloEuro.setText(Currency.getInstance(loc).getSymbol());
             }
 
-            if (mySpesaDescription != null)
-                mySpesaDescription.setText(item.getSpesaName());
+            // Set description text
+            if (holder.mySpesaDescription != null) {
+                holder.mySpesaDescription.setText(item.getSpesaName());
+            }
 
-            if (mySpesaSoldi != null) {
+            // Set amount text with proper formatting
+            if (holder.mySpesaSoldi != null) {
                 DecimalFormat df = new DecimalFormat("###,##0.00");
-                mySpesaSoldi.setText(df.format(item
-                        .getSpesaPrezzo()));
+                holder.mySpesaSoldi.setText(df.format(item.getSpesaPrezzo()));
             }
 
-            if (mySpesaFlaggata != null)
-                mySpesaFlaggata.setChecked(item.getSpesaFlaggata());
-
-            if (mySpesaFlaggata != null) {
-                mySpesaFlaggata.setOnClickListener(v -> mySpesa.set(pos, new Spesa(mySpesa.get(pos)
-                        .getSpesaName(), mySpesa.get(pos)
-                        .getSpesaPrezzo(), mySpesa.get(pos)
-                        .getSpesaSalvata(), ((CheckBox) v).isChecked())));
+            // Set and handle checkbox state
+            if (holder.mySpesaFlaggata != null) {
+                holder.mySpesaFlaggata.setChecked(item.getSpesaFlaggata());
+                holder.mySpesaFlaggata.setOnClickListener(v -> mySpesa.set(
+                        position,
+                        new Spesa(
+                                item.getSpesaName(),
+                                item.getSpesaPrezzo(),
+                                item.getSpesaSalvata(),
+                                ((CheckBox) v).isChecked()
+                        )
+                ));
             }
         }
 
-        return row;
+        return convertView;
+    }
+
+    static class ViewHolder {
+        TextView mySpesaDescription;
+        TextView mySpesaSoldi;
+        CheckBox mySpesaFlaggata;
+        TextView mySimboloEuro;
     }
 }
