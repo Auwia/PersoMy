@@ -70,15 +70,16 @@
 
         <TextView
             android:id="@+id/simboloEuro"
+            style="@style/HeaderTextViewStyle"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_height="48dp"
             android:layout_weight="5"
-            android:contentDescription="@string/euro_symbol"
-            android:focusable="false"
-            android:focusableInTouchMode="false"
+            android:contentDescription="@string/currency"
             android:gravity="center"
-            android:text="@string/currency"
-            android:textSize="15sp" />
+            android:minWidth="32dp"
+            android:paddingStart="8dp"
+            android:paddingEnd="8dp"
+            android:text="" />
 
         <CheckBox
             android:id="@+id/flaggataAutomatica"

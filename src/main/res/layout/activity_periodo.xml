@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
@@ -22,13 +23,15 @@
             <!-- Start Date Button and Text -->
             <ImageButton
                 android:id="@+id/dataAutomaticaBtnDa"
+                style="@style/CustomImageButtonStyle"
                 android:layout_width="48dp"
                 android:layout_height="48dp"
-                style="@style/CustomImageButtonStyle"
                 android:background="@android:drawable/ic_menu_my_calendar"
+                android:backgroundTint="#333333"
                 android:contentDescription="@string/dataCalendarioAuto"
                 android:onClick="onDataPeriodoDaBtnPress"
-                android:padding="8dp" />
+                android:padding="8dp"
+                app:tint="#FFFFFF" />
 
 
             <TextView
@@ -39,21 +42,27 @@
                 android:clickable="true"
                 android:contentDescription="@string/dataCalendarioAutoTxt"
                 android:focusable="true"
+                android:gravity="center_vertical"
+                android:minHeight="48dp"
                 android:onClick="onDataPeriodoDaBtnPress"
+                android:paddingStart="8dp"
+                android:paddingEnd="8dp"
                 android:text=""
                 android:textSize="12sp"
                 android:textStyle="bold" />
 
             <ImageButton
-                style="@style/CustomImageButtonStyle"
                 android:id="@+id/addSpesa"
+                style="@style/CustomImageButtonStyle"
                 android:layout_width="48dp"
                 android:layout_height="48dp"
                 android:layout_gravity="center_vertical"
                 android:background="@android:drawable/ic_menu_add"
+                android:backgroundTint="#333333"
                 android:contentDescription="@string/addSpesa_descrizione"
                 android:onClick="onAddSpesaBtnPress"
-                android:padding="8dp" />
+                android:padding="8dp"
+                app:tint="#000000" />
 
             <TextView
                 android:id="@+id/dataAutomaticaTxtA"
@@ -63,7 +72,11 @@
                 android:clickable="true"
                 android:contentDescription="@string/dataCalendarioAutoTxt"
                 android:focusable="true"
+                android:gravity="center_vertical"
+                android:minHeight="48dp"
                 android:onClick="onDataPeriodoABtnPress"
+                android:paddingStart="8dp"
+                android:paddingEnd="8dp"
                 android:text=""
                 android:textSize="12sp"
                 android:textStyle="bold" />
@@ -71,9 +84,9 @@
             <!-- Search Button -->
             <ImageButton
                 android:id="@+id/search"
+                style="@style/CustomImageButtonStyle"
                 android:layout_width="48dp"
                 android:layout_height="48dp"
-                style="@style/CustomImageButtonStyle"
                 android:background="@android:drawable/ic_menu_search"
                 android:contentDescription="@string/searchData"
                 android:onClick="onSearchBtnPress"
@@ -106,10 +119,10 @@
                 android:layout_width="wrap_content"
                 android:layout_height="48dp"
                 android:contentDescription="@string/selectAllCheckbox"
-                android:text="@string/selectAll"
                 android:gravity="center_vertical"
                 android:paddingTop="8dp"
-                android:paddingBottom="8dp" />
+                android:paddingBottom="8dp"
+                android:text="@string/selectAll" />
 
         </LinearLayout>
 

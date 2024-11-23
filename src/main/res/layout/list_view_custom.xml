@@ -31,9 +31,13 @@
         android:id="@+id/simboloEuro"
         style="@style/HeaderTextViewStyle"
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
+        android:layout_height="48dp"
         android:layout_weight="5"
         android:contentDescription="@string/currency"
+        android:gravity="center"
+        android:minWidth="32dp"
+        android:paddingStart="8dp"
+        android:paddingEnd="8dp"
         android:text="" />
 
     <CheckBox

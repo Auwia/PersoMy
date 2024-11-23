@@ -14,8 +14,10 @@ import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.graphics.Color;
 import android.graphics.Point;
 import android.graphics.Rect;
+import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -73,6 +75,7 @@ import java.util.Currency;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
+import java.util.Objects;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -1712,7 +1715,12 @@ public class MainActivity extends AppCompatActivity {
             });
 
         alert.setCancelable(false);
-        alert.show();
+        AlertDialog dialog = alert.create();
+        dialog.setOnShowListener(d -> {
+            dialog.getButton(AlertDialog.BUTTON_POSITIVE).setTextColor(Color.parseColor("#009688"));
+            dialog.getButton(AlertDialog.BUTTON_NEGATIVE).setTextColor(Color.parseColor("#009688"));
+        });
+        dialog.show();
 
     }
 
@@ -2406,9 +2414,10 @@ public class MainActivity extends AppCompatActivity {
     public void onAddSpesaBtnPress(View v) {
 
         EditText soldiSpesa = findViewById(R.id.soldiSpesa);
+        soldiSpesa.setContentDescription("@string/soldiSpesaDesc");
         Spinner descrizioneSpesa = findViewById(R.id.descrizioneSpesa);
 
-        if (soldiSpesa != null && descrizioneSpesa != null && descrizioneSpesa.getSelectedItem() != null) {
+        if (descrizioneSpesa != null && descrizioneSpesa.getSelectedItem() != null) {
             if (!descrizioneSpesa.getSelectedItem().toString().isEmpty()) {
                 if (soldiSpesa.length() != 0
                         && Double.parseDouble(soldiSpesa.getText().toString()) > 0) {

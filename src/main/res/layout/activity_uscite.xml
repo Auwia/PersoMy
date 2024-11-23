@@ -1,4 +1,5 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/widget137"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -20,25 +21,35 @@
             android:layout_height="48dp"
             android:layout_gravity="center_horizontal"
             android:background="@android:drawable/ic_menu_my_calendar"
+            android:backgroundTint="#333333"
             android:contentDescription="@string/dataCalendario"
             android:focusable="true"
             android:onClick="onDataUsciteBtnPress"
-            android:padding="8dp" />
+            android:padding="8dp"
+            app:tint="#000000" />
 
         <TextView
             android:id="@+id/dateSpesa"
             android:layout_width="wrap_content"
-            android:layout_height="48dp"
+            android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
             android:layout_marginStart="15dp"
+            android:background="?attr/selectableItemBackground"
             android:clickable="true"
             android:focusable="true"
+            android:gravity="center"
             android:hint="@string/display_selected_date"
+            android:minWidth="48dp"
+            android:minHeight="48dp"
             android:onClick="onDataUsciteBtnPress"
-            android:textStyle="bold"
-            android:gravity="center_vertical"
-            android:paddingTop="8dp"
-            android:paddingBottom="8dp" />
+            android:paddingStart="8dp"
+            android:paddingTop="12dp"
+            android:paddingEnd="8dp"
+            android:paddingBottom="12dp"
+            android:textColor="?android:attr/textColorPrimary"
+            android:textSize="14sp"
+            android:textStyle="bold" />
+
 
     </LinearLayout>
 
@@ -67,24 +78,30 @@
             android:layout_width="0dp"
             android:layout_height="48dp"
             android:layout_weight="1"
+            android:background="#EFEFEF"
             android:gravity="end|center_vertical"
             android:hint="@string/importoAutomatica"
             android:inputType="numberDecimal"
-            android:textSize="16sp"
             android:paddingTop="8dp"
-            android:paddingBottom="8dp" />
+            android:paddingBottom="8dp"
+            android:textColor="#333333"
+            android:textSize="16sp" />
 
         <TextView
             android:id="@+id/simboloEuro"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="48dp"
             android:layout_gravity="center_vertical"
+            android:gravity="center"
+            android:minWidth="32dp"
+            android:paddingStart="8dp"
+            android:paddingEnd="8dp"
             android:text="@string/currency"
             android:textSize="20sp" />
 
         <ImageButton
-            style="@style/CustomImageButtonStyle"
             android:id="@+id/addSpesa"
+            style="@style/CustomImageButtonStyle"
             android:layout_width="48dp"
             android:layout_height="48dp"
             android:layout_gravity="center_vertical"

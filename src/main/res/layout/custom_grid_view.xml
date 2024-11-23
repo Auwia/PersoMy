@@ -11,10 +11,13 @@
         android:layout_width="0dp"
         android:layout_height="48dp"
         android:layout_weight="23"
+        android:background="?attr/selectableItemBackground"
         android:contentDescription="@string/display_selected_date"
         android:focusable="false"
         android:focusableInTouchMode="false"
         android:gravity="center"
+        android:paddingStart="8dp"
+        android:paddingEnd="8dp"
         android:text=""
         android:textIsSelectable="true" />
 
@@ -23,35 +26,44 @@
         android:layout_width="0dp"
         android:layout_height="48dp"
         android:layout_weight="52"
+        android:background="?attr/selectableItemBackground"
         android:contentDescription="@string/choose_expense_description_spinner"
         android:focusable="false"
         android:focusableInTouchMode="false"
+        android:gravity="center_vertical"
+        android:paddingStart="8dp"
+        android:paddingEnd="8dp"
         android:text=""
         android:textIsSelectable="true" />
 
     <TextView
         android:id="@+id/simbolo"
-        android:layout_width="0dp"
+        android:layout_width="48dp"
         android:layout_height="48dp"
         android:layout_weight="4"
+        android:background="?attr/selectableItemBackground"
         android:contentDescription="@string/euro_symbol"
         android:focusable="false"
         android:focusableInTouchMode="false"
         android:gravity="center"
+        android:padding="8dp"
         android:text="@string/currency"
-        android:textIsSelectable="true" />
+        android:textSize="16sp" />
 
     <TextView
         android:id="@+id/soldiListaCustom"
         android:layout_width="0dp"
         android:layout_height="48dp"
         android:layout_weight="16"
+        android:background="?attr/selectableItemBackground"
         android:contentDescription="@string/soldiSpesaDesc"
         android:focusable="false"
         android:focusableInTouchMode="false"
-        android:gravity="end"
+        android:gravity="end|center_vertical"
+        android:padding="8dp"
         android:text=""
-        android:textIsSelectable="true" />
+        android:textIsSelectable="true"
+        android:textSize="16sp" />
 
     <TextView
         android:id="@+id/simboloEuro"
