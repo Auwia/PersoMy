@@ -17,7 +17,6 @@ import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Color;
 import android.graphics.Point;
 import android.graphics.Rect;
-import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -75,7 +74,6 @@ import java.util.Currency;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
-import java.util.Objects;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -2414,7 +2412,11 @@ public class MainActivity extends AppCompatActivity {
     public void onAddSpesaBtnPress(View v) {
 
         EditText soldiSpesa = findViewById(R.id.soldiSpesa);
-        soldiSpesa.setContentDescription("@string/soldiSpesaDesc");
+        if (soldiSpesa != null) {
+            soldiSpesa.setContentDescription(getString(R.string.soldiSpesaDesc));
+        } else {
+            Log.e("MainActivity", "soldiSpesa è null. Controlla l'ID e il layout associato.");
+        }
         Spinner descrizioneSpesa = findViewById(R.id.descrizioneSpesa);
 
         if (descrizioneSpesa != null && descrizioneSpesa.getSelectedItem() != null) {
