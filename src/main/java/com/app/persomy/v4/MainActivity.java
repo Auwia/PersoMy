@@ -1940,6 +1940,7 @@ public class MainActivity extends AppCompatActivity {
             soldiSpesa.setHint(getString(R.string.soldiSpesaDesc));
         } else {
             Log.e("MainActivity", "soldiSpesa è null. Controlla l'ID e il layout associato.");
+            return;
         }
         Spinner descrizioneSpesa = findViewById(R.id.descrizioneSpesa);
 
