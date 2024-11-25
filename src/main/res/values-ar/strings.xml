@@ -26,6 +26,7 @@
     <string name="dataCalendarioAutoTxt">اضغط لتحديد تاريخ البدء.</string>
     <string name="dataCalendarioAutoTxt1">اضغط لتحديد تاريخ البدء.</string>
     <string name="deleteSpesa">حذف المصروف</string>
+    <string name="euro_symbol_voce">Euro (€)</string>
     <string name="deleteSpesa_descrizione">احذف العنصر المحدد في قائمة المحتويات.</string>
     <string name="display_selected_date">التاريخ المحدد للإدخال</string>
     <string name="display_selected_time">الوقت المحدد</string>

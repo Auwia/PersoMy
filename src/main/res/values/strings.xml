@@ -15,7 +15,7 @@
     <string name="backup_description">By clicking here you can create a backup or restore it.</string>
     <string name="cancel">Cancel</string>
     <string name="cancel_time_selection">Cancel time selection</string>
-    <string name="choose_expense_description_spinner1">Description of the expense or revenue</string>
+    <string name="choose_expense_description_spinner1">Description of the expense or revenue in the delete form.</string>
     <string name="choose_expense_description_spinner">Description of the expense or revenue</string>
     <string name="choose_frequency_label">Choose the frequency for the automatic operation</string>
     <string name="choose_frequency_spinner">Select a frequency for the automatic entry</string>
@@ -25,7 +25,7 @@
     <string name="dataCalendario">Select a date</string>
     <string name="dataCalendarioAuto">Select a date for automatic booking of expensive or revenue.</string>
     <string name="dataCalendarioAutoTxt">Select a start date.</string>
-    <string name="dataCalendarioAutoTxt1">Select a start date.</string>
+    <string name="dataCalendarioAutoTxt1">Select a start date for custom report.</string>
     <string name="deleteSpesa">Delete Expensive</string>
     <string name="deleteSpesa_descrizione">Delete the cheked item in the content list.</string>
     <string name="display_selected_date">Entry date</string>
@@ -34,6 +34,7 @@
     <string name="enter_password_description">Here you can put a password that you will confirm in the field below.</string>
     <string name="entrate_column">Income column header</string>
     <string name="entrate_description">"By clicking here you can insert your revenues (income). "</string>
+    <string name="euro_symbol_voce">Euro (€)</string>
     <string name="euro_symbol">Symbol for Euro (€)</string>
     <string name="exit_description">Quit the app.</string>
     <string name="expense_list">List of added expenses</string>
@@ -43,7 +44,7 @@
     <string name="importoAutomaticaDesc">By this checkpoint you can select expenses (outcoming) or revenues (incoming).</string>
     <string name="inserirePassword">Password:</string>
     <string name="legenda">Map</string>
-    <string name="lista_movimenti_anno">Movements for the selected year</string>
+    <string name="lista_movimenti_anno">Movements for the year</string>
     <string name="loading">Loading. Please Wait&#8230;</string>
     <string name="menu_anno">Yearly</string>
     <string name="menu_backup">Backup</string>
@@ -69,7 +70,7 @@
     <string name="menu_totale">Sum</string>
     <string name="menu_uscite">Expenses</string>
     <string name="menu_voce">Description of the expense item</string>
-    <string name="modificaDescrizione_descrizione">Modify selected item (in: dropdown list, database and content list).</string>
+    <string name="modificaDescrizione_descrizione">Modify the item in the dropdown, database, and content list.</string>
     <string name="new_update_found">A new update was found, would you like to update now?</string>
     <string name="opzioni_description">Here you can set some options, like automatic update or set a password to access the app.</string>
     <string name="oraCalendario">Icon to be clicked to set the exact time of the financial operation.</string>
@@ -82,7 +83,7 @@
     <string name="persomyExit">Are you sure to exit?</string>
     <string name="report_description">By clicking here you can choice between different reports.</string>
     <string name="saldo">Balance</string>
-    <string name="searchData">Search for records based on selected dates and filters.</string>
+    <string name="searchData">Search records by date and filters</string>
     <string name="selectAll">All</string>
     <string name="selectAllCheckbox">Check to include all items in the search.</string>
     <string name="selectAnno">Please select a Year available to display data.</string>

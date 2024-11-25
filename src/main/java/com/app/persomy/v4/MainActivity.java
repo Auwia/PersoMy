@@ -1876,6 +1876,7 @@ public class MainActivity extends AppCompatActivity {
         invalidateOptionsMenu();
 
         TextView simboloEuro = findViewById(R.id.simboloEuro);
+        simboloEuro.setContentDescription(getString(R.string.euro_symbol_voce));
         Locale loc = new Locale("it", "IT");
         simboloEuro.setText(Currency.getInstance(loc).getSymbol());
 

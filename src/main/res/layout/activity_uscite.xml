@@ -84,7 +84,7 @@
             android:inputType="numberDecimal"
             android:paddingTop="8dp"
             android:paddingBottom="8dp"
-            android:textColor="#333333"
+            android:textColor="#000000"
             android:textSize="16sp" />
 
         <TextView
@@ -106,9 +106,11 @@
             android:layout_height="48dp"
             android:layout_gravity="center_vertical"
             android:background="@android:drawable/ic_menu_add"
+            android:backgroundTint="#E0E0E0"
             android:contentDescription="@string/addSpesa_descrizione"
             android:onClick="onAddSpesaBtnPress"
-            android:padding="8dp" />
+            android:padding="8dp"
+            app:tint="#333333" />
 
     </LinearLayout>
 

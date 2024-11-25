@@ -25,6 +25,7 @@
     <string name="dataCalendario">选择日期</string>
     <string name="dataCalendarioAuto">选择一个日期以通过按钮自动记录支出或收入。</string>
     <string name="dataCalendarioAutoTxt">点击选择开始日期。</string>
+    <string name="euro_symbol_voce">Euro (€)</string>
     <string name="dataCalendarioAutoTxt1">点击选择开始日期。</string>
     <string name="deleteSpesa">删除支出</string>
     <string name="deleteSpesa_descrizione">删除内容列表中选中的项目。</string>

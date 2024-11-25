@@ -22,6 +22,7 @@
     <string name="confirm_time_selection">Confirmer la sélection de l\'heure</string>
     <string name="confermaUpdate">Une connexion Internet est requise, acceptez-vous ?</string>
     <string name="currency">€</string>
+    <string name="euro_symbol_voce">Euro (€)</string>
     <string name="dataCalendario">Sélectionner une date</string>
     <string name="dataCalendarioAuto">Sélectionner une date pour la réservation automatique des dépenses ou des revenus via un bouton.</string>
     <string name="dataCalendarioAutoTxt">Touchez pour sélectionner une date de début.</string>

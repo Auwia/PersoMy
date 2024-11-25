@@ -78,11 +78,12 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_weight="5"
-        android:contentDescription="@string/euro_symbol"
-        android:focusable="false"
-        android:focusableInTouchMode="false"
+        android:background="?attr/selectableItemBackground"
+        android:contentDescription="@string/euro_symbol_voce"
         android:gravity="center"
-        android:text="@string/currency"
-        android:textIsSelectable="true" />
+        android:minHeight="48dp"
+        android:padding="8dp"
+        android:text=""
+        android:textSize="16sp" />
 
 </TableRow>

@@ -21,6 +21,7 @@
     <string name="confirm_time_selection">Conferma selezione dell\'ora</string>
     <string name="confermaUpdate">È necessaria una connessione Internet, accetti?</string>
     <string name="currency">€</string>
+    <string name="euro_symbol_voce">Euro (€)</string>
     <string name="dataCalendario">Seleziona una data</string>
     <string name="dataCalendarioAuto">Seleziona una data per la registrazione automatica di spese o entrate tramite pulsante.</string>
     <string name="dataCalendarioAutoTxt">Tocca per selezionare una data di inizio.</string>

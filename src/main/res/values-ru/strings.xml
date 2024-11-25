@@ -22,6 +22,7 @@
     <string name="confirm_time_selection">Подтвердить выбор времени</string>
     <string name="confermaUpdate">Требуется подключение к Интернету, вы согласны?</string>
     <string name="currency">€</string>
+    <string name="euro_symbol_voce">Euro (€)</string>
     <string name="dataCalendario">Выберите дату</string>
     <string name="dataCalendarioAuto">Выберите дату для автоматического создания записи расхода или дохода.</string>
     <string name="dataCalendarioAutoTxt">Нажмите, чтобы выбрать начальную дату.</string>

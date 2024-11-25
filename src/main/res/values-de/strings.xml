@@ -22,6 +22,7 @@
     <string name="confirm_time_selection">Zeitauswahl bestätigen</string>
     <string name="confermaUpdate">Internetverbindung erforderlich, akzeptieren Sie?</string>
     <string name="currency">€</string>
+    <string name="euro_symbol_voce">Euro (€)</string>
     <string name="dataCalendario">Wählen Sie ein Datum</string>
     <string name="dataCalendarioAuto">Wählen Sie ein Datum für die automatische Buchung von Ausgaben oder Einnahmen automatisch per Schaltfläche.</string>
     <string name="dataCalendarioAutoTxt">Tippen Sie, um ein Startdatum auszuwählen.</string>
