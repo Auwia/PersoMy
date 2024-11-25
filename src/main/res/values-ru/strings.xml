@@ -16,6 +16,7 @@
     <string name="cancel">Отмена</string>
     <string name="cancel_time_selection">Отменить выбор времени</string>
     <string name="choose_expense_description_spinner">Описание расхода или дохода</string>
+    <string name="choose_expense_description_spinner1">Описание расхода или дохода</string>
     <string name="choose_frequency_label">Выберите частоту автоматической операции</string>
     <string name="choose_frequency_spinner">Выберите частоту для автоматической записи</string>
     <string name="confirm_time_selection">Подтвердить выбор времени</string>
@@ -24,6 +25,7 @@
     <string name="dataCalendario">Выберите дату</string>
     <string name="dataCalendarioAuto">Выберите дату для автоматического создания записи расхода или дохода.</string>
     <string name="dataCalendarioAutoTxt">Нажмите, чтобы выбрать начальную дату.</string>
+    <string name="dataCalendarioAutoTxt1">Нажмите, чтобы выбрать начальную дату.</string>
     <string name="deleteSpesa">Удалить запись о расходах</string>
     <string name="deleteSpesa_descrizione">Удалите отмеченный элемент из списка содержимого.</string>
     <string name="display_selected_date">Выбранная дата записи</string>

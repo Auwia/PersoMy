@@ -57,7 +57,7 @@
                 android:layout_width="48dp"
                 android:layout_height="48dp"
                 android:layout_gravity="center_vertical"
-                android:background="@android:drawable/ic_menu_add"
+                android:background="@android:drawable/ic_menu_my_calendar"
                 android:backgroundTint="#333333"
                 android:contentDescription="@string/addSpesa_descrizione"
                 android:onClick="onAddSpesaBtnPress"

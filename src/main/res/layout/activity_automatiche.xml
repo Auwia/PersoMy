@@ -90,7 +90,7 @@
         <TextView
             android:id="@+id/dataAutomaticaTxt"
             android:layout_width="0dp"
-            android:layout_height="48dp"
+            android:layout_height="wrap_content"
             android:layout_weight="1"
             android:background="?attr/selectableItemBackground"
             android:clickable="true"
@@ -162,9 +162,8 @@
 
         <EditText
             android:id="@+id/importoAutomatica"
-            android:layout_width="0dp"
+            android:layout_width="48dp"
             android:layout_height="48dp"
-            android:layout_weight="1"
             android:autofillHints="false"
             android:background="#EFEFEF"
             android:gravity="end|center_vertical"

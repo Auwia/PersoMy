@@ -15,6 +15,7 @@
     <string name="cancel">Annulla</string>
     <string name="cancel_time_selection">Annulla selezione dell\'ora</string>
     <string name="choose_expense_description_spinner">Descrizione della spesa o entrata</string>
+    <string name="choose_expense_description_spinner1">Descrizione della spesa o entrata</string>
     <string name="choose_frequency_label">Scegli la frequenza per l\'operazione automatica</string>
     <string name="choose_frequency_spinner">Seleziona una frequenza per l\'operazione automatica</string>
     <string name="confirm_time_selection">Conferma selezione dell\'ora</string>
@@ -23,6 +24,7 @@
     <string name="dataCalendario">Seleziona una data</string>
     <string name="dataCalendarioAuto">Seleziona una data per la registrazione automatica di spese o entrate tramite pulsante.</string>
     <string name="dataCalendarioAutoTxt">Tocca per selezionare una data di inizio.</string>
+    <string name="dataCalendarioAutoTxt1">Tocca per selezionare una data di inizio.</string>
     <string name="deleteSpesa">Elimina spesa</string>
     <string name="deleteSpesa_descrizione">Elimina l\'elemento selezionato nella lista dei contenuti.</string>
     <string name="display_selected_date">Data selezionata dell\'operazione</string>

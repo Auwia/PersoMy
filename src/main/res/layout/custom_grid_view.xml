@@ -1,4 +1,3 @@
-<?xml version="1.0" encoding="utf-8"?>
 <TableRow xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/widget1232"
     android:layout_width="match_parent"
@@ -9,30 +8,38 @@
     <TextView
         android:id="@+id/dataListaCustom"
         android:layout_width="0dp"
-        android:layout_height="48dp"
+        android:layout_height="wrap_content"
         android:layout_weight="23"
         android:background="?attr/selectableItemBackground"
         android:contentDescription="@string/display_selected_date"
         android:focusable="false"
         android:focusableInTouchMode="false"
         android:gravity="center"
+        android:minHeight="48dp"
         android:paddingStart="8dp"
+        android:paddingTop="8dp"
         android:paddingEnd="8dp"
+        android:paddingBottom="8dp"
         android:text=""
         android:textIsSelectable="true" />
 
     <TextView
         android:id="@+id/descrizioneListaCustom"
         android:layout_width="0dp"
-        android:layout_height="48dp"
+        android:layout_height="wrap_content"
         android:layout_weight="52"
         android:background="?attr/selectableItemBackground"
         android:contentDescription="@string/choose_expense_description_spinner"
+        android:ellipsize="end"
         android:focusable="false"
         android:focusableInTouchMode="false"
         android:gravity="center_vertical"
+        android:maxLines="2"
+        android:minHeight="48dp"
         android:paddingStart="8dp"
+        android:paddingTop="4dp"
         android:paddingEnd="8dp"
+        android:paddingBottom="4dp"
         android:text=""
         android:textIsSelectable="true" />
 
@@ -53,13 +60,14 @@
     <TextView
         android:id="@+id/soldiListaCustom"
         android:layout_width="0dp"
-        android:layout_height="48dp"
+        android:layout_height="wrap_content"
         android:layout_weight="16"
         android:background="?attr/selectableItemBackground"
         android:contentDescription="@string/soldiSpesaDesc"
         android:focusable="false"
         android:focusableInTouchMode="false"
         android:gravity="end|center_vertical"
+        android:minHeight="48dp"
         android:padding="8dp"
         android:text=""
         android:textIsSelectable="true"
@@ -68,7 +76,7 @@
     <TextView
         android:id="@+id/simboloEuro"
         android:layout_width="0dp"
-        android:layout_height="48dp"
+        android:layout_height="wrap_content"
         android:layout_weight="5"
         android:contentDescription="@string/euro_symbol"
         android:focusable="false"
@@ -76,4 +84,5 @@
         android:gravity="center"
         android:text="@string/currency"
         android:textIsSelectable="true" />
+
 </TableRow>

@@ -16,6 +16,7 @@
     <string name="cancel">Abbrechen</string>
     <string name="cancel_time_selection">Zeitauswahl abbrechen</string>
     <string name="choose_expense_description_spinner">Beschreibung der Ausgabe oder Einnahme</string>
+    <string name="choose_expense_description_spinner1">Beschreibung der Ausgabe oder Einnahme</string>
     <string name="choose_frequency_label">Wählen Sie die Frequenz für die automatische Operation</string>
     <string name="choose_frequency_spinner">Wählen Sie eine Frequenz für die automatische Buchung</string>
     <string name="confirm_time_selection">Zeitauswahl bestätigen</string>
@@ -24,6 +25,7 @@
     <string name="dataCalendario">Wählen Sie ein Datum</string>
     <string name="dataCalendarioAuto">Wählen Sie ein Datum für die automatische Buchung von Ausgaben oder Einnahmen automatisch per Schaltfläche.</string>
     <string name="dataCalendarioAutoTxt">Tippen Sie, um ein Startdatum auszuwählen.</string>
+    <string name="dataCalendarioAutoTxt1">Tippen Sie, um ein Startdatum auszuwählen.</string>
     <string name="deleteSpesa">Ausgabe löschen</string>
     <string name="deleteSpesa_descrizione">Markiertes Element in der Inhaltsliste löschen.</string>
     <string name="display_selected_date">Ausgewähltes Datum des Eintrags</string>

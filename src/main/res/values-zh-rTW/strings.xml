@@ -16,6 +16,7 @@
     <string name="cancel">取消</string>
     <string name="cancel_time_selection">取消時間選擇</string>
     <string name="choose_expense_description_spinner">選擇支出或收入描述</string>
+    <string name="choose_expense_description_spinner1">選擇支出或收入描述</string>
     <string name="choose_frequency_label">選擇自動操作的頻率</string>
     <string name="choose_frequency_spinner">選擇自動輸入的頻率</string>
     <string name="confirm_time_selection">確認時間選擇</string>
@@ -24,6 +25,7 @@
     <string name="dataCalendario">選擇日期</string>
     <string name="dataCalendarioAuto">選擇一個日期以通過按鈕自動記錄支出或收入。</string>
     <string name="dataCalendarioAutoTxt">點擊選擇開始日期。</string>
+    <string name="dataCalendarioAutoTxt1">點擊選擇開始日期。</string>
     <string name="deleteSpesa">刪除支出</string>
     <string name="deleteSpesa_descrizione">刪除內容列表中選中的項目。</string>
     <string name="display_selected_date">所選條目的日期</string>
