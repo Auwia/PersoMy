@@ -129,6 +129,9 @@
     <string name="update">التحديث التلقائي</string>
     <string name="uscite_column">رأس عمود المصروفات</string>
     <string name="uscite_description">بالنقر هنا يمكنك إدخال المصروفات (النفقات).</string>
+    <string name="custom_list_date_description">Date associated with this item in the custom list</string>
+    <string name="choose_expense_description_spinner2">Description of expense or revenue for deletion</string>
+    <string name="soldiSpesaDesc2">Enter the amount for the expense or revenue transaction.</string>
 
     <!-- String Arrays -->
     <string-array name="frequenze">

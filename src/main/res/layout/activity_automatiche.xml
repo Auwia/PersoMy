@@ -195,10 +195,11 @@
             android:layout_height="48dp"
             android:layout_gravity="center_vertical"
             android:background="@android:drawable/ic_menu_add"
-            android:backgroundTint="#CCCCCC"
+            android:backgroundTint="#388E3C"
             android:contentDescription="@string/addSpesa_descrizione"
             android:onClick="onAddSpesaBtnPress"
-            android:padding="8dp" />
+            android:padding="8dp"
+            app:tint="#FFFFFF" />
 
     </LinearLayout>
 

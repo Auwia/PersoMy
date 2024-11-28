@@ -130,6 +130,9 @@
     <string name="update">Automatisches Update</string>
     <string name="uscite_column">Spaltenkopf Ausgaben</string>
     <string name="uscite_description">Klicken Sie hier, um Ihre Ausgaben (Outcome) einzugeben.</string>
+    <string name="custom_list_date_description">Date associated with this item in the custom list</string>
+    <string name="choose_expense_description_spinner2">Description of expense or revenue for deletion</string>
+    <string name="soldiSpesaDesc2">Enter the amount for the expense or revenue transaction.</string>
 
     <!-- String Arrays -->
     <string-array name="frequenze">

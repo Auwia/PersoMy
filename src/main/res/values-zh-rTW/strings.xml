@@ -130,6 +130,9 @@
     <string name="update">自動更新</string>
     <string name="uscite_column">支出列標題</string>
     <string name="uscite_description">點擊此處可以新增您的支出（外出）。</string>
+    <string name="custom_list_date_description">Date associated with this item in the custom list</string>
+    <string name="choose_expense_description_spinner2">Description of expense or revenue for deletion</string>
+    <string name="soldiSpesaDesc2">Enter the amount for the expense or revenue transaction.</string>
 
     <!-- String Arrays -->
     <string-array name="frequenze">

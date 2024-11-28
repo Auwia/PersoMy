@@ -88,11 +88,11 @@
                 android:layout_width="48dp"
                 android:layout_height="48dp"
                 android:background="@android:drawable/ic_menu_search"
-                android:backgroundTint="#E0E0E0"
+                android:backgroundTint="#757575"
                 android:contentDescription="@string/searchData"
                 android:onClick="onSearchBtnPress"
                 android:padding="8dp"
-                app:tint="#333333" />
+                app:tint="#FFFFFF" />
 
         </LinearLayout>
 
@@ -150,8 +150,8 @@
     <View
         android:layout_width="match_parent"
         android:layout_height="1dp"
-        android:background="#CCCCCC"
-        android:layout_marginBottom="8dp" />
+        android:layout_marginBottom="8dp"
+        android:background="#CCCCCC" />
     <!-- Bottom Totals -->
     <include
         android:id="@+id/idImportVoce"

@@ -784,16 +784,22 @@ public class MainActivity extends AppCompatActivity {
                     monthYearTextView.setTextColor(Color.parseColor("#4CAF50"));
                     monthYearTextView.setTypeface(Typeface.defaultFromStyle(Typeface.BOLD));
                     monthYearTextView.setTextSize(18);
-                    monthYearTextView.setPadding(16, 16, 16, 16);
+                    monthYearTextView.setPadding(24, 24, 24, 24);
+                    monthYearTextView.setMinHeight(48);
+                    monthYearTextView.setMinWidth(48);
                 }
             }
             Button positiveButton = dialogDate.getButton(DialogInterface.BUTTON_POSITIVE);
             Button negativeButton = dialogDate.getButton(DialogInterface.BUTTON_NEGATIVE);
             if (positiveButton != null) {
                 positiveButton.setContentDescription(getString(R.string.confirm_date_selection));
+                positiveButton.setMinHeight(48);
+                positiveButton.setMinWidth(48);
             }
             if (negativeButton != null) {
                 negativeButton.setContentDescription(getString(R.string.cancel_date_selection));
+                negativeButton.setMinHeight(48);
+                negativeButton.setMinWidth(48);
             }
         });
 
@@ -808,16 +814,22 @@ public class MainActivity extends AppCompatActivity {
                     monthYearTextView.setTextColor(Color.parseColor("#4CAF50"));
                     monthYearTextView.setTypeface(Typeface.defaultFromStyle(Typeface.BOLD));
                     monthYearTextView.setTextSize(18);
-                    monthYearTextView.setPadding(16, 16, 16, 16);
+                    monthYearTextView.setPadding(24, 24, 24, 24);
+                    monthYearTextView.setMinHeight(48);
+                    monthYearTextView.setMinWidth(48);
                 }
             }
             Button positiveButton = dialogDateA.getButton(DialogInterface.BUTTON_POSITIVE);
             Button negativeButton = dialogDateA.getButton(DialogInterface.BUTTON_NEGATIVE);
             if (positiveButton != null) {
                 positiveButton.setContentDescription(getString(R.string.confirm_date_selection));
+                positiveButton.setMinHeight(48);
+                positiveButton.setMinWidth(48);
             }
             if (negativeButton != null) {
                 negativeButton.setContentDescription(getString(R.string.cancel_date_selection));
+                negativeButton.setMinHeight(48);
+                negativeButton.setMinWidth(48);
             }
         });
 
@@ -836,6 +848,16 @@ public class MainActivity extends AppCompatActivity {
             Button positiveButton = dialogTime.getButton(DialogInterface.BUTTON_POSITIVE);
             Button negativeButton = dialogTime.getButton(DialogInterface.BUTTON_NEGATIVE);
             positiveButton.setContentDescription(getString(R.string.confirm_time_selection));
+            if (positiveButton != null) {
+                positiveButton.setPadding(16, 16, 16, 16);
+                positiveButton.setMinHeight(48);
+                positiveButton.setMinWidth(48);
+            }
+            if (negativeButton != null) {
+                negativeButton.setPadding(16, 16, 16, 16);
+                negativeButton.setMinHeight(48);
+                negativeButton.setMinWidth(48);
+            }
             negativeButton.setContentDescription(getString(R.string.cancel_time_selection));
             dialogTime.setTitle(getString(R.string.time_picker_description));
         });

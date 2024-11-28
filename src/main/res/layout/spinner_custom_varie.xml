@@ -4,7 +4,8 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical"
-    android:padding="3dp">
+    android:padding="3dp"
+    android:background="@android:color/white">
 
     <TextView
         android:id="@+id/descrizioneSpesa"
@@ -16,6 +17,7 @@
         android:minWidth="48dp"
         android:minHeight="48dp"
         android:padding="8dp"
-        android:textColor="@android:color/black"
-        tools:text="Example description" />
+        android:textColor="#000000"
+        android:textSize="16sp"
+        tools:text="@string/menu_modifica" />
 </TableRow>
