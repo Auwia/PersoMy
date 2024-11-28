@@ -29,6 +29,7 @@
     <string name="deleteSpesa">Delete Expensive</string>
     <string name="deleteSpesa_descrizione">Delete the cheked item in the content list.</string>
     <string name="display_selected_date">Entry date</string>
+    <string name="display_selected_date1">Entry date</string>
     <string name="display_selected_time">Entry time</string>
     <string name="elimina_description">Here you can fully delete an item, but please be aware if you have no backup, you cannot revert back.</string>
     <string name="enter_password_description">Here you can put a password that you will confirm in the field below.</string>
@@ -39,6 +40,7 @@
     <string name="exit_description">Quit the app.</string>
     <string name="expense_list">List of added expenses</string>
     <string name="flag_checkbox">Select or deselect the item</string>
+    <string name="flag_checkbox1">Select or deselect the item</string>
     <string name="help">Help</string>
     <string name="importoAutomatica">Please insert an amount (value).</string>
     <string name="importoAutomaticaDesc">By this checkpoint you can select expenses (outcoming) or revenues (incoming).</string>
@@ -103,7 +105,12 @@
     <string name="setUpdate">Set automatic update</string>
     <string name="setUpdateKO">Automatic Update OFF.</string>
     <string name="setUpdateOK">Automatic Update ON.</string>
+    <string name="date_picker_description">Select a date from the calendar</string>
+    <string name="confirm_date_selection">Confirm the selected date</string>
+    <string name="cancel_date_selection">Cancel the date selection</string>
+    <string name="time_picker_description">Select a time</string>
     <string name="soldiSpesaDesc">Insert here the import (value) amount of your in/out coming.</string>
+    <string name="soldiSpesaDesc1">Insert here the import (value) amount of your in/out coming.</string>
     <string name="spesaAggiungiVoce">Add an item to the list</string>
     <string name="spesaCancellaVoce">Select an item to delete from the grid</string>
     <string name="spesaControlloImporto">Amount negative or invalid!</string>

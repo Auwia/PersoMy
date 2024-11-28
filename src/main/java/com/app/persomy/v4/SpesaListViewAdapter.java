@@ -39,6 +39,7 @@ public class SpesaListViewAdapter extends ArrayAdapter<Spesa> {
             holder.mySpesaDescription = convertView.findViewById(R.id.descrizioneSpesaCustom);
             holder.mySpesaSoldi = convertView.findViewById(R.id.soldiSpesaCustom);
             holder.mySpesaFlaggata = convertView.findViewById(R.id.flaggataSpesaCustom);
+            holder.mySpesaFlaggata.setContentDescription(inflater.getContext().getString(R.string.flag_checkbox1));
             holder.mySimboloEuro = convertView.findViewById(R.id.simboloEuro);
             convertView.setTag(holder);
         } else {

@@ -15,6 +15,7 @@
         android:focusable="false"
         android:focusableInTouchMode="false"
         android:gravity="center"
+        android:minWidth="48dp"
         android:minHeight="48dp"
         android:paddingStart="8dp"
         android:paddingTop="8dp"
@@ -25,7 +26,7 @@
 
     <TextView
         android:id="@+id/descrizioneListaCustom"
-        android:layout_width="0dp"
+        android:layout_width="48dp"
         android:layout_height="wrap_content"
         android:layout_weight="52"
         android:background="?attr/selectableItemBackground"
@@ -37,9 +38,9 @@
         android:maxLines="2"
         android:minHeight="48dp"
         android:paddingStart="8dp"
-        android:paddingTop="4dp"
+        android:paddingTop="8dp"
         android:paddingEnd="8dp"
-        android:paddingBottom="4dp"
+        android:paddingBottom="8dp"
         android:text=""
         android:textIsSelectable="true" />
 

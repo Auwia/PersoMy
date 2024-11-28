@@ -22,11 +22,14 @@
     <string name="confirm_time_selection">確認時間選擇</string>
     <string name="confermaUpdate">需要網路連接，您接受嗎？</string>
     <string name="currency">€</string>
+    <string name="soldiSpesaDesc1">Insert here the import (value) amount of your in/out coming.</string>
     <string name="dataCalendario">選擇日期</string>
     <string name="dataCalendarioAuto">選擇一個日期以通過按鈕自動記錄支出或收入。</string>
     <string name="dataCalendarioAutoTxt">點擊選擇開始日期。</string>
     <string name="dataCalendarioAutoTxt1">點擊選擇開始日期。</string>
     <string name="euro_symbol_voce">Euro (€)</string>
+    <string name="display_selected_date1">Entry date</string>
+    <string name="flag_checkbox1">Select or deselect the item</string>
     <string name="deleteSpesa">刪除支出</string>
     <string name="deleteSpesa_descrizione">刪除內容列表中選中的項目。</string>
     <string name="display_selected_date">所選條目的日期</string>
@@ -34,6 +37,10 @@
     <string name="elimina_description">您可以在此完全刪除一個項目，但請注意，如果沒有備份，您無法恢復。</string>
     <string name="enter_password_description">在此輸入密碼，並在下方欄位中確認。</string>
     <string name="entrate_column">收入列標題</string>
+    <string name="date_picker_description">從日曆中選擇日期</string>
+    <string name="confirm_date_selection">確認所選日期</string>
+    <string name="cancel_date_selection">取消日期選擇</string>
+    <string name="time_picker_description">選擇一個時間</string>
     <string name="entrate_description">點擊此處可以新增您的收入。</string>
     <string name="euro_symbol">歐元符號 (€)</string>
     <string name="exit_description">退出應用程式。</string>

@@ -36,8 +36,12 @@ public class ListaMovimentiGridViewAdapter extends ArrayAdapter<Lista> {
             convertView = inflater.inflate(resLayout, parent, false);
             holder = new ViewHolder();
             holder.myListaData = convertView.findViewById(R.id.dataListaCustom);
+            holder.myListaData.setContentDescription(inflater.getContext().getString(R.string.display_selected_date1));
             holder.myListaDescription = convertView.findViewById(R.id.descrizioneListaCustom);
+            holder.myListaDescription.setContentDescription(inflater.getContext().getString(R.string.choose_expense_description_spinner1));
+
             holder.myListaSoldi = convertView.findViewById(R.id.soldiListaCustom);
+            holder.myListaSoldi.setContentDescription(inflater.getContext().getString(R.string.soldiSpesaDesc1));
             holder.myListaUscita = convertView.findViewById(R.id.simbolo);
             holder.mySimboloEuro = convertView.findViewById(R.id.simboloEuro);
             convertView.setTag(holder);

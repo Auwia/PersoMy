@@ -766,17 +766,26 @@ public class MainActivity extends AppCompatActivity {
         mYear = c.get(Calendar.YEAR);
         mMonth = c.get(Calendar.MONTH);
         mDay = c.get(Calendar.DAY_OF_MONTH);
+
         dialogDate = new DatePickerDialog(this, R.style.CustomDatePickerTheme, new PickDate(), mYear, mMonth, mDay);
         dialogDateA = new DatePickerDialog(this, R.style.CustomDatePickerTheme, new PickDate(), mYear, mMonth, mDay);
 
         dialogDate.setOnShowListener(dialog -> {
             DatePicker datePicker = dialogDate.getDatePicker();
             datePicker.setContentDescription(getString(R.string.dataCalendario));
+            Button positiveButton = dialogDate.getButton(DialogInterface.BUTTON_POSITIVE);
+            Button negativeButton = dialogDate.getButton(DialogInterface.BUTTON_NEGATIVE);
+            positiveButton.setContentDescription(getString(R.string.confirm_date_selection));
+            negativeButton.setContentDescription(getString(R.string.cancel_date_selection));
         });
 
         dialogDateA.setOnShowListener(dialog -> {
             DatePicker datePicker = dialogDateA.getDatePicker();
             datePicker.setContentDescription(getString(R.string.dataCalendario));
+            Button positiveButton = dialogDateA.getButton(DialogInterface.BUTTON_POSITIVE);
+            Button negativeButton = dialogDateA.getButton(DialogInterface.BUTTON_NEGATIVE);
+            positiveButton.setContentDescription(getString(R.string.confirm_date_selection));
+            negativeButton.setContentDescription(getString(R.string.cancel_date_selection));
         });
 
         dialogDate.updateDate(mYear, mMonth, mDay);
@@ -787,11 +796,15 @@ public class MainActivity extends AppCompatActivity {
     private void resetTime() {
         mHourOfDay = c.get(Calendar.HOUR_OF_DAY);
         mMinute = c.get(Calendar.MINUTE);
+
         dialogTime = new TimePickerDialog(this, R.style.CustomTimePickerTheme, new PickTime(), mHourOfDay, mMinute, DateFormat.is24HourFormat(this));
 
         dialogTime.setOnShowListener(dialog -> {
-            dialogTime.getButton(DialogInterface.BUTTON_POSITIVE).setContentDescription(getString(R.string.confirm_time_selection));
-            dialogTime.getButton(DialogInterface.BUTTON_NEGATIVE).setContentDescription(getString(R.string.cancel_time_selection));
+            Button positiveButton = dialogTime.getButton(DialogInterface.BUTTON_POSITIVE);
+            Button negativeButton = dialogTime.getButton(DialogInterface.BUTTON_NEGATIVE);
+            positiveButton.setContentDescription(getString(R.string.confirm_time_selection));
+            negativeButton.setContentDescription(getString(R.string.cancel_time_selection));
+            dialogTime.setTitle(getString(R.string.time_picker_description));
         });
 
         dialogTime.updateTime(mHourOfDay, mMinute);

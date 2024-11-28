@@ -13,7 +13,10 @@
     <string name="backupRestore">هل تريد استعادة النسخة الاحتياطية؟</string>
     <string name="backup_description">بالنقر هنا يمكنك إنشاء نسخة احتياطية أو استعادتها.</string>
     <string name="cancel">إلغاء</string>
-    <string name="cancel_time_selection">إلغاء تحديد الوقت</string>
+    <string name="date_picker_description">اختر تاريخًا من التقويم</string>
+    <string name="confirm_date_selection">تأكيد التاريخ المحدد</string>
+    <string name="cancel_date_selection">إلغاء اختيار التاريخ</string>
+    <string name="time_picker_description">اختر وقتًا</string>
     <string name="choose_expense_description_spinner">وصف المصروف أو الإيراد</string>
     <string name="choose_expense_description_spinner1">وصف المصروف أو الإيراد</string>
     <string name="choose_frequency_label">اختر التكرار للمعاملة التلقائية</string>
@@ -27,6 +30,9 @@
     <string name="dataCalendarioAutoTxt1">اضغط لتحديد تاريخ البدء.</string>
     <string name="deleteSpesa">حذف المصروف</string>
     <string name="euro_symbol_voce">Euro (€)</string>
+    <string name="display_selected_date1">Entry date</string>
+    <string name="flag_checkbox1">Select or deselect the item</string>
+    <string name="soldiSpesaDesc1">Insert here the import (value) amount of your in/out coming.</string>
     <string name="deleteSpesa_descrizione">احذف العنصر المحدد في قائمة المحتويات.</string>
     <string name="display_selected_date">التاريخ المحدد للإدخال</string>
     <string name="display_selected_time">الوقت المحدد</string>

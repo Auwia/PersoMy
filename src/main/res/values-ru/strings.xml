@@ -19,10 +19,16 @@
     <string name="choose_expense_description_spinner1">Описание расхода или дохода</string>
     <string name="choose_frequency_label">Выберите частоту автоматической операции</string>
     <string name="choose_frequency_spinner">Выберите частоту для автоматической записи</string>
-    <string name="confirm_time_selection">Подтвердить выбор времени</string>
     <string name="confermaUpdate">Требуется подключение к Интернету, вы согласны?</string>
     <string name="currency">€</string>
+    <string name="date_picker_description">Выберите дату из календаря</string>
+    <string name="confirm_date_selection">Подтвердите выбранную дату</string>
+    <string name="cancel_date_selection">Отмените выбор даты</string>
+    <string name="time_picker_description">Выберите время</string>
+    <string name="soldiSpesaDesc1">Insert here the import (value) amount of your in/out coming.</string>
     <string name="euro_symbol_voce">Euro (€)</string>
+    <string name="display_selected_date1">Entry date</string>
+    <string name="flag_checkbox1">Select or deselect the item</string>
     <string name="dataCalendario">Выберите дату</string>
     <string name="dataCalendarioAuto">Выберите дату для автоматического создания записи расхода или дохода.</string>
     <string name="dataCalendarioAutoTxt">Нажмите, чтобы выбрать начальную дату.</string>
