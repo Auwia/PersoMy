@@ -23,6 +23,8 @@
     <string name="date_picker_description">Wählen Sie ein Datum aus dem Kalender</string>
     <string name="confirm_date_selection">Bestätigen Sie das ausgewählte Datum</string>
     <string name="cancel_date_selection">Datumsauswahl abbrechen</string>
+    <string name="date_picker_month_year">Calendario: mese %1$d, anno %2$d</string>
+    <string name="confirm_time_selection">Zeitwahl bestätigen</string>
     <string name="time_picker_description">Wählen Sie eine Uhrzeit</string>
     <string name="cancel_time_selection">Uhrzeitauswahl abbrechen</string>
     <string name="soldiSpesaDesc1">Insert here the import (value) amount of your in/out coming.</string>

@@ -37,6 +37,7 @@ public class ListaMovimentiGridViewAdapter extends ArrayAdapter<Lista> {
             holder = new ViewHolder();
             holder.myListaData = convertView.findViewById(R.id.dataListaCustom);
             holder.myListaData.setContentDescription(inflater.getContext().getString(R.string.display_selected_date1));
+            holder.myListaData.setMinimumHeight(48);
             holder.myListaDescription = convertView.findViewById(R.id.descrizioneListaCustom);
             holder.myListaDescription.setContentDescription(inflater.getContext().getString(R.string.choose_expense_description_spinner1));
 

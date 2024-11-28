@@ -22,11 +22,13 @@
     <string name="confermaUpdate">Требуется подключение к Интернету, вы согласны?</string>
     <string name="currency">€</string>
     <string name="date_picker_description">Выберите дату из календаря</string>
+    <string name="date_picker_month_year">Calendario: mese %1$d, anno %2$d</string>
     <string name="confirm_date_selection">Подтвердите выбранную дату</string>
     <string name="cancel_date_selection">Отмените выбор даты</string>
     <string name="time_picker_description">Выберите время</string>
     <string name="soldiSpesaDesc1">Insert here the import (value) amount of your in/out coming.</string>
     <string name="euro_symbol_voce">Euro (€)</string>
+    <string name="confirm_time_selection">Подтвердить выбор времени</string>
     <string name="display_selected_date1">Entry date</string>
     <string name="flag_checkbox1">Select or deselect the item</string>
     <string name="dataCalendario">Выберите дату</string>

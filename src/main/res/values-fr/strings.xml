@@ -21,6 +21,8 @@
     <string name="confermaUpdate">Une connexion Internet est requise, acceptez-vous ?</string>
     <string name="currency">€</string>
     <string name="date_picker_description">Sélectionnez une date dans le calendrier</string>
+    <string name="date_picker_month_year">Calendario: mese %1$d, anno %2$d</string>
+    <string name="confirm_time_selection">Confirmer la sélection de l\'heure</string>
     <string name="confirm_date_selection">Confirmez la date sélectionnée</string>
     <string name="cancel_date_selection">Annulez la sélection de la date</string>
     <string name="time_picker_description">Sélectionnez une heure</string>

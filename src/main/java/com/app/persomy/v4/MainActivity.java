@@ -12,11 +12,13 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
+import android.content.res.Resources;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Color;
 import android.graphics.Point;
 import android.graphics.Rect;
+import android.graphics.Typeface;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -37,6 +39,7 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.ViewGroup.LayoutParams;
 import android.view.WindowMetrics;
 import android.widget.AdapterView;
@@ -773,19 +776,49 @@ public class MainActivity extends AppCompatActivity {
         dialogDate.setOnShowListener(dialog -> {
             DatePicker datePicker = dialogDate.getDatePicker();
             datePicker.setContentDescription(getString(R.string.dataCalendario));
+            ViewGroup datePickerViewGroup = (ViewGroup) datePicker.getChildAt(0);
+            if (datePickerViewGroup != null) {
+                View headerView = datePickerViewGroup.findViewById(Resources.getSystem().getIdentifier("date_picker_header", "id", "android"));
+                if (headerView instanceof TextView monthYearTextView) {
+                    monthYearTextView.setContentDescription(getString(R.string.date_picker_month_year, mMonth + 1, mYear));
+                    monthYearTextView.setTextColor(Color.parseColor("#4CAF50"));
+                    monthYearTextView.setTypeface(Typeface.defaultFromStyle(Typeface.BOLD));
+                    monthYearTextView.setTextSize(18);
+                    monthYearTextView.setPadding(16, 16, 16, 16);
+                }
+            }
             Button positiveButton = dialogDate.getButton(DialogInterface.BUTTON_POSITIVE);
             Button negativeButton = dialogDate.getButton(DialogInterface.BUTTON_NEGATIVE);
-            positiveButton.setContentDescription(getString(R.string.confirm_date_selection));
-            negativeButton.setContentDescription(getString(R.string.cancel_date_selection));
+            if (positiveButton != null) {
+                positiveButton.setContentDescription(getString(R.string.confirm_date_selection));
+            }
+            if (negativeButton != null) {
+                negativeButton.setContentDescription(getString(R.string.cancel_date_selection));
+            }
         });
 
         dialogDateA.setOnShowListener(dialog -> {
             DatePicker datePicker = dialogDateA.getDatePicker();
             datePicker.setContentDescription(getString(R.string.dataCalendario));
+            ViewGroup datePickerViewGroup = (ViewGroup) datePicker.getChildAt(0);
+            if (datePickerViewGroup != null) {
+                View headerView = datePickerViewGroup.findViewById(Resources.getSystem().getIdentifier("date_picker_header", "id", "android"));
+                if (headerView instanceof TextView monthYearTextView) {
+                    monthYearTextView.setContentDescription(getString(R.string.date_picker_month_year, mMonth + 1, mYear));
+                    monthYearTextView.setTextColor(Color.parseColor("#4CAF50"));
+                    monthYearTextView.setTypeface(Typeface.defaultFromStyle(Typeface.BOLD));
+                    monthYearTextView.setTextSize(18);
+                    monthYearTextView.setPadding(16, 16, 16, 16);
+                }
+            }
             Button positiveButton = dialogDateA.getButton(DialogInterface.BUTTON_POSITIVE);
             Button negativeButton = dialogDateA.getButton(DialogInterface.BUTTON_NEGATIVE);
-            positiveButton.setContentDescription(getString(R.string.confirm_date_selection));
-            negativeButton.setContentDescription(getString(R.string.cancel_date_selection));
+            if (positiveButton != null) {
+                positiveButton.setContentDescription(getString(R.string.confirm_date_selection));
+            }
+            if (negativeButton != null) {
+                negativeButton.setContentDescription(getString(R.string.cancel_date_selection));
+            }
         });
 
         dialogDate.updateDate(mYear, mMonth, mDay);
@@ -1480,9 +1513,9 @@ public class MainActivity extends AppCompatActivity {
         menu_choise = R.menu.menu_uscite;
 
         TextView simboloEuro = findViewById(R.id.simboloEuro);
-
         Locale loc = new Locale("it", "IT");
         simboloEuro.setText(Currency.getInstance(loc).getSymbol());
+
         int minWidth = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 48, getResources().getDisplayMetrics());
         simboloEuro.setMinimumWidth(minWidth);
 

@@ -21,6 +21,7 @@
     <string name="currency">€</string>
     <string name="date_picker_description">Seleziona una data dal calendario</string>
     <string name="confirm_date_selection">Conferma la data selezionata</string>
+    <string name="date_picker_month_year">Calendario: mese %1$d, anno %2$d</string>
     <string name="cancel_date_selection">Annulla la selezione della data</string>
     <string name="time_picker_description">Seleziona un orario</string>
     <string name="confirm_time_selection">Conferma l\'orario selezionato</string>

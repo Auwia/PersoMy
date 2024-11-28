@@ -30,6 +30,7 @@
     <string name="display_selected_date1">Entry date</string>
     <string name="flag_checkbox1">Select or deselect the item</string>
     <string name="dataCalendarioAutoTxt1">点击选择开始日期。</string>
+    <string name="date_picker_month_year">Calendario: mese %1$d, anno %2$d</string>
     <string name="deleteSpesa">删除支出</string>
     <string name="date_picker_description">从日历中选择日期</string>
     <string name="confirm_date_selection">确认所选日期</string>

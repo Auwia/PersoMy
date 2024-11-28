@@ -147,6 +147,11 @@
         </LinearLayout>
     </LinearLayout>
 
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="#CCCCCC"
+        android:layout_marginBottom="8dp" />
     <!-- Bottom Totals -->
     <include
         android:id="@+id/idImportVoce"

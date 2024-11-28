@@ -25,8 +25,8 @@
                 android:layout_height="48dp"
                 android:contentDescription="@string/select_year"
                 android:paddingStart="15dp"
-                android:paddingEnd="15dp"
                 android:paddingTop="8dp"
+                android:paddingEnd="15dp"
                 android:paddingBottom="8dp" />
 
         </LinearLayout>
@@ -99,6 +99,12 @@
             android:stretchMode="columnWidth"
             android:verticalSpacing="8dp" />
     </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginBottom="8dp"
+        android:background="#CCCCCC" />
 
     <!-- Footer -->
     <include
