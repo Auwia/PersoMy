@@ -36,13 +36,8 @@ public class ListaMovimentiGridViewAdapter extends ArrayAdapter<Lista> {
             convertView = inflater.inflate(resLayout, parent, false);
             holder = new ViewHolder();
             holder.myListaData = convertView.findViewById(R.id.dataListaCustom);
-            holder.myListaData.setContentDescription(inflater.getContext().getString(R.string.display_selected_date1));
-            holder.myListaData.setMinimumHeight(48);
             holder.myListaDescription = convertView.findViewById(R.id.descrizioneListaCustom);
-            holder.myListaDescription.setContentDescription(inflater.getContext().getString(R.string.choose_expense_description_spinner1));
-
             holder.myListaSoldi = convertView.findViewById(R.id.soldiListaCustom);
-            holder.myListaSoldi.setContentDescription(inflater.getContext().getString(R.string.soldiSpesaDesc1));
             holder.myListaUscita = convertView.findViewById(R.id.simbolo);
             holder.mySimboloEuro = convertView.findViewById(R.id.simboloEuro);
             convertView.setTag(holder);
@@ -54,6 +49,7 @@ public class ListaMovimentiGridViewAdapter extends ArrayAdapter<Lista> {
 
         if (item != null) {
             Locale loc = new Locale("it", "IT");
+
             if (holder.mySimboloEuro != null) {
                 holder.mySimboloEuro.setText(Currency.getInstance(loc).getSymbol());
             }
@@ -61,22 +57,27 @@ public class ListaMovimentiGridViewAdapter extends ArrayAdapter<Lista> {
             if (holder.myListaData != null) {
                 holder.myListaData.setText(item.getDataMovimento());
                 holder.myListaData.setTextSize(12);
+                holder.myListaData.setContentDescription(inflater.getContext().getString(R.string.display_selected_date1) + " " + item.getDataMovimento());
             }
 
             if (holder.myListaDescription != null) {
                 holder.myListaDescription.setText(item.getListaName());
                 holder.myListaDescription.setTextSize(12);
+                holder.myListaDescription.setContentDescription(inflater.getContext().getString(R.string.choose_expense_description_spinner1) + " " + item.getListaName());
             }
 
             if (holder.myListaSoldi != null) {
                 DecimalFormat df = new DecimalFormat("###,##0.00");
-                holder.myListaSoldi.setText(df.format(item.getListaPrezzo()));
+                String formattedPrice = df.format(item.getListaPrezzo());
+                holder.myListaSoldi.setText(formattedPrice);
                 holder.myListaSoldi.setTextSize(12);
+                holder.myListaSoldi.setContentDescription(inflater.getContext().getString(R.string.soldiSpesaDesc1) + " " + formattedPrice);
             }
 
             if (holder.myListaUscita != null) {
                 holder.myListaUscita.setText(item.getUscitaMovimento());
                 holder.myListaUscita.setTextSize(12);
+                holder.myListaUscita.setContentDescription(inflater.getContext().getString(R.string.uscitaMovimentoDesc) + " " + item.getUscitaMovimento());
             }
         }
 

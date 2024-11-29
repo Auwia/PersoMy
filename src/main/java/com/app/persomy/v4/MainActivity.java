@@ -770,8 +770,11 @@ public class MainActivity extends AppCompatActivity {
         mMonth = c.get(Calendar.MONTH);
         mDay = c.get(Calendar.DAY_OF_MONTH);
 
-        dialogDate = new DatePickerDialog(this, R.style.CustomDatePickerTheme, new PickDate(), mYear, mMonth, mDay);
-        dialogDateA = new DatePickerDialog(this, R.style.CustomDatePickerTheme, new PickDate(), mYear, mMonth, mDay);
+        // dialogDate = new DatePickerDialog(this, R.style.CustomDatePickerTheme, new PickDate(), mYear, mMonth, mDay);
+        // dialogDateA = new DatePickerDialog(this, R.style.CustomDatePickerTheme, new PickDate(), mYear, mMonth, mDay);
+
+        dialogDate = new DatePickerDialog(this, new PickDate(), mYear, mMonth, mDay);
+        dialogDateA = new DatePickerDialog(this, new PickDate(), mYear, mMonth, mDay);
 
         dialogDate.setOnShowListener(dialog -> {
             DatePicker datePicker = dialogDate.getDatePicker();

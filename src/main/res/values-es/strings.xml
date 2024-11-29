@@ -133,6 +133,11 @@
     <string name="custom_list_date_description">Date associated with this item in the custom list</string>
     <string name="choose_expense_description_spinner2">Description of expense or revenue for deletion</string>
     <string name="soldiSpesaDesc2">Enter the amount for the expense or revenue transaction.</string>
+    <string name="uscitaMovimentoDesc">Type of movement</string>
+    <string name="currency_symbol_description">Euro symbol</string>
+    <string name="spesa_description">Expense description: %s</string>
+    <string name="spesa_amount_description">Expense amount: %s €</string>
+    <string name="spesa_flag_description">Selection flag for %s, status: %s</string>
 
     <!-- String Arrays -->
     <string-array name="frequenze">

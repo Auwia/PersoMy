@@ -2,51 +2,60 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/widget32"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:layout_gravity="center_vertical"
+    android:layout_height="wrap_content"
     android:gravity="center_vertical"
-    android:orientation="horizontal">
+    android:orientation="horizontal"
+    android:padding="8dp">
 
+    <!-- Descrizione della Spesa -->
     <TextView
         android:id="@+id/descrizioneSpesaCustom"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_weight="67"
-        android:contentDescription="@string/addSpesa_descrizione"
-        android:importantForAccessibility="yes"
-        android:minWidth="48dp"
-        android:minHeight="48dp"
-        android:padding="8dp"
-        android:textSize="13sp" />
-
-    <TextView
-        android:id="@+id/soldiSpesaCustom"
-        style="@style/HeaderTextViewStyle"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_weight="18"
-        android:contentDescription="@string/importoAutomaticaDesc" />
-
-    <TextView
-        android:id="@+id/simboloEuro"
-        style="@style/HeaderTextViewStyle"
-        android:layout_width="0dp"
-        android:layout_height="48dp"
         android:layout_weight="5"
-        android:contentDescription="@string/currency"
-        android:gravity="center"
-        android:minWidth="32dp"
-        android:paddingStart="8dp"
-        android:paddingEnd="8dp"
-        android:text="" />
+        android:contentDescription="@string/addSpesa_descrizione"
+        android:ellipsize="end"
+        android:padding="4dp"
+        android:singleLine="true"
+        android:textColor="@color/black"
+        android:textSize="14sp" />
 
+    <!-- Importo della Spesa -->
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="3"
+        android:gravity="end|center_vertical"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/soldiSpesaCustom"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:contentDescription="@string/importoAutomaticaDesc"
+            android:ellipsize="end"
+            android:singleLine="true"
+            android:textColor="@color/black"
+            android:textSize="14sp" />
+
+        <TextView
+            android:id="@+id/simboloEuro"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:contentDescription="@string/currency"
+            android:gravity="center"
+            android:paddingStart="4dp"
+            android:paddingEnd="4dp"
+            android:text=""
+            android:textColor="@color/black"
+            android:textSize="14sp" />
+    </LinearLayout>
+
+    <!-- Checkbox per Flag -->
     <CheckBox
         android:id="@+id/flaggataSpesaCustom"
-        style="@style/HeaderTextViewStyle"
-        android:layout_width="48dp"
-        android:layout_height="48dp"
-        android:clickable="true"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:contentDescription="@string/flag_checkbox"
-        android:focusable="true" />
-
+        android:gravity="center" />
 </LinearLayout>

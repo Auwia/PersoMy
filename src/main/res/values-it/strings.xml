@@ -132,6 +132,12 @@
     <string name="custom_list_date_description">Date associated with this item in the custom list</string>
     <string name="choose_expense_description_spinner2">Description of expense or revenue for deletion</string>
     <string name="soldiSpesaDesc2">Enter the amount for the expense or revenue transaction.</string>
+    <string name="uscitaMovimentoDesc">Tipo di movimento</string>
+    <string name="currency_symbol_description">Simbolo Euro</string>
+    <string name="spesa_description">Descrizione della spesa: %s</string>
+    <string name="spesa_amount_description">Importo della spesa: %s €</string>
+    <string name="spesa_flag_description">Flag di selezione per %s, stato: %s</string>
+
 
     <!-- String Arrays -->
     <string-array name="frequenze">

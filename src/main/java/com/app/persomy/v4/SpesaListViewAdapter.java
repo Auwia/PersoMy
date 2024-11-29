@@ -39,7 +39,6 @@ public class SpesaListViewAdapter extends ArrayAdapter<Spesa> {
             holder.mySpesaDescription = convertView.findViewById(R.id.descrizioneSpesaCustom);
             holder.mySpesaSoldi = convertView.findViewById(R.id.soldiSpesaCustom);
             holder.mySpesaFlaggata = convertView.findViewById(R.id.flaggataSpesaCustom);
-            holder.mySpesaFlaggata.setContentDescription(inflater.getContext().getString(R.string.flag_checkbox1));
             holder.mySimboloEuro = convertView.findViewById(R.id.simboloEuro);
             convertView.setTag(holder);
         } else {
@@ -51,19 +50,30 @@ public class SpesaListViewAdapter extends ArrayAdapter<Spesa> {
         if (item != null) {
             // Set the Euro symbol based on the Italian locale
             Locale loc = new Locale("it", "IT");
+
             if (holder.mySimboloEuro != null) {
                 holder.mySimboloEuro.setText(Currency.getInstance(loc).getSymbol());
+                holder.mySimboloEuro.setContentDescription(
+                        inflater.getContext().getString(R.string.currency_symbol_description)
+                );
             }
 
             // Set description text
             if (holder.mySpesaDescription != null) {
                 holder.mySpesaDescription.setText(item.getSpesaName());
+                holder.mySpesaDescription.setContentDescription(
+                        inflater.getContext().getString(R.string.spesa_description, item.getSpesaName())
+                );
             }
 
             // Set amount text with proper formatting
             if (holder.mySpesaSoldi != null) {
                 DecimalFormat df = new DecimalFormat("###,##0.00");
-                holder.mySpesaSoldi.setText(df.format(item.getSpesaPrezzo()));
+                String formattedPrice = df.format(item.getSpesaPrezzo());
+                holder.mySpesaSoldi.setText(formattedPrice);
+                holder.mySpesaSoldi.setContentDescription(
+                        inflater.getContext().getString(R.string.spesa_amount_description, formattedPrice)
+                );
             }
 
             // Set and handle checkbox state
@@ -78,6 +88,13 @@ public class SpesaListViewAdapter extends ArrayAdapter<Spesa> {
                                 ((CheckBox) v).isChecked()
                         )
                 ));
+                holder.mySpesaFlaggata.setContentDescription(
+                        inflater.getContext().getString(
+                                R.string.spesa_flag_description,
+                                item.getSpesaName(),
+                                item.getSpesaFlaggata() ? "selezionata" : "non selezionata"
+                        )
+                );
             }
         }
 
