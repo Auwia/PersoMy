@@ -64,6 +64,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.SwitchCompat;
 import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -845,23 +846,27 @@ public class MainActivity extends AppCompatActivity {
         mHourOfDay = c.get(Calendar.HOUR_OF_DAY);
         mMinute = c.get(Calendar.MINUTE);
 
-        dialogTime = new TimePickerDialog(this, R.style.CustomTimePickerTheme, new PickTime(), mHourOfDay, mMinute, DateFormat.is24HourFormat(this));
+        dialogTime = new TimePickerDialog(this, new PickTime(), mHourOfDay, mMinute, DateFormat.is24HourFormat(this));
 
         dialogTime.setOnShowListener(dialog -> {
             Button positiveButton = dialogTime.getButton(DialogInterface.BUTTON_POSITIVE);
             Button negativeButton = dialogTime.getButton(DialogInterface.BUTTON_NEGATIVE);
-            positiveButton.setContentDescription(getString(R.string.confirm_time_selection));
             if (positiveButton != null) {
+                positiveButton.setContentDescription(getString(R.string.confirm_time_selection));
                 positiveButton.setPadding(16, 16, 16, 16);
                 positiveButton.setMinHeight(48);
                 positiveButton.setMinWidth(48);
+                positiveButton.setBackgroundColor(ContextCompat.getColor(this, R.color.teal_dark));
+                positiveButton.setTextColor(Color.WHITE);
             }
             if (negativeButton != null) {
                 negativeButton.setPadding(16, 16, 16, 16);
                 negativeButton.setMinHeight(48);
                 negativeButton.setMinWidth(48);
+                negativeButton.setContentDescription(getString(R.string.cancel_time_selection));
+                negativeButton.setBackgroundColor(ContextCompat.getColor(this, R.color.red_dark));
+                negativeButton.setTextColor(Color.WHITE);
             }
-            negativeButton.setContentDescription(getString(R.string.cancel_time_selection));
             dialogTime.setTitle(getString(R.string.time_picker_description));
         });
 
@@ -1084,7 +1089,7 @@ public class MainActivity extends AppCompatActivity {
         LayoutInflater inflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         AlertDialog.Builder alert = new AlertDialog.Builder(this);
         input = new EditText(this);
-        input.setContentDescription(getString(R.string.addDescrizione_descrizione));
+        input.setHint(getString(R.string.addDescrizione_descrizione));
         // Set the minimum height to 48dp
         int minHeight = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 48, getResources().getDisplayMetrics());
         input.setMinimumHeight(minHeight);
@@ -1109,6 +1114,7 @@ public class MainActivity extends AppCompatActivity {
             case 3:
                 /* modifica descrizione */
                 input.setText(descrizioneSpesa.getSelectedItem().toString());
+                input.setHint(descrizioneSpesa.getSelectedItem().toString());
                 alert.setView(input);
                 alert.setTitle(R.string.spesaModificaVoce);
                 break;
@@ -1130,15 +1136,24 @@ public class MainActivity extends AppCompatActivity {
                 password1 = layout.findViewById(R.id.EditText_Pwd1);
                 password2 = layout.findViewById(R.id.EditText_Pwd2);
                 final TextView error = layout.findViewById(R.id.TextView_PwdProblem);
+                error.setVisibility(View.GONE);
 
                 password1.addTextChangedListener(new TextWatcher() {
                     public void afterTextChanged(Editable s) {
                         String strPass1 = password1.getText().toString();
                         String strPass2 = password2.getText().toString();
-                        if (strPass2.equals(strPass1)) {
+                        if (strPass1.isEmpty() || strPass2.isEmpty()) {
+                            error.setText(R.string.settings_pwd_required);
+                            error.setTextColor(ContextCompat.getColor(MainActivity.this, R.color.red));
+                            error.setVisibility(View.VISIBLE);
+                        } else if (strPass2.equals(strPass1)) {
                             error.setText(R.string.settings_pwd_equal);
+                            error.setTextColor(ContextCompat.getColor(MainActivity.this, R.color.green_dark));
+                            error.setVisibility(View.VISIBLE);
                         } else {
                             error.setText(R.string.settings_pwd_not_equal);
+                            error.setTextColor(ContextCompat.getColor(MainActivity.this, R.color.red));
+                            error.setVisibility(View.VISIBLE);
                         }
                     }
 
@@ -1153,10 +1168,18 @@ public class MainActivity extends AppCompatActivity {
                     public void afterTextChanged(Editable s) {
                         String strPass1 = password1.getText().toString();
                         String strPass2 = password2.getText().toString();
-                        if (strPass1.equals(strPass2)) {
+                        if (strPass1.isEmpty() || strPass2.isEmpty()) {
+                            error.setText(R.string.settings_pwd_required);
+                            error.setTextColor(ContextCompat.getColor(MainActivity.this, R.color.red));
+                            error.setVisibility(View.VISIBLE);
+                        } else if (strPass1.equals(strPass2)) {
                             error.setText(R.string.settings_pwd_equal);
+                            error.setTextColor(ContextCompat.getColor(MainActivity.this, R.color.green_dark));
+                            error.setVisibility(View.VISIBLE);
                         } else {
                             error.setText(R.string.settings_pwd_not_equal);
+                            error.setTextColor(ContextCompat.getColor(MainActivity.this, R.color.red));
+                            error.setVisibility(View.VISIBLE);
                         }
                     }
 
@@ -1206,13 +1229,13 @@ public class MainActivity extends AppCompatActivity {
                     File fileBackupDir = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOCUMENTS), "PersoMy/backup");
 
                     if (!fileBackupDir.exists() || !fileBackupDir.isDirectory()) {
-                        Toast.makeText(this, "Backup directory not found", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(this, "Backup directory not found you should create a backup first.", Toast.LENGTH_SHORT).show();
                         return;
                     }
 
                     File fileBackup = new File(fileBackupDir, "PersoMyDB.db");
                     if (!fileBackup.exists()) {
-                        Toast.makeText(this, "Backup file not found", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(this, "Backup file not found you should create a backup first.", Toast.LENGTH_SHORT).show();
                         return;
                     }
 
@@ -1421,8 +1444,8 @@ public class MainActivity extends AppCompatActivity {
         alert.setCancelable(false);
         AlertDialog dialog = alert.create();
         dialog.setOnShowListener(d -> {
-            dialog.getButton(AlertDialog.BUTTON_POSITIVE).setTextColor(Color.parseColor("#009688"));
-            dialog.getButton(AlertDialog.BUTTON_NEGATIVE).setTextColor(Color.parseColor("#009688"));
+            dialog.getButton(AlertDialog.BUTTON_POSITIVE).setTextColor(ContextCompat.getColor(this, R.color.dark_teal));
+            dialog.getButton(AlertDialog.BUTTON_NEGATIVE).setTextColor(ContextCompat.getColor(this, R.color.dark_teal));
         });
         dialog.show();
 

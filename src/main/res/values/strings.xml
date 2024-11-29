@@ -111,7 +111,7 @@
     <string name="cancel_date_selection">Cancel the date selection</string>
     <string name="time_picker_description">Select a time</string>
     <string name="soldiSpesaDesc">Insert the value of your incoming or outgoing transaction.</string>
-    <string name="soldiSpesaDesc1">Enter the amount for the selected transaction (income/outcome).</string>
+    <string name="soldiSpesaDesc1">Enter the amount for the transaction (income/outcome).</string>
     <string name="spesaAggiungiVoce">Add an item to the list</string>
     <string name="spesaCancellaVoce">Select an item to delete from the grid</string>
     <string name="spesaControlloImporto">Amount negative or invalid!</string>
@@ -137,7 +137,8 @@
     <string name="currency_symbol_description">Euro Symbol</string>
     <string name="spesa_description">Expense description: %s</string>
     <string name="spesa_amount_description">Expense amount: %s €</string>
-    <string name="spesa_flag_description">Selection flag for %s, status: %s</string>
+    <string name="spesa_flag_description">Selection flag for %1$s, status: %2$s</string>
+    <string name="settings_pwd_required">Both password fields are required.</string>
 
 
     <!-- String Arrays -->

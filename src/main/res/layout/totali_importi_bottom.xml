@@ -5,20 +5,22 @@
     android:layout_gravity="center"
     android:layout_marginTop="8dp"
     android:layout_marginBottom="16dp"
-    android:background="#EEEEEE"
+    android:background="@color/white"
     android:elevation="4dp"
-    android:gravity="center">
+    android:gravity="center_vertical">
 
     <!-- Totale Entrate Label -->
     <TextView
         android:id="@+id/widget47"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_weight="25"
+        android:layout_weight="2"
+        android:ellipsize="end"
         android:gravity="center"
+        android:singleLine="true"
         android:text="@string/TOTEntrate"
-        android:textColor="#000000"
-        android:textSize="18sp"
+        android:textColor="@color/black"
+        android:textSize="16sp"
         android:textStyle="bold" />
 
     <!-- Totale Entrate Amount -->
@@ -26,11 +28,13 @@
         android:id="@+id/totaleEntrate"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_weight="20"
+        android:layout_weight="1"
+        android:ellipsize="end"
         android:gravity="center"
+        android:singleLine="true"
         android:text=""
-        android:textColor="#4CAF50"
-        android:textSize="18sp"
+        android:textColor="@color/green"
+        android:textSize="16sp"
         android:textStyle="bold" />
 
     <!-- Euro Symbol for Totale Entrate -->
@@ -42,19 +46,22 @@
         android:paddingStart="4dp"
         android:paddingEnd="4dp"
         android:text=""
-        android:textColor="#000000"
-        android:textSize="18sp" />
+        android:textColor="@color/black"
+        android:textSize="16sp"
+        android:textStyle="bold" />
 
     <!-- Totale Uscite Label -->
     <TextView
         android:id="@+id/widget51"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_weight="25"
+        android:layout_weight="2"
+        android:ellipsize="end"
         android:gravity="center"
+        android:singleLine="true"
         android:text="@string/TOTUscite"
-        android:textColor="#000000"
-        android:textSize="18sp"
+        android:textColor="@color/black"
+        android:textSize="16sp"
         android:textStyle="bold" />
 
     <!-- Totale Uscite Amount -->
@@ -62,13 +69,13 @@
         android:id="@+id/totaleUscite"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_weight="20"
-        android:ellipsize="none"
+        android:layout_weight="1"
+        android:ellipsize="end"
         android:gravity="center"
         android:singleLine="true"
         android:text=""
-        android:textColor="#F44336"
-        android:textSize="18sp"
+        android:textColor="@color/red"
+        android:textSize="16sp"
         android:textStyle="bold" />
 
     <!-- Euro Symbol for Totale Uscite -->
@@ -78,6 +85,7 @@
         android:layout_height="wrap_content"
         android:gravity="center"
         android:text=""
-        android:textColor="#000000"
-        android:textSize="18sp" />
+        android:textColor="@color/black"
+        android:textSize="16sp"
+        android:textStyle="bold" />
 </TableRow>

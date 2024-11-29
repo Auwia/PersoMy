@@ -195,7 +195,7 @@
             android:layout_height="48dp"
             android:layout_gravity="center_vertical"
             android:background="@android:drawable/ic_menu_add"
-            android:backgroundTint="#388E3C"
+            android:backgroundTint="#005A00"
             android:contentDescription="@string/addSpesa_descrizione"
             android:onClick="onAddSpesaBtnPress"
             android:padding="8dp"

@@ -136,7 +136,8 @@
     <string name="currency_symbol_description">Simbolo Euro</string>
     <string name="spesa_description">Descrizione della spesa: %s</string>
     <string name="spesa_amount_description">Importo della spesa: %s €</string>
-    <string name="spesa_flag_description">Flag di selezione per %s, stato: %s</string>
+    <string name="spesa_flag_description">Flag di selezione per %1$s, stato: %2$s</string>
+    <string name="settings_pwd_required">Both password fields are required.</string>
 
 
     <!-- String Arrays -->

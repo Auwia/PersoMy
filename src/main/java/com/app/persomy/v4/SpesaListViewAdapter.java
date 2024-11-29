@@ -95,6 +95,8 @@ public class SpesaListViewAdapter extends ArrayAdapter<Spesa> {
                                 item.getSpesaFlaggata() ? "selezionata" : "non selezionata"
                         )
                 );
+                holder.mySpesaFlaggata.setMinHeight(48);
+                holder.mySpesaFlaggata.setMinWidth(48);
             }
         }
 
