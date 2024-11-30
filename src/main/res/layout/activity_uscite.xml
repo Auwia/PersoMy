@@ -66,7 +66,7 @@
             android:layout_height="wrap_content"
             android:background="@drawable/rounded_background"
             android:layout_weight="3"
-            android:contentDescription="@string/choose_expense_description_spinner"
+            android:contentDescription= "@string/choose_expense_description_spinner"
             android:minWidth="48dp"
             android:padding="8dp"
             android:prompt="@string/menu_selezione_voce"
@@ -82,8 +82,10 @@
             android:gravity="end|center_vertical"
             android:hint="@string/importoAutomatica"
             android:inputType="numberDecimal"
-            android:padding="12dp"
+            android:paddingStart="8dp"
+            android:paddingEnd="8dp"
             android:textColor="@color/black"
+            android:textColorHint="@color/dark_gray"
             android:textSize="16sp"
             android:textStyle="bold" />
 

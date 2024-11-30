@@ -1876,7 +1876,7 @@ public class MainActivity extends AppCompatActivity {
         mTimeDisplay = findViewById(R.id.oraAutomaticaTxt);
         mHourOfDay = c.get(Calendar.HOUR_OF_DAY);
         mMinute = c.get(Calendar.MINUTE);
-        dialogTime = new TimePickerDialog(this, new PickTime(), mHourOfDay, mMinute, DateFormat.is24HourFormat(this));
+        dialogTime = new TimePickerDialog(this, R.style.CustomTimePickerTheme, new PickTime(), mHourOfDay, mMinute, DateFormat.is24HourFormat(this));
         resetCalendario();
         resetTime();
         updateDisplay(1);

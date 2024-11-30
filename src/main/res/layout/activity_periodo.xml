@@ -88,11 +88,11 @@
                 android:layout_width="48dp"
                 android:layout_height="48dp"
                 android:background="@android:drawable/ic_menu_search"
-                android:backgroundTint="#757575"
+                android:backgroundTint="@color/black"
                 android:contentDescription="@string/searchData"
                 android:onClick="onSearchBtnPress"
                 android:padding="8dp"
-                app:tint="#FFFFFF" />
+                app:tint="@color/white" />
 
         </LinearLayout>
 

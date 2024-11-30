@@ -10,9 +10,10 @@
     <!-- Tema personalizzato per il TimePicker -->
     <style name="CustomTimePickerTheme" parent="Theme.AppCompat.Light.Dialog">
         <!-- Colori personalizzati -->
-        <item name="android:textColorPrimary">#FFFFFF</item> <!-- Testo principale -->
-        <item name="android:textColorSecondary">#B0BEC5</item> <!-- Testo secondario -->
-        <item name="android:background">#4CAF50</item> <!-- Sfondo del picker -->
+        <item name="android:colorAccent">@color/teal_dark</item> <!-- Colore per evidenziare elementi attivi -->
+        <item name="android:textColorPrimary">@color/white</item> <!-- Testo principale -->
+        <item name="android:textColorSecondary">@color/light_teal_background</item> <!-- Testo secondario -->
+        <item name="android:background">@color/green_dark</item> <!-- Sfondo del picker -->
         <item name="android:buttonStyle">@style/CustomButtonStyle</item>
         <item name="android:minWidth">48dp</item>
         <item name="android:minHeight">48dp</item>
@@ -22,9 +23,9 @@
     <!-- Tema personalizzato per il DatePicker -->
     <style name="CustomDatePickerTheme" parent="Theme.AppCompat.Light.Dialog">
         <!-- Colori personalizzati -->
-        <item name="android:textColorPrimary">#000000</item> <!-- Testo principale -->
-        <item name="android:textColorSecondary">#757575</item> <!-- Testo secondario -->
-        <item name="android:background">#FFFFFF</item> <!-- Sfondo del picker -->
+        <item name="android:textColorPrimary">#000000</item>
+        <item name="android:textColorSecondary">#757575</item>
+        <item name="android:background">#FFFFFF</item>
         <item name="android:buttonStyle">@style/CustomButtonStyle</item>
     </style>
 
@@ -32,18 +33,23 @@
     <style name="CustomButtonStyle" parent="Widget.AppCompat.Button">
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
-        <item name="android:padding">8dp</item>
-        <item name="android:minWidth">48dp</item>
+        <item name="android:minWidth">64dp</item>
         <item name="android:minHeight">48dp</item>
-        <item name="android:backgroundTint">#4CAF50</item>
-        <item name="android:textColor">#FFFFFF</item>
+        <item name="android:padding">12dp</item>
+        <item name="android:backgroundTint">@color/green_dark</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textAllCaps">false</item>
+        <item name="android:stateListAnimator">@null</item>
     </style>
+
 
     <!-- Stile per i bottoni immagine -->
     <style name="CustomImageButtonStyle">
-        <item name="android:tint">#000000</item> <!-- Colore nero per migliorare il contrasto -->
-        <item name="android:stateListAnimator">@null</item> <!-- Evita effetti non necessari -->
-        <item name="android:backgroundTint">#FFFFFF</item> <!-- Sfondo chiaro per contrasto -->
+        <item name="android:tint">@color/white</item>
+        <item name="android:stateListAnimator">@null</item>
+        <item name="android:backgroundTint">@color/teal_dark</item>
+        <item name="android:backgroundTint">@color/teal_dark</item>
     </style>
 
 
@@ -60,7 +66,7 @@
 
     <!-- Stile generale per il GridView -->
     <style name="GridViewStyle">
-        <item name="android:background">#FFFFFF</item> <!-- Sfondo bianco -->
+        <item name="android:background">#FFFFFF</item>
         <item name="android:horizontalSpacing">8dp</item>
         <item name="android:verticalSpacing">8dp</item>
         <item name="android:numColumns">1</item>
@@ -69,7 +75,7 @@
 
     <!-- Stile per il contenitore delle colonne -->
     <style name="ColumnHeaderContainerStyle">
-        <item name="android:background">#DDDDDD</item> <!-- Sfondo grigio chiaro -->
+        <item name="android:background">#DDDDDD</item>
         <item name="android:padding">8dp</item>
         <item name="android:orientation">horizontal</item>
     </style>
