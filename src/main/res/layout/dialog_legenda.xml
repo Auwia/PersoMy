@@ -27,7 +27,7 @@
             android:minHeight="48dp"
             android:padding="8dp"
             android:src="@android:drawable/ic_menu_save"
-            app:tint="@color/white" />
+            app:tint="@color/black" />
 
         <TextView
             android:id="@+id/menu_salva_descrizione"
@@ -59,7 +59,7 @@
             android:minWidth="48dp"
             android:minHeight="48dp"
             android:padding="8dp"
-            app:tint="@color/white"
+            app:tint="@color/black"
             android:src="@android:drawable/ic_input_add" />
 
         <TextView
@@ -90,7 +90,7 @@
             android:layout_marginStart="10dp"
             android:background="@android:color/transparent"
             android:backgroundTint="@color/teal_dark"
-            app:tint="@color/white"
+            app:tint="@color/black"
             android:contentDescription="@string/menu_modifica"
             android:minWidth="48dp"
             android:minHeight="48dp"
@@ -130,7 +130,7 @@
             android:minHeight="48dp"
             android:padding="8dp"
             android:src="@android:drawable/ic_menu_delete"
-            app:tint="@color/white" />
+            app:tint="@color/black"/>
 
         <TextView
             android:id="@+id/deleteSpesa_descrizione"
@@ -161,7 +161,7 @@
             android:background="@android:color/transparent"
             android:contentDescription="@string/addSpesa"
             android:backgroundTint="@color/teal_dark"
-            app:tint="@color/white"
+            app:tint="@color/black"
             android:minWidth="48dp"
             android:minHeight="48dp"
             android:padding="8dp"
