@@ -785,7 +785,7 @@ public class MainActivity extends AppCompatActivity {
                 View headerView = datePickerViewGroup.findViewById(Resources.getSystem().getIdentifier("date_picker_header", "id", "android"));
                 if (headerView instanceof TextView monthYearTextView) {
                     monthYearTextView.setContentDescription(getString(R.string.date_picker_month_year, mMonth + 1, mYear));
-                    monthYearTextView.setTextColor(Color.parseColor("#4CAF50"));
+                    monthYearTextView.setTextColor(Color.parseColor("#2E7D32"));
                     monthYearTextView.setTypeface(Typeface.defaultFromStyle(Typeface.BOLD));
                     monthYearTextView.setTextSize(18);
                     monthYearTextView.setPadding(24, 24, 24, 24);
@@ -797,6 +797,8 @@ public class MainActivity extends AppCompatActivity {
             Button negativeButton = dialogDate.getButton(DialogInterface.BUTTON_NEGATIVE);
             if (positiveButton != null) {
                 positiveButton.setContentDescription(getString(R.string.confirm_date_selection));
+                positiveButton.setTextColor(Color.parseColor("#FFFFFF"));
+                positiveButton.setBackgroundColor(Color.parseColor("#4CAF50"));
                 positiveButton.setMinHeight(48);
                 positiveButton.setMinWidth(48);
             }
@@ -804,6 +806,8 @@ public class MainActivity extends AppCompatActivity {
                 negativeButton.setContentDescription(getString(R.string.cancel_date_selection));
                 negativeButton.setMinHeight(48);
                 negativeButton.setMinWidth(48);
+                negativeButton.setTextColor(Color.parseColor("#FFFFFF"));
+                negativeButton.setBackgroundColor(Color.parseColor("#F44336"));
             }
         });
 
@@ -815,7 +819,7 @@ public class MainActivity extends AppCompatActivity {
                 View headerView = datePickerViewGroup.findViewById(Resources.getSystem().getIdentifier("date_picker_header", "id", "android"));
                 if (headerView instanceof TextView monthYearTextView) {
                     monthYearTextView.setContentDescription(getString(R.string.date_picker_month_year, mMonth + 1, mYear));
-                    monthYearTextView.setTextColor(Color.parseColor("#4CAF50"));
+                    monthYearTextView.setTextColor(Color.parseColor("#2E7D32"));
                     monthYearTextView.setTypeface(Typeface.defaultFromStyle(Typeface.BOLD));
                     monthYearTextView.setTextSize(18);
                     monthYearTextView.setPadding(24, 24, 24, 24);
@@ -829,11 +833,15 @@ public class MainActivity extends AppCompatActivity {
                 positiveButton.setContentDescription(getString(R.string.confirm_date_selection));
                 positiveButton.setMinHeight(48);
                 positiveButton.setMinWidth(48);
+                positiveButton.setTextColor(Color.parseColor("#FFFFFF"));
+                positiveButton.setBackgroundColor(Color.parseColor("#4CAF50"));
             }
             if (negativeButton != null) {
                 negativeButton.setContentDescription(getString(R.string.cancel_date_selection));
                 negativeButton.setMinHeight(48);
                 negativeButton.setMinWidth(48);
+                negativeButton.setTextColor(Color.parseColor("#FFFFFF"));
+                negativeButton.setBackgroundColor(Color.parseColor("#F44336"));
             }
         });
 
@@ -1104,6 +1112,23 @@ public class MainActivity extends AppCompatActivity {
                 layout = inflater.inflate(R.layout.dialog_verify_password, findViewById(R.id.root));
                 alert.setView(layout);
                 alert.setTitle(R.string.password_verify);
+                AlertDialog dialog = alert.create();
+                dialog.setOnShowListener(dialogInterface -> {
+                    Button positiveButton = dialog.getButton(DialogInterface.BUTTON_POSITIVE);
+                    Button negativeButton = dialog.getButton(DialogInterface.BUTTON_NEGATIVE);
+
+                    if (positiveButton != null) {
+                        positiveButton.setTextColor(Color.parseColor("#FFFFFF"));
+                        positiveButton.setBackgroundColor(Color.parseColor("#4CAF50"));
+                        positiveButton.setPadding(20, 10, 20, 10);
+                    }
+
+                    if (negativeButton != null) {
+                        negativeButton.setTextColor(Color.parseColor("#FFFFFF"));
+                        negativeButton.setBackgroundColor(Color.parseColor("#F44336"));
+                        negativeButton.setPadding(20, 10, 20, 10);
+                    }
+                });
                 break;
 
             case 2:
@@ -1148,7 +1173,7 @@ public class MainActivity extends AppCompatActivity {
                             error.setVisibility(View.VISIBLE);
                         } else if (strPass2.equals(strPass1)) {
                             error.setText(R.string.settings_pwd_equal);
-                            error.setTextColor(ContextCompat.getColor(MainActivity.this, R.color.green_dark));
+                            error.setTextColor(ContextCompat.getColor(MainActivity.this, R.color.teal_dark));
                             error.setVisibility(View.VISIBLE);
                         } else {
                             error.setText(R.string.settings_pwd_not_equal);
@@ -1174,7 +1199,7 @@ public class MainActivity extends AppCompatActivity {
                             error.setVisibility(View.VISIBLE);
                         } else if (strPass1.equals(strPass2)) {
                             error.setText(R.string.settings_pwd_equal);
-                            error.setTextColor(ContextCompat.getColor(MainActivity.this, R.color.green_dark));
+                            error.setTextColor(ContextCompat.getColor(MainActivity.this, R.color.teal_dark));
                             error.setVisibility(View.VISIBLE);
                         } else {
                             error.setText(R.string.settings_pwd_not_equal);
@@ -1187,6 +1212,26 @@ public class MainActivity extends AppCompatActivity {
                     }
 
                     public void onTextChanged(CharSequence s, int start, int before, int count) {
+                    }
+                });
+
+                dialog = alert.create();
+                dialog.setOnShowListener(dialogInterface -> {
+                    Button positiveButton = dialog.getButton(DialogInterface.BUTTON_POSITIVE);
+                    Button negativeButton = dialog.getButton(DialogInterface.BUTTON_NEGATIVE);
+
+                    if (positiveButton != null) {
+                        positiveButton.setTextColor(Color.parseColor("#FFFFFF"));
+                        positiveButton.setBackgroundColor(Color.parseColor("#4CAF50"));
+                        positiveButton.setPadding(20, 10, 20, 10);
+                        positiveButton.setContentDescription(getString(R.string.OK));
+                    }
+
+                    if (negativeButton != null) {
+                        negativeButton.setTextColor(Color.parseColor("#FFFFFF"));
+                        negativeButton.setBackgroundColor(Color.parseColor("#F44336"));
+                        negativeButton.setPadding(20, 10, 20, 10);
+                        negativeButton.setContentDescription(getString(R.string.cancel));
                     }
                 });
 
