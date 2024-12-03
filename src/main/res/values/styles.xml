@@ -10,9 +10,11 @@
     <!-- Tema personalizzato per il TimePicker -->
     <style name="CustomTimePickerTheme" parent="Theme.AppCompat.Light.Dialog">
         <!-- Colori personalizzati -->
-        <item name="android:colorAccent">@color/teal_dark</item> <!-- Colore per evidenziare elementi attivi -->
+        <item name="android:colorAccent">@color/teal_dark
+        </item> <!-- Colore per evidenziare elementi attivi -->
         <item name="android:textColorPrimary">@color/white</item> <!-- Testo principale -->
-        <item name="android:textColorSecondary">@color/light_teal_background</item> <!-- Testo secondario -->
+        <item name="android:textColorSecondary">@color/light_teal_background
+        </item> <!-- Testo secondario -->
         <item name="android:background">@color/green_dark</item> <!-- Sfondo del picker -->
         <item name="android:buttonStyle">@style/CustomButtonStyle</item>
         <item name="android:minWidth">48dp</item>
@@ -49,9 +51,7 @@
         <item name="android:tint">@color/white</item>
         <item name="android:stateListAnimator">@null</item>
         <item name="android:backgroundTint">@color/teal_dark</item>
-        <item name="android:backgroundTint">@color/teal_dark</item>
     </style>
-
 
     <!-- Stile per i TextView delle intestazioni -->
     <style name="HeaderTextViewStyle">

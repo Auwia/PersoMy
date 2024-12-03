@@ -1,4 +1,5 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/widget145"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
@@ -20,11 +21,13 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="10dp"
             android:background="@android:color/transparent"
+            android:backgroundTint="@color/teal_dark"
             android:contentDescription="@string/menu_salva"
             android:minWidth="48dp"
             android:minHeight="48dp"
             android:padding="8dp"
-            android:src="@android:drawable/ic_menu_save" />
+            android:src="@android:drawable/ic_menu_save"
+            app:tint="@color/white" />
 
         <TextView
             android:id="@+id/menu_salva_descrizione"
@@ -32,7 +35,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="15dp"
             android:text="@string/menu_salva_descrizione"
-            android:textColor="#4F4F4F"
+            android:textColor="@color/black"
             android:textStyle="bold" />
     </TableRow>
 
@@ -50,11 +53,13 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="10dp"
+            android:backgroundTint="@color/teal_dark"
             android:background="@android:color/transparent"
             android:contentDescription="@string/addDescrizione"
             android:minWidth="48dp"
             android:minHeight="48dp"
             android:padding="8dp"
+            app:tint="@color/white"
             android:src="@android:drawable/ic_input_add" />
 
         <TextView
@@ -62,6 +67,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="15dp"
+            android:minWidth="48dp"
+            android:minHeight="48dp"
             android:text="@string/addDescrizione_descrizione"
             android:textColor="#4F4F4F"
             android:textStyle="bold" />
@@ -82,6 +89,8 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="10dp"
             android:background="@android:color/transparent"
+            android:backgroundTint="@color/teal_dark"
+            app:tint="@color/white"
             android:contentDescription="@string/menu_modifica"
             android:minWidth="48dp"
             android:minHeight="48dp"
@@ -94,7 +103,9 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="15dp"
             android:text="@string/modificaDescrizione_descrizione"
-            android:textColor="#4F4F4F"
+            android:minWidth="48dp"
+            android:minHeight="48dp"
+            android:textColor="@color/teal_dark"
             android:textStyle="bold" />
     </TableRow>
 
@@ -113,19 +124,23 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="10dp"
             android:background="@android:color/transparent"
+            android:backgroundTint="@color/red_dark"
             android:contentDescription="@string/deleteSpesa"
             android:minWidth="48dp"
             android:minHeight="48dp"
             android:padding="8dp"
-            android:src="@android:drawable/ic_menu_delete" />
+            android:src="@android:drawable/ic_menu_delete"
+            app:tint="@color/white" />
 
         <TextView
             android:id="@+id/deleteSpesa_descrizione"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="15dp"
+            android:minWidth="48dp"
+            android:minHeight="48dp"
             android:text="@string/deleteSpesa_descrizione"
-            android:textColor="#4F4F4F"
+            android:textColor="@color/red_dark"
             android:textStyle="bold" />
     </TableRow>
 
@@ -145,6 +160,8 @@
             android:layout_marginStart="10dp"
             android:background="@android:color/transparent"
             android:contentDescription="@string/addSpesa"
+            android:backgroundTint="@color/teal_dark"
+            app:tint="@color/white"
             android:minWidth="48dp"
             android:minHeight="48dp"
             android:padding="8dp"
@@ -155,6 +172,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="15dp"
+            android:minWidth="48dp"
+            android:minHeight="48dp"
             android:text="@string/addSpesa_descrizione"
             android:textColor="#4F4F4F"
             android:textStyle="bold" />

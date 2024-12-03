@@ -54,8 +54,8 @@
     <!-- Checkbox per Flag -->
     <CheckBox
         android:id="@+id/flaggataSpesaCustom"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
         android:contentDescription="@string/flag_checkbox"
         android:gravity="center" />
 </LinearLayout>
