@@ -13,4 +13,6 @@
     <color name="teal_500">#009688</color>
     <color name="teal_dark">#004D40</color>
     <color name="red_dark">#B71C1C</color>
+    <color name="verde_scuro">#256029</color>
+    <color name="scuro_verde">#005A00</color>
 </resources>

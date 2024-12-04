@@ -108,13 +108,12 @@
             android:layout_height="48dp"
             android:layout_gravity="center_vertical"
             android:background="@android:drawable/ic_menu_add"
-            android:backgroundTint="@color/green_dark"
+            android:backgroundTint="@color/scuro_verde"
             android:contentDescription="@string/addSpesa_descrizione"
-            android:foregroundTint="@color/white"
             android:onClick="onAddSpesaBtnPress"
             android:padding="8dp"
-            android:textStyle="bold"
             app:tint="@color/white" />
+
     </LinearLayout>
 
     <!-- Expense List Section -->
