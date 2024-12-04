@@ -64,9 +64,9 @@
             android:id="@+id/descrizioneSpesa"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:background="@drawable/rounded_background"
             android:layout_weight="3"
-            android:contentDescription= "@string/choose_expense_description_spinner"
+            android:background="@drawable/rounded_background"
+            android:contentDescription="@string/choose_expense_description_spinner"
             android:minWidth="48dp"
             android:padding="8dp"
             android:prompt="@string/menu_selezione_voce"
@@ -110,8 +110,10 @@
             android:background="@android:drawable/ic_menu_add"
             android:backgroundTint="@color/green_dark"
             android:contentDescription="@string/addSpesa_descrizione"
+            android:foregroundTint="@color/white"
             android:onClick="onAddSpesaBtnPress"
             android:padding="8dp"
+            android:textStyle="bold"
             app:tint="@color/white" />
     </LinearLayout>
 

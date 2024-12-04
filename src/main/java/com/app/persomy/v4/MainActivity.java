@@ -19,6 +19,7 @@ import android.graphics.Color;
 import android.graphics.Point;
 import android.graphics.Rect;
 import android.graphics.Typeface;
+import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -1110,25 +1111,26 @@ public class MainActivity extends AppCompatActivity {
             case 1:
                 /* password_verify */
                 layout = inflater.inflate(R.layout.dialog_verify_password, findViewById(R.id.root));
-                alert.setView(layout);
-                alert.setTitle(R.string.password_verify);
                 AlertDialog dialog = alert.create();
                 dialog.setOnShowListener(dialogInterface -> {
                     Button positiveButton = dialog.getButton(DialogInterface.BUTTON_POSITIVE);
                     Button negativeButton = dialog.getButton(DialogInterface.BUTTON_NEGATIVE);
 
                     if (positiveButton != null) {
-                        positiveButton.setTextColor(Color.parseColor("#FFFFFF"));
-                        positiveButton.setBackgroundColor(Color.parseColor("#4CAF50"));
+                        positiveButton.setTextColor(Color.WHITE);
+                        positiveButton.setBackgroundColor(Color.GREEN);
                         positiveButton.setPadding(20, 10, 20, 10);
                     }
 
                     if (negativeButton != null) {
-                        negativeButton.setTextColor(Color.parseColor("#FFFFFF"));
-                        negativeButton.setBackgroundColor(Color.parseColor("#F44336"));
+                        positiveButton.setTextColor(Color.WHITE);
+                        positiveButton.setBackgroundColor(Color.RED);
                         negativeButton.setPadding(20, 10, 20, 10);
                     }
                 });
+                dialog.show();
+                alert.setView(layout);
+                alert.setTitle(R.string.password_verify);
                 break;
 
             case 2:
@@ -1221,15 +1223,15 @@ public class MainActivity extends AppCompatActivity {
                     Button negativeButton = dialog.getButton(DialogInterface.BUTTON_NEGATIVE);
 
                     if (positiveButton != null) {
-                        positiveButton.setTextColor(Color.parseColor("#FFFFFF"));
-                        positiveButton.setBackgroundColor(Color.parseColor("#4CAF50"));
+                        positiveButton.setTextColor(Color.WHITE);
+                        positiveButton.setBackgroundColor(Color.GREEN);
                         positiveButton.setPadding(20, 10, 20, 10);
                         positiveButton.setContentDescription(getString(R.string.OK));
                     }
 
                     if (negativeButton != null) {
-                        negativeButton.setTextColor(Color.parseColor("#FFFFFF"));
-                        negativeButton.setBackgroundColor(Color.parseColor("#F44336"));
+                        positiveButton.setTextColor(Color.WHITE);
+                        positiveButton.setBackgroundColor(Color.RED);
                         negativeButton.setPadding(20, 10, 20, 10);
                         negativeButton.setContentDescription(getString(R.string.cancel));
                     }
@@ -1237,6 +1239,7 @@ public class MainActivity extends AppCompatActivity {
 
                 alert.setView(layout);
                 alert.setTitle(R.string.setPassword);
+                dialog.show();
                 break;
 
             case 7:
