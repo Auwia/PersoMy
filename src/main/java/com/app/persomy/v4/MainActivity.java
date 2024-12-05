@@ -16,10 +16,8 @@ import android.content.res.Resources;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Color;
-import android.graphics.Point;
 import android.graphics.Rect;
 import android.graphics.Typeface;
-import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -33,7 +31,6 @@ import android.util.Log;
 import android.util.TypedValue;
 import android.view.ContextMenu;
 import android.view.ContextMenu.ContextMenuInfo;
-import android.view.Display;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -717,14 +714,15 @@ public class MainActivity extends AppCompatActivity {
         int screenHeight;
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+            // Usa WindowMetrics per ottenere le dimensioni dello schermo
             WindowMetrics metrics = getWindowManager().getCurrentWindowMetrics();
             Rect bounds = metrics.getBounds();
             screenHeight = bounds.height();
         } else {
-            Display display = getWindowManager().getDefaultDisplay();
-            Point size = new Point();
-            display.getSize(size);
-            screenHeight = size.y;
+            // Usa DisplayMetrics per le versioni precedenti
+            DisplayMetrics displayMetrics = new DisplayMetrics();
+            getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
+            screenHeight = displayMetrics.heightPixels;
         }
         return screenHeight;
     }
@@ -768,87 +766,104 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void resetCalendario() {
+        // Imposta la data iniziale
         mYear = c.get(Calendar.YEAR);
         mMonth = c.get(Calendar.MONTH);
         mDay = c.get(Calendar.DAY_OF_MONTH);
 
-        // dialogDate = new DatePickerDialog(this, R.style.CustomDatePickerTheme, new PickDate(), mYear, mMonth, mDay);
-        // dialogDateA = new DatePickerDialog(this, R.style.CustomDatePickerTheme, new PickDate(), mYear, mMonth, mDay);
-
+        // Crea i dialoghi
         dialogDate = new DatePickerDialog(this, new PickDate(), mYear, mMonth, mDay);
         dialogDateA = new DatePickerDialog(this, new PickDate(), mYear, mMonth, mDay);
 
+        // Personalizza il primo dialogo
         dialogDate.setOnShowListener(dialog -> {
-            DatePicker datePicker = dialogDate.getDatePicker();
-            datePicker.setContentDescription(getString(R.string.dataCalendario));
-            ViewGroup datePickerViewGroup = (ViewGroup) datePicker.getChildAt(0);
-            if (datePickerViewGroup != null) {
-                View headerView = datePickerViewGroup.findViewById(Resources.getSystem().getIdentifier("date_picker_header", "id", "android"));
-                if (headerView instanceof TextView monthYearTextView) {
-                    monthYearTextView.setContentDescription(getString(R.string.date_picker_month_year, mMonth + 1, mYear));
-                    monthYearTextView.setTextColor(Color.parseColor("#2E7D32"));
-                    monthYearTextView.setTypeface(Typeface.defaultFromStyle(Typeface.BOLD));
-                    monthYearTextView.setTextSize(18);
-                    monthYearTextView.setPadding(24, 24, 24, 24);
-                    monthYearTextView.setMinHeight(48);
-                    monthYearTextView.setMinWidth(48);
-                }
-            }
-            Button positiveButton = dialogDate.getButton(DialogInterface.BUTTON_POSITIVE);
-            Button negativeButton = dialogDate.getButton(DialogInterface.BUTTON_NEGATIVE);
-            if (positiveButton != null) {
-                positiveButton.setContentDescription(getString(R.string.confirm_date_selection));
-                positiveButton.setTextColor(Color.parseColor("#FFFFFF"));
-                positiveButton.setBackgroundColor(Color.parseColor("#4CAF50"));
-                positiveButton.setMinHeight(48);
-                positiveButton.setMinWidth(48);
-            }
-            if (negativeButton != null) {
-                negativeButton.setContentDescription(getString(R.string.cancel_date_selection));
-                negativeButton.setMinHeight(48);
-                negativeButton.setMinWidth(48);
-                negativeButton.setTextColor(Color.parseColor("#FFFFFF"));
-                negativeButton.setBackgroundColor(Color.parseColor("#F44336"));
-            }
+            styleDatePickerHeader(dialogDate, mMonth, mYear);
+            styleDialogButtons(dialogDate);
         });
 
+        // Personalizza il secondo dialogo
         dialogDateA.setOnShowListener(dialog -> {
-            DatePicker datePicker = dialogDateA.getDatePicker();
-            datePicker.setContentDescription(getString(R.string.dataCalendario));
-            ViewGroup datePickerViewGroup = (ViewGroup) datePicker.getChildAt(0);
-            if (datePickerViewGroup != null) {
-                View headerView = datePickerViewGroup.findViewById(Resources.getSystem().getIdentifier("date_picker_header", "id", "android"));
-                if (headerView instanceof TextView monthYearTextView) {
-                    monthYearTextView.setContentDescription(getString(R.string.date_picker_month_year, mMonth + 1, mYear));
-                    monthYearTextView.setTextColor(Color.parseColor("#2E7D32"));
-                    monthYearTextView.setTypeface(Typeface.defaultFromStyle(Typeface.BOLD));
-                    monthYearTextView.setTextSize(18);
-                    monthYearTextView.setPadding(24, 24, 24, 24);
-                    monthYearTextView.setMinHeight(48);
-                    monthYearTextView.setMinWidth(48);
-                }
-            }
-            Button positiveButton = dialogDateA.getButton(DialogInterface.BUTTON_POSITIVE);
-            Button negativeButton = dialogDateA.getButton(DialogInterface.BUTTON_NEGATIVE);
-            if (positiveButton != null) {
-                positiveButton.setContentDescription(getString(R.string.confirm_date_selection));
-                positiveButton.setMinHeight(48);
-                positiveButton.setMinWidth(48);
-                positiveButton.setTextColor(Color.parseColor("#FFFFFF"));
-                positiveButton.setBackgroundColor(Color.parseColor("#4CAF50"));
-            }
-            if (negativeButton != null) {
-                negativeButton.setContentDescription(getString(R.string.cancel_date_selection));
-                negativeButton.setMinHeight(48);
-                negativeButton.setMinWidth(48);
-                negativeButton.setTextColor(Color.parseColor("#FFFFFF"));
-                negativeButton.setBackgroundColor(Color.parseColor("#F44336"));
-            }
+            styleDatePickerHeader(dialogDateA, mMonth, mYear);
+            styleDialogButtons(dialogDateA);
         });
 
+        // Aggiorna la data nei dialoghi
         dialogDate.updateDate(mYear, mMonth, mDay);
         dialogDateA.updateDate(mYear, mMonth, mDay);
+
+        // Aggiorna la visualizzazione
         updateDisplay(0);
+    }
+
+    private void styleDatePickerHeader(DatePickerDialog dialog, int month, int year) {
+        DatePicker datePicker = dialog.getDatePicker();
+        datePicker.setContentDescription(getString(R.string.dataCalendario));
+
+        ViewGroup datePickerViewGroup = (ViewGroup) datePicker.getChildAt(0);
+        if (datePickerViewGroup != null) {
+
+            View headerYearView = datePickerViewGroup.findViewById(
+                    Resources.getSystem().getIdentifier("date_picker_header_year", "id", "android")
+            );
+            if (headerYearView != null) {
+                int minHeight = 48;
+                headerYearView.setMinimumHeight(minHeight);
+                headerYearView.setPadding(16, 16, 16, 16);
+                headerYearView.setContentDescription(getString(R.string.header_year_accessibility_label));
+            }
+
+            View headerDateView = datePickerViewGroup.findViewById(
+                    Resources.getSystem().getIdentifier("date_picker_header_date", "id", "android")
+            );
+            if (headerDateView != null) {
+                int minHeight = 48;
+                headerDateView.setMinimumHeight(minHeight);
+                headerDateView.setPadding(16, 16, 16, 16);
+                headerDateView.setContentDescription(getString(R.string.header_date_accessibility_label));
+            }
+
+            View monthView = datePicker.findViewById(Resources.getSystem().getIdentifier("month_view", "id", "android"));
+            if (monthView != null) {
+                monthView.setContentDescription(getString(R.string.month_view_accessibility_label));
+            }
+
+            View headerView = datePickerViewGroup.findViewById(
+                    Resources.getSystem().getIdentifier("date_picker_header", "id", "android")
+            );
+            if (headerView instanceof TextView monthYearTextView) {
+                monthYearTextView.setContentDescription(
+                        getString(R.string.date_picker_month_year, month + 1, year)
+                );
+                monthYearTextView.setTextColor(Color.parseColor("#2E7D32"));
+                monthYearTextView.setTypeface(Typeface.defaultFromStyle(Typeface.BOLD));
+                monthYearTextView.setTextSize(18);
+                monthYearTextView.setPadding(24, 24, 24, 24);
+                monthYearTextView.setMinHeight(48);
+                monthYearTextView.setMinWidth(48);
+            }
+        }
+    }
+
+    private void styleDialogButtons(DatePickerDialog dialog) {
+        // Personalizza i pulsanti
+        Button positiveButton = dialog.getButton(DialogInterface.BUTTON_POSITIVE);
+        Button negativeButton = dialog.getButton(DialogInterface.BUTTON_NEGATIVE);
+
+        if (positiveButton != null) {
+            positiveButton.setContentDescription(getString(R.string.confirm_date_selection));
+            positiveButton.setTextColor(Color.WHITE);
+            positiveButton.setBackgroundColor(ContextCompat.getColor(this, R.color.teal_dark));
+            positiveButton.setMinHeight(48);
+            positiveButton.setMinWidth(48);
+        }
+
+        if (negativeButton != null) {
+            negativeButton.setContentDescription(getString(R.string.cancel_date_selection));
+            negativeButton.setTextColor(Color.WHITE);
+            negativeButton.setBackgroundColor(Color.RED);
+            negativeButton.setMinHeight(48);
+            negativeButton.setMinWidth(48);
+        }
     }
 
     private void resetTime() {
@@ -858,6 +873,41 @@ public class MainActivity extends AppCompatActivity {
         dialogTime = new TimePickerDialog(this, new PickTime(), mHourOfDay, mMinute, DateFormat.is24HourFormat(this));
 
         dialogTime.setOnShowListener(dialog -> {
+            int timePickerId = Resources.getSystem().getIdentifier("timePicker", "id", "android");
+            TimePicker timePicker = dialogTime.findViewById(timePickerId);
+
+            try {
+                View separator = timePicker.findViewById(
+                        Resources.getSystem().getIdentifier("separator", "id", "android")
+                );
+                if (separator instanceof TextView) {
+                    ((TextView) separator).setTextColor(Color.parseColor("#000000")); // Nero per massimo contrasto
+                }
+
+                View amLabel = timePicker.findViewById(
+                        Resources.getSystem().getIdentifier("am_label", "id", "android")
+                );
+                View pmLabel = timePicker.findViewById(
+                        Resources.getSystem().getIdentifier("pm_label", "id", "android")
+                );
+
+                int minSize = 48;
+                int padding = 16;
+
+                if (amLabel != null) {
+                    amLabel.setMinimumHeight(minSize);
+                    amLabel.setMinimumWidth(minSize);
+                    amLabel.setPadding(padding, padding, padding, padding);
+                }
+                if (pmLabel != null) {
+                    pmLabel.setMinimumHeight(minSize);
+                    pmLabel.setMinimumWidth(minSize);
+                    pmLabel.setPadding(padding, padding, padding, padding);
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
             Button positiveButton = dialogTime.getButton(DialogInterface.BUTTON_POSITIVE);
             Button negativeButton = dialogTime.getButton(DialogInterface.BUTTON_NEGATIVE);
             if (positiveButton != null) {

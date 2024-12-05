@@ -139,6 +139,9 @@
     <string name="spesa_amount_description">Expense amount: %s €</string>
     <string name="spesa_flag_description">Selection flag for %1$s, status: %2$s</string>
     <string name="settings_pwd_required">Both password fields are required.</string>
+    <string name="month_view_accessibility_label">Calendario mensile. Usa i gesti per navigare tra i mesi e gli anni.</string>
+    <string name="header_date_accessibility_label">Data selezionata. Tocca per modificare.</string>
+    <string name="header_year_accessibility_label">Year currently displayed. Tap to edit.</string>
 
     <!-- String Arrays -->
     <string-array name="frequenze">

@@ -6,7 +6,7 @@ buildscript {
         mavenCentral()
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:8.7.3'
+        classpath 'com.android.tools.build:gradle:8.5.2'
     }
 }
 
@@ -26,8 +26,8 @@ android {
         applicationId "com.app.persomy.v4"
         minSdkVersion 21
         targetSdkVersion 35
-        versionCode 300145
-        versionName "3.1.45"
+        versionCode 300146
+        versionName "3.1.46"
     }
 
     configurations.configureEach {
