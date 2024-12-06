@@ -140,6 +140,10 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    private float dpToPxMax(Context context, int dp) {
+        return TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, dp, context.getResources().getDisplayMetrics());
+    }
+
     @Override
     protected void onDestroy() {
         if (cur != null && !cur.isClosed()) {
@@ -796,6 +800,12 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void styleDatePickerHeader(DatePickerDialog dialog, int month, int year) {
+
+        int minSize = (int) dpToPxMax(this, 48);
+        int padding = (int) dpToPxMax(this, 8);
+        int backgroundColor = Color.parseColor("#004D40");
+        int textColor = Color.WHITE;
+
         DatePicker datePicker = dialog.getDatePicker();
         datePicker.setContentDescription(getString(R.string.dataCalendario));
 
@@ -805,21 +815,26 @@ public class MainActivity extends AppCompatActivity {
             View headerYearView = datePickerViewGroup.findViewById(
                     Resources.getSystem().getIdentifier("date_picker_header_year", "id", "android")
             );
-            if (headerYearView != null) {
-                int minHeight = 48;
-                headerYearView.setMinimumHeight(minHeight);
-                headerYearView.setPadding(16, 16, 16, 16);
-                headerYearView.setContentDescription(getString(R.string.header_year_accessibility_label));
+            if (headerYearView instanceof TextView yearTextView) {
+                yearTextView.setMinimumHeight(minSize);
+                yearTextView.setMinimumWidth(minSize);
+                yearTextView.setTextColor(textColor);
+                yearTextView.setBackgroundColor(backgroundColor);
+                yearTextView.setPadding(padding, padding, padding, padding);
+                yearTextView.setContentDescription(getString(R.string.header_year_accessibility_label));
             }
 
             View headerDateView = datePickerViewGroup.findViewById(
                     Resources.getSystem().getIdentifier("date_picker_header_date", "id", "android")
             );
-            if (headerDateView != null) {
-                int minHeight = 48;
-                headerDateView.setMinimumHeight(minHeight);
-                headerDateView.setPadding(16, 16, 16, 16);
-                headerDateView.setContentDescription(getString(R.string.header_date_accessibility_label));
+
+            if (headerDateView instanceof TextView dateTextView) {
+                dateTextView.setMinimumHeight(minSize);
+                dateTextView.setMinimumWidth(minSize);
+                dateTextView.setTextColor(textColor);
+                dateTextView.setBackgroundColor(backgroundColor);
+                dateTextView.setPadding(padding, padding, padding, padding);
+                dateTextView.setContentDescription(getString(R.string.header_date_accessibility_label));
             }
 
             View monthView = datePicker.findViewById(Resources.getSystem().getIdentifier("month_view", "id", "android"));
@@ -837,15 +852,17 @@ public class MainActivity extends AppCompatActivity {
                 monthYearTextView.setTextColor(Color.parseColor("#2E7D32"));
                 monthYearTextView.setTypeface(Typeface.defaultFromStyle(Typeface.BOLD));
                 monthYearTextView.setTextSize(18);
-                monthYearTextView.setPadding(24, 24, 24, 24);
-                monthYearTextView.setMinHeight(48);
-                monthYearTextView.setMinWidth(48);
+                monthYearTextView.setPadding(padding, padding, padding, padding);
+                monthYearTextView.setMinimumHeight(minSize);
+                monthYearTextView.setMinimumWidth(minSize);
             }
         }
     }
 
     private void styleDialogButtons(DatePickerDialog dialog) {
-        // Personalizza i pulsanti
+
+        int minSize = (int) dpToPxMax(this, 48);
+
         Button positiveButton = dialog.getButton(DialogInterface.BUTTON_POSITIVE);
         Button negativeButton = dialog.getButton(DialogInterface.BUTTON_NEGATIVE);
 
@@ -853,16 +870,16 @@ public class MainActivity extends AppCompatActivity {
             positiveButton.setContentDescription(getString(R.string.confirm_date_selection));
             positiveButton.setTextColor(Color.WHITE);
             positiveButton.setBackgroundColor(ContextCompat.getColor(this, R.color.teal_dark));
-            positiveButton.setMinHeight(48);
-            positiveButton.setMinWidth(48);
+            positiveButton.setMinimumHeight(minSize);
+            positiveButton.setMinimumWidth(minSize);
         }
 
         if (negativeButton != null) {
             negativeButton.setContentDescription(getString(R.string.cancel_date_selection));
             negativeButton.setTextColor(Color.WHITE);
-            negativeButton.setBackgroundColor(Color.RED);
-            negativeButton.setMinHeight(48);
-            negativeButton.setMinWidth(48);
+            negativeButton.setBackgroundColor(ContextCompat.getColor(this, R.color.red_dark));
+            negativeButton.setMinimumHeight(minSize);
+            negativeButton.setMinimumWidth(minSize);
         }
     }
 
@@ -874,6 +891,10 @@ public class MainActivity extends AppCompatActivity {
 
         dialogTime.setOnShowListener(dialog -> {
             int timePickerId = Resources.getSystem().getIdentifier("timePicker", "id", "android");
+            int minSize = (int) dpToPxMax(this, 48);
+            int padding = (int) dpToPxMax(this, 8);
+            float textSizeSp = 16;
+
             TimePicker timePicker = dialogTime.findViewById(timePickerId);
 
             try {
@@ -881,47 +902,50 @@ public class MainActivity extends AppCompatActivity {
                         Resources.getSystem().getIdentifier("separator", "id", "android")
                 );
                 if (separator instanceof TextView) {
-                    ((TextView) separator).setTextColor(Color.parseColor("#000000")); // Nero per massimo contrasto
+                    ((TextView) separator).setTextColor(Color.parseColor("#000000"));
                 }
 
                 View amLabel = timePicker.findViewById(
                         Resources.getSystem().getIdentifier("am_label", "id", "android")
                 );
+                if (amLabel instanceof TextView amTextView) {
+                    amTextView.setTextColor(Color.WHITE);
+                    amTextView.setTextSize(TypedValue.COMPLEX_UNIT_SP, textSizeSp);
+                    amTextView.setBackgroundColor(Color.parseColor("#004D40"));
+                    amTextView.setPadding(padding, padding, padding, padding);
+                    amLabel.setMinimumHeight(minSize);
+                    amLabel.setMinimumWidth(minSize);
+                }
+
                 View pmLabel = timePicker.findViewById(
                         Resources.getSystem().getIdentifier("pm_label", "id", "android")
                 );
-
-                int minSize = 48;
-                int padding = 16;
-
-                if (amLabel != null) {
-                    amLabel.setMinimumHeight(minSize);
-                    amLabel.setMinimumWidth(minSize);
-                    amLabel.setPadding(padding, padding, padding, padding);
-                }
-                if (pmLabel != null) {
+                if (pmLabel instanceof TextView pmTextView) {
+                    pmTextView.setTextColor(Color.WHITE);
+                    pmTextView.setBackgroundColor(Color.parseColor("#004D40"));
+                    pmTextView.setTextSize(TypedValue.COMPLEX_UNIT_SP, textSizeSp);
                     pmLabel.setMinimumHeight(minSize);
                     pmLabel.setMinimumWidth(minSize);
-                    pmLabel.setPadding(padding, padding, padding, padding);
+                    pmTextView.setPadding(padding, padding, padding, padding);
                 }
             } catch (Exception e) {
-                e.printStackTrace();
+                Log.e("resetTime", "A generic error occurred", e);
             }
 
             Button positiveButton = dialogTime.getButton(DialogInterface.BUTTON_POSITIVE);
             Button negativeButton = dialogTime.getButton(DialogInterface.BUTTON_NEGATIVE);
             if (positiveButton != null) {
                 positiveButton.setContentDescription(getString(R.string.confirm_time_selection));
-                positiveButton.setPadding(16, 16, 16, 16);
-                positiveButton.setMinHeight(48);
-                positiveButton.setMinWidth(48);
+                positiveButton.setPadding(padding, padding, padding, padding);
+                positiveButton.setMinimumHeight(minSize);
+                positiveButton.setMinimumWidth(minSize);
                 positiveButton.setBackgroundColor(ContextCompat.getColor(this, R.color.teal_dark));
                 positiveButton.setTextColor(Color.WHITE);
             }
             if (negativeButton != null) {
-                negativeButton.setPadding(16, 16, 16, 16);
-                negativeButton.setMinHeight(48);
-                negativeButton.setMinWidth(48);
+                negativeButton.setPadding(padding, padding, padding, padding);
+                negativeButton.setMinimumHeight(minSize);
+                negativeButton.setMinimumWidth(minSize);
                 negativeButton.setContentDescription(getString(R.string.cancel_time_selection));
                 negativeButton.setBackgroundColor(ContextCompat.getColor(this, R.color.red_dark));
                 negativeButton.setTextColor(Color.WHITE);
@@ -1173,8 +1197,8 @@ public class MainActivity extends AppCompatActivity {
                     }
 
                     if (negativeButton != null) {
-                        positiveButton.setTextColor(Color.WHITE);
-                        positiveButton.setBackgroundColor(Color.RED);
+                        negativeButton.setTextColor(Color.WHITE);
+                        negativeButton.setBackgroundColor(ContextCompat.getColor(this, R.color.red_dark));
                         negativeButton.setPadding(20, 10, 20, 10);
                     }
                 });
@@ -1280,8 +1304,8 @@ public class MainActivity extends AppCompatActivity {
                     }
 
                     if (negativeButton != null) {
-                        positiveButton.setTextColor(Color.WHITE);
-                        positiveButton.setBackgroundColor(Color.RED);
+                        negativeButton.setTextColor(Color.WHITE);
+                        negativeButton.setBackgroundColor(Color.RED);
                         negativeButton.setPadding(20, 10, 20, 10);
                         negativeButton.setContentDescription(getString(R.string.cancel));
                     }
