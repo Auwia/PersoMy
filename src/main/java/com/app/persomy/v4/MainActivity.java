@@ -912,7 +912,7 @@ public class MainActivity extends AppCompatActivity {
                     amTextView.setTextColor(Color.WHITE);
                     amTextView.setTextSize(TypedValue.COMPLEX_UNIT_SP, textSizeSp);
                     amTextView.setBackgroundColor(Color.parseColor("#004D40"));
-                    amTextView.setPadding(padding, padding, padding, padding);
+                    //amTextView.setPadding(padding, padding, padding, padding);
                     amLabel.setMinimumHeight(minSize);
                     amLabel.setMinimumWidth(minSize);
                 }
@@ -926,8 +926,25 @@ public class MainActivity extends AppCompatActivity {
                     pmTextView.setTextSize(TypedValue.COMPLEX_UNIT_SP, textSizeSp);
                     pmLabel.setMinimumHeight(minSize);
                     pmLabel.setMinimumWidth(minSize);
-                    pmTextView.setPadding(padding, padding, padding, padding);
+                    // pmTextView.setPadding(padding, padding, padding, padding);
                 }
+
+                View hoursView = timePicker.findViewById(
+                        Resources.getSystem().getIdentifier("hours", "id", "android")
+                );
+                if (hoursView instanceof TextView hoursTextView) {
+                    hoursTextView.setTextColor(Color.BLACK);
+                    hoursTextView.setBackgroundColor(ContextCompat.getColor(this, R.color.teal_200));
+                }
+
+                View minutesView = timePicker.findViewById(
+                        Resources.getSystem().getIdentifier("minutes", "id", "android")
+                );
+                if (minutesView instanceof TextView minutesTextView) {
+                    minutesTextView.setTextColor(Color.WHITE);
+                    minutesTextView.setBackgroundColor(ContextCompat.getColor(context, R.color.teal_dark));
+                }
+
             } catch (Exception e) {
                 Log.e("resetTime", "A generic error occurred", e);
             }

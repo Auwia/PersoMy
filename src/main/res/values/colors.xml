@@ -15,4 +15,6 @@
     <color name="red_dark">#B71C1C</color>
     <color name="verde_scuro">#256029</color>
     <color name="scuro_verde">#005A00</color>
+    <color name="teal_200">#03DAC5</color>
+    <color name="teal_darker">#018786</color>
 </resources>
