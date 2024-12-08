@@ -942,7 +942,7 @@ public class MainActivity extends AppCompatActivity {
                 );
                 if (minutesView instanceof TextView minutesTextView) {
                     minutesTextView.setTextColor(Color.WHITE);
-                    minutesTextView.setBackgroundColor(ContextCompat.getColor(context, R.color.teal_dark));
+                    minutesTextView.setBackgroundColor(ContextCompat.getColor(this, R.color.teal_dark));
                 }
 
             } catch (Exception e) {
