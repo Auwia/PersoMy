@@ -26,8 +26,8 @@ android {
         applicationId "com.app.persomy.v4"
         minSdkVersion 21
         targetSdkVersion 35
-        versionCode 300148
-        versionName "3.1.48"
+        versionCode 300149
+        versionName "3.1.49"
     }
 
     configurations.configureEach {

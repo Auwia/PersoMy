@@ -31,6 +31,7 @@ import android.util.Log;
 import android.util.TypedValue;
 import android.view.ContextMenu;
 import android.view.ContextMenu.ContextMenuInfo;
+import android.view.Gravity;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -912,9 +913,19 @@ public class MainActivity extends AppCompatActivity {
                     amTextView.setTextColor(Color.WHITE);
                     amTextView.setTextSize(TypedValue.COMPLEX_UNIT_SP, textSizeSp);
                     amTextView.setBackgroundColor(Color.parseColor("#004D40"));
-                    //amTextView.setPadding(padding, padding, padding, padding);
                     amLabel.setMinimumHeight(minSize);
                     amLabel.setMinimumWidth(minSize);
+
+                    ViewGroup.LayoutParams originalParams = amLabel.getLayoutParams();
+                    if (originalParams instanceof ViewGroup.MarginLayoutParams params) {
+                        params.width = minSize;
+                        params.height = minSize;
+                        amTextView.setLayoutParams(params);
+                        amTextView.setGravity(Gravity.CENTER);
+                    }
+                    int paddingInternal = (int) dpToPxMax(this, 8);
+                    amTextView.setPadding(paddingInternal, paddingInternal, paddingInternal, paddingInternal);
+
                 }
 
                 View pmLabel = timePicker.findViewById(
@@ -926,7 +937,16 @@ public class MainActivity extends AppCompatActivity {
                     pmTextView.setTextSize(TypedValue.COMPLEX_UNIT_SP, textSizeSp);
                     pmLabel.setMinimumHeight(minSize);
                     pmLabel.setMinimumWidth(minSize);
-                    // pmTextView.setPadding(padding, padding, padding, padding);
+
+                    ViewGroup.LayoutParams originalParams = pmLabel.getLayoutParams();
+                    if (originalParams instanceof ViewGroup.MarginLayoutParams params) {
+                        params.width = minSize;
+                        params.height = minSize;
+                        pmTextView.setGravity(Gravity.CENTER);
+                        pmTextView.setLayoutParams(params);
+                    }
+                    int paddingInternal = (int) dpToPxMax(this, 8);
+                    pmTextView.setPadding(paddingInternal, paddingInternal, paddingInternal, paddingInternal);
                 }
 
                 View hoursView = timePicker.findViewById(
