@@ -61,6 +61,7 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.view.ContextThemeWrapper;
 import androidx.appcompat.widget.SwitchCompat;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
@@ -69,6 +70,8 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.lang.reflect.Field;
+import java.lang.reflect.Method;
 import java.nio.channels.FileChannel;
 import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
@@ -888,110 +891,27 @@ public class MainActivity extends AppCompatActivity {
         mHourOfDay = c.get(Calendar.HOUR_OF_DAY);
         mMinute = c.get(Calendar.MINUTE);
 
-        dialogTime = new TimePickerDialog(this, new PickTime(), mHourOfDay, mMinute, DateFormat.is24HourFormat(this));
+        // Usa un tema compatibile con TimePicker Spinner
+        Context context = new ContextThemeWrapper(this, android.R.style.Theme_Holo_Light_Dialog);
+        dialogTime = new TimePickerDialog(context, new PickTime(), mHourOfDay, mMinute, false);
 
+        dialogTime.setTitle(getString(R.string.time_picker_description));
         dialogTime.setOnShowListener(dialog -> {
-            int timePickerId = Resources.getSystem().getIdentifier("timePicker", "id", "android");
-            int minSize = (int) dpToPxMax(this, 48);
-            int padding = (int) dpToPxMax(this, 8);
-            float textSizeSp = 16;
-
-            TimePicker timePicker = dialogTime.findViewById(timePickerId);
-
-            try {
-                View separator = timePicker.findViewById(
-                        Resources.getSystem().getIdentifier("separator", "id", "android")
-                );
-                if (separator instanceof TextView) {
-                    ((TextView) separator).setTextColor(Color.parseColor("#000000"));
-                }
-
-                View amLabel = timePicker.findViewById(
-                        Resources.getSystem().getIdentifier("am_label", "id", "android")
-                );
-                if (amLabel instanceof TextView amTextView) {
-                    amTextView.setTextColor(Color.WHITE);
-                    amTextView.setTextSize(TypedValue.COMPLEX_UNIT_SP, textSizeSp);
-                    amTextView.setBackgroundColor(Color.parseColor("#004D40"));
-                    amLabel.setMinimumHeight(minSize);
-                    amLabel.setMinimumWidth(minSize);
-
-                    ViewGroup.LayoutParams originalParams = amLabel.getLayoutParams();
-                    if (originalParams instanceof ViewGroup.MarginLayoutParams params) {
-                        params.width = minSize;
-                        params.height = minSize;
-                        amTextView.setLayoutParams(params);
-                        amTextView.setGravity(Gravity.CENTER);
-                    }
-                    int paddingInternal = (int) dpToPxMax(this, 8);
-                    amTextView.setPadding(paddingInternal, paddingInternal, paddingInternal, paddingInternal);
-
-                }
-
-                View pmLabel = timePicker.findViewById(
-                        Resources.getSystem().getIdentifier("pm_label", "id", "android")
-                );
-                if (pmLabel instanceof TextView pmTextView) {
-                    pmTextView.setTextColor(Color.WHITE);
-                    pmTextView.setBackgroundColor(Color.parseColor("#004D40"));
-                    pmTextView.setTextSize(TypedValue.COMPLEX_UNIT_SP, textSizeSp);
-                    pmLabel.setMinimumHeight(minSize);
-                    pmLabel.setMinimumWidth(minSize);
-
-                    ViewGroup.LayoutParams originalParams = pmLabel.getLayoutParams();
-                    if (originalParams instanceof ViewGroup.MarginLayoutParams params) {
-                        params.width = minSize;
-                        params.height = minSize;
-                        pmTextView.setGravity(Gravity.CENTER);
-                        pmTextView.setLayoutParams(params);
-                    }
-                    int paddingInternal = (int) dpToPxMax(this, 8);
-                    pmTextView.setPadding(paddingInternal, paddingInternal, paddingInternal, paddingInternal);
-                }
-
-                View hoursView = timePicker.findViewById(
-                        Resources.getSystem().getIdentifier("hours", "id", "android")
-                );
-                if (hoursView instanceof TextView hoursTextView) {
-                    hoursTextView.setTextColor(Color.BLACK);
-                    hoursTextView.setBackgroundColor(ContextCompat.getColor(this, R.color.teal_200));
-                }
-
-                View minutesView = timePicker.findViewById(
-                        Resources.getSystem().getIdentifier("minutes", "id", "android")
-                );
-                if (minutesView instanceof TextView minutesTextView) {
-                    minutesTextView.setTextColor(Color.WHITE);
-                    minutesTextView.setBackgroundColor(ContextCompat.getColor(this, R.color.teal_dark));
-                }
-
-            } catch (Exception e) {
-                Log.e("resetTime", "A generic error occurred", e);
-            }
-
             Button positiveButton = dialogTime.getButton(DialogInterface.BUTTON_POSITIVE);
             Button negativeButton = dialogTime.getButton(DialogInterface.BUTTON_NEGATIVE);
+
             if (positiveButton != null) {
-                positiveButton.setContentDescription(getString(R.string.confirm_time_selection));
-                positiveButton.setPadding(padding, padding, padding, padding);
-                positiveButton.setMinimumHeight(minSize);
-                positiveButton.setMinimumWidth(minSize);
-                positiveButton.setBackgroundColor(ContextCompat.getColor(this, R.color.teal_dark));
                 positiveButton.setTextColor(Color.WHITE);
+                positiveButton.setBackgroundColor(ContextCompat.getColor(this, R.color.teal_dark));
             }
+
             if (negativeButton != null) {
-                negativeButton.setPadding(padding, padding, padding, padding);
-                negativeButton.setMinimumHeight(minSize);
-                negativeButton.setMinimumWidth(minSize);
-                negativeButton.setContentDescription(getString(R.string.cancel_time_selection));
-                negativeButton.setBackgroundColor(ContextCompat.getColor(this, R.color.red_dark));
                 negativeButton.setTextColor(Color.WHITE);
+                negativeButton.setBackgroundColor(ContextCompat.getColor(this, R.color.red_dark));
             }
-            dialogTime.setTitle(getString(R.string.time_picker_description));
         });
 
-        dialogTime.updateTime(mHourOfDay, mMinute);
-        updateDisplay(1);
+        dialogTime.show();
     }
 
     private void eliminaVarie() {

@@ -197,7 +197,7 @@
             android:background="@android:drawable/ic_menu_add"
             android:backgroundTint="#005A00"
             android:contentDescription="@string/addSpesa_descrizione"
-            android:onClick="onAddSpesaBtnPress"
+            android:onClick="onAggiungiSpesaBtnPress"
             android:padding="8dp"
             app:tint="#FFFFFF" />
 
