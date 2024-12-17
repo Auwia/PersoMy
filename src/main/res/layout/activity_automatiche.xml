@@ -162,15 +162,17 @@
 
         <EditText
             android:id="@+id/importoAutomatica"
-            android:layout_width="48dp"
-            android:layout_height="48dp"
             android:autofillHints="false"
             android:background="#EFEFEF"
             android:gravity="end|center_vertical"
             android:hint="@string/importoAutomatica"
             android:inputType="numberDecimal"
             android:maxLength="7"
+            android:minWidth="48dp"
+            android:minHeight="48dp"
             android:paddingTop="8dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:paddingBottom="8dp"
             android:textColorHint="#616161"
             android:textSize="16sp" />

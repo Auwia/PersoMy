@@ -130,20 +130,20 @@
     <string name="update">Автоматическое обновление</string>
     <string name="uscite_column">Заголовок столбца расходов</string>
     <string name="uscite_description">Нажмите здесь, чтобы ввести свои расходы.</string>
-    <string name="custom_list_date_description">Date associated with this item in the custom list</string>
-    <string name="choose_expense_description_spinner2">Description of expense or revenue for deletion</string>
-    <string name="soldiSpesaDesc2">Enter the amount for the expense or revenue transaction.</string>
-    <string name="uscitaMovimentoDesc">Type of movement</string>
-    <string name="currency_symbol_description">Euro Symbol</string>
-    <string name="spesa_description">Expense description: %s</string>
-    <string name="spesa_amount_description">Expense amount: %s €</string>
-    <string name="spesa_flag_description">Selection flag for %1$s, status: %2$s</string>
-    <string name="settings_pwd_required">Both password fields are required.</string>
-    <string name="month_view_accessibility_label">Calendario mensile. Usa i gesti per navigare tra i mesi e gli anni.</string>
-    <string name="header_date_accessibility_label">Data selezionata. Tocca per modificare.</string>
-    <string name="header_year_accessibility_label">Year currently displayed. Tap to edit.</string>
-    <string name="autoExpenses">Select expenses</string>
-    <string name="autoIncomes">Select incomes</string>
+    <string name="custom_list_date_description">Дата, связанная с этим элементом в пользовательском списке</string>
+    <string name="choose_expense_description_spinner2">Описание расхода или дохода для удаления</string>
+    <string name="soldiSpesaDesc2">Введите сумму для транзакции расхода или дохода.</string>
+    <string name="uscitaMovimentoDesc">Тип движения</string>
+    <string name="currency_symbol_description">Символ евро</string>
+    <string name="spesa_description">Описание расхода: %s</string>
+    <string name="spesa_amount_description">Сумма расхода: %s €</string>
+    <string name="spesa_flag_description">Флаг выбора для %1$s, статус: %2$s</string>
+    <string name="settings_pwd_required">Оба поля пароля обязательны для заполнения.</string>
+    <string name="month_view_accessibility_label">Месячный календарь. Используйте жесты для навигации по месяцам и годам.</string>
+    <string name="header_date_accessibility_label">Выбранная дата. Нажмите для изменения.</string>
+    <string name="header_year_accessibility_label">Текущий год отображения. Нажмите для изменения.</string>
+    <string name="autoExpenses">Выбрать расходы</string>
+    <string name="autoIncomes">Выбрать доходы</string>
 
     <!-- String Arrays -->
     <string-array name="frequenze">

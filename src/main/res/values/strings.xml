@@ -5,7 +5,6 @@
     <string name="PersoMyHistory">PersoMy is a simple accounting program that allows you to keep track of all revenus and expenses of your family budget. You just need to track your expenses and earnings for a moment in the household budget, compiling statistics, get an overview of the current month and check the liquidity available.</string>
     <string name="PersoMyIcon">PersoMy</string>
     <string name="PersoMyVersion">Version: </string>
-    <string name="PersoMy_app_version">PersoMy App Version Information</string>
     <string name="addDescrizione">Add New Item</string>
     <string name="addDescrizione_descrizione">Create a new item in the user database (ex. hotel, coffee, etc.).</string>
     <string name="addSpesa">Add Voice</string>
@@ -14,8 +13,6 @@
     <string name="backupRestore">Do you want to restore the backup?</string>
     <string name="backup_description">By clicking here you can create a backup or restore it.</string>
     <string name="cancel">Cancel</string>
-    <string name="cancel_time_selection">Cancel time selection</string>
-    <string name="confirm_time_selection">Confirm time selection</string>
     <string name="choose_expense_description_spinner">Select the expense or revenue description</string>
     <string name="choose_expense_description_spinner1">Expense or revenue description in the delete form</string>
     <string name="choose_frequency_label">Choose the frequency for the automatic operation</string>
@@ -40,7 +37,6 @@
     <string name="exit_description">Quit the app.</string>
     <string name="expense_list">List of added expenses</string>
     <string name="flag_checkbox">Select or deselect this item</string>
-    <string name="flag_checkbox1">Select or deselect this specific item</string>
     <string name="help">Help</string>
     <string name="importoAutomatica">Insert an amount.</string>
     <string name="importoAutomaticaDesc">By this checkpoint you can select expenses (outcoming) or revenues (incoming).</string>
@@ -88,7 +84,6 @@
     <string name="searchData">Search records by date and filters</string>
     <string name="selectAll">All</string>
     <string name="selectAllCheckbox">Check to include all items in the search.</string>
-    <string name="selectAnno">Please select a Year available to display data.</string>
     <string name="select_expenses">Select or deselect this expense</string>
     <string name="autoExpenses">Select expenses</string>
     <string name="autoIncomes">Select incomes</string>
@@ -107,7 +102,6 @@
     <string name="setUpdate">Set automatic update</string>
     <string name="setUpdateKO">Automatic Update OFF.</string>
     <string name="setUpdateOK">Automatic Update ON.</string>
-    <string name="date_picker_description">Select a date from the calendar</string>
     <string name="date_picker_month_year">Calendario: mese %1$d, anno %2$d</string>
     <string name="confirm_date_selection">Confirm the date</string>
     <string name="cancel_date_selection">Cancel the date selection</string>

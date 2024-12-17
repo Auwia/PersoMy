@@ -129,20 +129,20 @@
     <string name="update">التحديث التلقائي</string>
     <string name="uscite_column">رأس عمود المصروفات</string>
     <string name="uscite_description">بالنقر هنا يمكنك إدخال المصروفات (النفقات).</string>
-    <string name="custom_list_date_description">Date associated with this item in the custom list</string>
-    <string name="choose_expense_description_spinner2">Description of expense or revenue for deletion</string>
-    <string name="soldiSpesaDesc2">Enter the amount for the expense or revenue transaction.</string>
-    <string name="uscitaMovimentoDesc">Type of movement</string>
-    <string name="currency_symbol_description">Euro Symbol</string>
-    <string name="spesa_description">Expense description: %s</string>
-    <string name="spesa_amount_description">Expense amount: %s €</string>
-    <string name="spesa_flag_description">Selection flag for %1$s, status: %2$s</string>
-    <string name="settings_pwd_required">Both password fields are required.</string>
-    <string name="month_view_accessibility_label">Calendario mensile. Usa i gesti per navigare tra i mesi e gli anni.</string>
-    <string name="header_date_accessibility_label">Data selezionata. Tocca per modificare.</string>
-    <string name="header_year_accessibility_label">Year currently displayed. Tap to edit.</string>
-    <string name="autoExpenses">Select expenses</string>
-    <string name="autoIncomes">Select incomes</string>
+    <string name="custom_list_date_description">التاريخ المرتبط بهذا العنصر في القائمة المخصصة</string>
+    <string name="choose_expense_description_spinner2">وصف المصروف أو الإيراد للحذف</string>
+    <string name="soldiSpesaDesc2">أدخل المبلغ لعملية المصروف أو الإيراد.</string>
+    <string name="uscitaMovimentoDesc">نوع الحركة</string>
+    <string name="currency_symbol_description">رمز اليورو</string>
+    <string name="spesa_description">وصف المصروف: %s</string>
+    <string name="spesa_amount_description">مبلغ المصروف: %s €</string>
+    <string name="spesa_flag_description">علم الاختيار لـ %1$s، الحالة: %2$s</string>
+    <string name="settings_pwd_required">كلا حقلي كلمة المرور مطلوبان.</string>
+    <string name="month_view_accessibility_label">التقويم الشهري. استخدم الإيماءات للتنقل بين الأشهر والسنوات.</string>
+    <string name="header_date_accessibility_label">التاريخ المحدد. اضغط للتعديل.</string>
+    <string name="header_year_accessibility_label">السنة المعروضة حاليًا. اضغط للتعديل.</string>
+    <string name="autoExpenses">حدد المصروفات</string>
+    <string name="autoIncomes">حدد الإيرادات</string>
 
     <!-- String Arrays -->
     <string-array name="frequenze">

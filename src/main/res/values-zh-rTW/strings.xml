@@ -130,20 +130,20 @@
     <string name="update">自動更新</string>
     <string name="uscite_column">支出列標題</string>
     <string name="uscite_description">點擊此處可以新增您的支出（外出）。</string>
-    <string name="custom_list_date_description">Date associated with this item in the custom list</string>
-    <string name="choose_expense_description_spinner2">Description of expense or revenue for deletion</string>
-    <string name="soldiSpesaDesc2">Enter the amount for the expense or revenue transaction.</string>
-    <string name="uscitaMovimentoDesc">Type of movement</string>
-    <string name="currency_symbol_description">Euro symbol</string>
-    <string name="spesa_description">Expense description: %s</string>
-    <string name="spesa_amount_description">Expense amount: %s €</string>
-    <string name="spesa_flag_description">Selection flag for %1$s, status: %2$s</string>
-    <string name="settings_pwd_required">Both password fields are required.</string>
-    <string name="month_view_accessibility_label">Calendario mensile. Usa i gesti per navigare tra i mesi e gli anni.</string>
-    <string name="header_date_accessibility_label">Data selezionata. Tocca per modificare.</string>
-    <string name="header_year_accessibility_label">Year currently displayed. Tap to edit.</string>
-    <string name="autoExpenses">Select expenses</string>
-    <string name="autoIncomes">Select incomes</string>
+    <string name="custom_list_date_description">與自訂列表中此項目相關的日期</string>
+    <string name="choose_expense_description_spinner2">要刪除的支出或收入描述</string>
+    <string name="soldiSpesaDesc2">輸入支出或收入交易的金額。</string>
+    <string name="uscitaMovimentoDesc">交易類型</string>
+    <string name="currency_symbol_description">歐元符號</string>
+    <string name="spesa_description">支出描述：%s</string>
+    <string name="spesa_amount_description">支出金額：%s €</string>
+    <string name="spesa_flag_description">%1$s 的選擇標誌，狀態：%2$s</string>
+    <string name="settings_pwd_required">兩個密碼欄位都是必填項。</string>
+    <string name="month_view_accessibility_label">月度行事曆。使用手勢在月份和年份之間導航。</string>
+    <string name="header_date_accessibility_label">所選日期。點擊以編輯。</string>
+    <string name="header_year_accessibility_label">目前顯示的年份。點擊以編輯。</string>
+    <string name="autoExpenses">選擇支出</string>
+    <string name="autoIncomes">選擇收入</string>
 
     <!-- String Arrays -->
     <string-array name="frequenze">

@@ -6,7 +6,8 @@
     <string name="PersoMyIcon">PersoMy</string>
     <string name="PersoMyVersion">Versione: </string>
     <string name="PersoMy_app_version">Informazioni sulla versione dell\'app PersoMy</string>
-    <string name="addDescrizione">Aggiungi nuovo elemento</string><string name="addDescrizione_descrizione">Crea un nuovo elemento nel database utente (es. hotel, caffè, ecc.).</string>
+    <string name="addDescrizione">Aggiungi nuovo elemento</string>
+    <string name="addDescrizione_descrizione">Crea un nuovo elemento nel database utente (es. hotel, caffè, ecc.).</string>
     <string name="addSpesa">Aggiungi voce</string>
     <string name="addSpesa_descrizione">Aggiungi elemento selezionato e importo alla lista dei contenuti.</string>
     <string name="automaticaFrequenza">Frequenza</string>
@@ -137,12 +138,12 @@
     <string name="spesa_description">Descrizione della spesa: %s</string>
     <string name="spesa_amount_description">Importo della spesa: %s €</string>
     <string name="spesa_flag_description">Flag di selezione per %1$s, stato: %2$s</string>
-    <string name="settings_pwd_required">Both password fields are required.</string>
+    <string name="settings_pwd_required">Tutti e due i campi di password sono obbligatori.</string>
     <string name="month_view_accessibility_label">Calendario mensile. Usa i gesti per navigare tra i mesi e gli anni.</string>
     <string name="header_date_accessibility_label">Data selezionata. Tocca per modificare.</string>
-    <string name="header_year_accessibility_label">Year currently displayed. Tap to edit.</string>
-    <string name="autoExpenses">Select expenses</string>
-    <string name="autoIncomes">Select incomes</string>
+    <string name="header_year_accessibility_label">Anno corrente visualizzato, toccare per editare.</string>
+    <string name="autoExpenses">Seleziona le spese</string>
+    <string name="autoIncomes">Seleziona le entrate</string>
 
     <!-- String Arrays -->
     <string-array name="frequenze">

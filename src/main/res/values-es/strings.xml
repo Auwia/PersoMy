@@ -130,20 +130,20 @@
     <string name="update">Actualización automática</string>
     <string name="uscite_column">Encabezado de columna de gastos</string>
     <string name="uscite_description">Al hacer clic aquí puedes ingresar tus gastos (salidas).</string>
-    <string name="custom_list_date_description">Date associated with this item in the custom list</string>
-    <string name="choose_expense_description_spinner2">Description of expense or revenue for deletion</string>
-    <string name="soldiSpesaDesc2">Enter the amount for the expense or revenue transaction.</string>
-    <string name="uscitaMovimentoDesc">Type of movement</string>
-    <string name="currency_symbol_description">Euro symbol</string>
-    <string name="spesa_description">Expense description: %s</string>
-    <string name="spesa_amount_description">Expense amount: %s €</string>
-    <string name="spesa_flag_description">Selection flag for %1$s, status: %2$s</string>
-    <string name="settings_pwd_required">Both password fields are required.</string>
-    <string name="month_view_accessibility_label">Calendario mensile. Usa i gesti per navigare tra i mesi e gli anni.</string>
-    <string name="header_date_accessibility_label">Data selezionata. Tocca per modificare.</string>
-    <string name="header_year_accessibility_label">Year currently displayed. Tap to edit.</string>
-    <string name="autoExpenses">Select expenses</string>
-    <string name="autoIncomes">Select incomes</string>
+    <string name="custom_list_date_description">Fecha asociada con este elemento en la lista personalizada</string>
+    <string name="choose_expense_description_spinner2">Descripción del gasto o ingreso para eliminar</string>
+    <string name="soldiSpesaDesc2">Introduzca el monto para la transacción de gasto o ingreso.</string>
+    <string name="uscitaMovimentoDesc">Tipo de movimiento</string>
+    <string name="currency_symbol_description">Símbolo de euro</string>
+    <string name="spesa_description">Descripción del gasto: %s</string>
+    <string name="spesa_amount_description">Monto del gasto: %s €</string>
+    <string name="spesa_flag_description">Indicador de selección para %1$s, estado: %2$s</string>
+    <string name="settings_pwd_required">Ambos campos de contraseña son obligatorios.</string>
+    <string name="month_view_accessibility_label">Calendario mensual. Usa gestos para navegar entre los meses y los años.</string>
+    <string name="header_date_accessibility_label">Fecha seleccionada. Toca para editar.</string>
+    <string name="header_year_accessibility_label">Año actualmente mostrado. Toca para editar.</string>
+    <string name="autoExpenses">Seleccionar gastos</string>
+    <string name="autoIncomes">Seleccionar ingresos</string>
 
     <!-- String Arrays -->
     <string-array name="frequenze">
