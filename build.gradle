@@ -27,7 +27,6 @@ android {
         minSdkVersion 21
         targetSdkVersion 35
         versionCode 300154
-
         versionName "3.1.54"
     }
 
