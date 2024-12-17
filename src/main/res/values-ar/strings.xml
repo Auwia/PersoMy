@@ -141,6 +141,8 @@
     <string name="month_view_accessibility_label">Calendario mensile. Usa i gesti per navigare tra i mesi e gli anni.</string>
     <string name="header_date_accessibility_label">Data selezionata. Tocca per modificare.</string>
     <string name="header_year_accessibility_label">Year currently displayed. Tap to edit.</string>
+    <string name="autoExpenses">Select expenses</string>
+    <string name="autoIncomes">Select incomes</string>
 
     <!-- String Arrays -->
     <string-array name="frequenze">

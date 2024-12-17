@@ -816,9 +816,7 @@ public class MainActivity extends AppCompatActivity {
         ViewGroup datePickerViewGroup = (ViewGroup) datePicker.getChildAt(0);
         if (datePickerViewGroup != null) {
 
-            View headerYearView = datePickerViewGroup.findViewById(
-                    Resources.getSystem().getIdentifier("date_picker_header_year", "id", "android")
-            );
+            View headerYearView = datePickerViewGroup.findViewById(Resources.getSystem().getIdentifier("date_picker_header_year", "id", "android"));
             if (headerYearView instanceof TextView yearTextView) {
                 yearTextView.setMinimumHeight(minSize);
                 yearTextView.setMinimumWidth(minSize);
@@ -828,9 +826,7 @@ public class MainActivity extends AppCompatActivity {
                 yearTextView.setContentDescription(getString(R.string.header_year_accessibility_label));
             }
 
-            View headerDateView = datePickerViewGroup.findViewById(
-                    Resources.getSystem().getIdentifier("date_picker_header_date", "id", "android")
-            );
+            View headerDateView = datePickerViewGroup.findViewById(Resources.getSystem().getIdentifier("date_picker_header_date", "id", "android"));
 
             if (headerDateView instanceof TextView dateTextView) {
                 dateTextView.setMinimumHeight(minSize);
@@ -846,13 +842,9 @@ public class MainActivity extends AppCompatActivity {
                 monthView.setContentDescription(getString(R.string.month_view_accessibility_label));
             }
 
-            View headerView = datePickerViewGroup.findViewById(
-                    Resources.getSystem().getIdentifier("date_picker_header", "id", "android")
-            );
+            View headerView = datePickerViewGroup.findViewById(Resources.getSystem().getIdentifier("date_picker_header", "id", "android"));
             if (headerView instanceof TextView monthYearTextView) {
-                monthYearTextView.setContentDescription(
-                        getString(R.string.date_picker_month_year, month + 1, year)
-                );
+                monthYearTextView.setContentDescription(getString(R.string.date_picker_month_year, month + 1, year));
                 monthYearTextView.setTextColor(Color.parseColor("#2E7D32"));
                 monthYearTextView.setTypeface(Typeface.defaultFromStyle(Typeface.BOLD));
                 monthYearTextView.setTextSize(18);
@@ -896,7 +888,16 @@ public class MainActivity extends AppCompatActivity {
         dialogTime = new TimePickerDialog(context, new PickTime(), mHourOfDay, mMinute, false);
 
         dialogTime.setTitle(getString(R.string.time_picker_description));
+
         dialogTime.setOnShowListener(dialog -> {
+
+            int alertTitleId = context.getResources().getIdentifier("alertTitle", "id", "android");
+            TextView alertTitle = dialogTime.findViewById(alertTitleId);
+            if (alertTitle != null) {
+                alertTitle.setTextColor(Color.BLACK);
+                alertTitle.setTypeface(Typeface.defaultFromStyle(Typeface.BOLD));
+            }
+
             Button positiveButton = dialogTime.getButton(DialogInterface.BUTTON_POSITIVE);
             Button negativeButton = dialogTime.getButton(DialogInterface.BUTTON_NEGATIVE);
 
@@ -1994,6 +1995,8 @@ public class MainActivity extends AppCompatActivity {
         RadioGroup grpRB = findViewById(R.id.radioGroup1);
         entrateRB = findViewById(R.id.usciteRB);
         usciteRB = findViewById(R.id.entrateRB);
+        usciteRB.setContentDescription(getString(R.string.autoExpenses));
+        entrateRB.setContentDescription(getString(R.string.autoIncomes));
 
         grpRB.setOnCheckedChangeListener((rg, checkedId) -> {
             if (entrateRB.getId() == checkedId) uscita = true;

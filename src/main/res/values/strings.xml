@@ -89,7 +89,9 @@
     <string name="selectAll">All</string>
     <string name="selectAllCheckbox">Check to include all items in the search.</string>
     <string name="selectAnno">Please select a Year available to display data.</string>
-    <string name="select_expenses">Select or deselect this expense</string> <!-- Includes this -->
+    <string name="select_expenses">Select or deselect this expense</string>
+    <string name="autoExpenses">Select expenses</string>
+    <string name="autoIncomes">Select incomes</string>
     <string name="select_income">Select income</string>
     <string name="select_income_or_expenses">Select whether this is an income or expense</string>
     <string name="select_month">Select a month</string>
