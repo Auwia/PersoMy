@@ -144,6 +144,7 @@
     <string name="header_year_accessibility_label">Текущий год отображения. Нажмите для изменения.</string>
     <string name="autoExpenses">Выбрать расходы</string>
     <string name="autoIncomes">Выбрать доходы</string>
+    <string name="checkbox_select_expense">Flag expense: %1$s</string>
 
     <!-- String Arrays -->
     <string-array name="frequenze">

@@ -144,6 +144,7 @@
     <string name="header_year_accessibility_label">当前显示的年份。点击以编辑。</string>
     <string name="autoExpenses">选择支出</string>
     <string name="autoIncomes">选择收入</string>
+    <string name="checkbox_select_expense">Flag expense: %1$s</string>
 
     <!-- String Arrays -->
     <string-array name="frequenze">

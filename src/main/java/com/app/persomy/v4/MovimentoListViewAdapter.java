@@ -1,6 +1,7 @@
 package com.app.persomy.v4;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,6 +10,7 @@ import android.widget.CheckBox;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.core.content.ContextCompat;
 
 import java.text.DecimalFormat;
 import java.util.ArrayList;
@@ -53,26 +55,36 @@ public class MovimentoListViewAdapter extends ArrayAdapter<Movimento> {
             Locale loc = new Locale("it", "IT");
             if (holder.mySimboloEuro != null) {
                 holder.mySimboloEuro.setText(Currency.getInstance(loc).getSymbol());
+                holder.mySimboloEuro.setTextColor(Color.BLACK);
             }
 
             if (holder.myMovimentoFrequenza != null) {
                 holder.myMovimentoFrequenza.setText(item.getAutomaticaFrequenza());
+                holder.myMovimentoFrequenza.setTextColor(Color.BLACK);
             }
 
             if (holder.myMovimentoStartData != null) {
                 holder.myMovimentoStartData.setText(item.getAutomaticaStartDate());
+                holder.myMovimentoStartData.setTextColor(ContextCompat.getColor(getContext(), R.color.black));
             }
 
             if (holder.myMovimentoVoce != null) {
                 holder.myMovimentoVoce.setText(item.getAutomaticaVoce());
+                holder.myMovimentoVoce.setTextColor(ContextCompat.getColor(getContext(), R.color.black));
             }
 
             if (holder.myMovimentoImporto != null) {
                 DecimalFormat df = new DecimalFormat("###,##0.00");
                 holder.myMovimentoImporto.setText(df.format(item.getAutomaticaImporto()));
+                holder.myMovimentoImporto.setTextColor(ContextCompat.getColor(getContext(), R.color.black));
             }
 
             if (holder.myMovimentoFlaggata != null) {
+
+                holder.myMovimentoFlaggata.setContentDescription(
+                        getContext().getString(R.string.checkbox_select_expense, item.getAutomaticaVoce())
+                );
+
                 holder.myMovimentoFlaggata.setChecked(item.getAutomaticaFlaggata());
 
                 holder.myMovimentoFlaggata.setOnClickListener(v -> myMovimento.set(

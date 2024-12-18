@@ -143,6 +143,7 @@
     <string name="header_year_accessibility_label">السنة المعروضة حاليًا. اضغط للتعديل.</string>
     <string name="autoExpenses">حدد المصروفات</string>
     <string name="autoIncomes">حدد الإيرادات</string>
+    <string name="checkbox_select_expense">Flag expense: %1$s</string>
 
     <!-- String Arrays -->
     <string-array name="frequenze">

@@ -144,6 +144,7 @@
     <string name="header_year_accessibility_label">Derzeit angezeigtes Jahr. Tippen Sie, um zu bearbeiten.</string>
     <string name="autoExpenses">Ausgaben auswählen</string>
     <string name="autoIncomes">Einnahmen auswählen</string>
+    <string name="checkbox_select_expense">Flag expense: %1$s</string>
 
     <!-- String Arrays -->
     <string-array name="frequenze">

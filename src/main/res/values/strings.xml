@@ -138,6 +138,7 @@
     <string name="month_view_accessibility_label">Monthly calendar. Use gestures to navigate between months and years.</string>
     <string name="header_date_accessibility_label">Edit date.</string>
     <string name="header_year_accessibility_label">Year currently displayed.</string>
+    <string name="checkbox_select_expense">Flag expense: %1$s</string>
     <!-- String Arrays -->
     <string-array name="frequenze">
         <item>Daily</item>
