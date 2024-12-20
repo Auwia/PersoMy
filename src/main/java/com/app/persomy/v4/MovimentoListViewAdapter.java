@@ -85,12 +85,10 @@ public class MovimentoListViewAdapter extends ArrayAdapter<Movimento> {
                 boolean isChecked = item.getAutomaticaFlaggata();
                 String contentDescription = getContext().getString(
                         R.string.checkbox_select_expense,
-                        voce + " (row " + position + ")" + (isChecked ? " (checked)" : " (not checked)")
+                        voce + " (row " + position + ")"
                 );
 
-                holder.myMovimentoFlaggata.setContentDescription(contentDescription
-
-                );
+                holder.myMovimentoFlaggata.setContentDescription(contentDescription);
 
                 holder.myMovimentoFlaggata.setChecked(item.getAutomaticaFlaggata());
 
