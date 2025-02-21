@@ -2159,8 +2159,11 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void onBackupBtnPress(View v) {
+        /*
+        // disabilitato aspettando per una soluzione alternativa
         menu_choise = R.menu.menu_backup;
         openContextMenu(v);
+         */
     }
 
     public void onOptionsBtnPress(View v) {
