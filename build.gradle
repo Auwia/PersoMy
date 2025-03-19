@@ -6,7 +6,7 @@ buildscript {
         mavenCentral()
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:8.8.1'
+        classpath 'com.android.tools.build:gradle:8.8.2'
     }
 }
 
@@ -26,8 +26,8 @@ android {
         applicationId "com.app.persomy.v4"
         minSdkVersion 21
         targetSdkVersion 35
-        versionCode 300158
-        versionName "3.1.58"
+        versionCode 300159
+        versionName "3.1.59"
     }
 
     configurations.configureEach {
@@ -65,6 +65,9 @@ dependencies {
     implementation 'androidx.appcompat:appcompat:1.7.0'
     implementation 'com.google.android.play:integrity:1.4.0'
     implementation "androidx.work:work-runtime:2.10.0"
+    implementation 'com.google.android.gms:play-services-auth:21.3.0'
+    implementation 'com.google.api-client:google-api-client-android:1.33.2'
+    implementation 'com.google.apis:google-api-services-drive:v3-rev305-1.25.0'
 }
 
 configurations.configureEach {

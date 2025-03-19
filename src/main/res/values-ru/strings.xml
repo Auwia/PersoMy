@@ -145,6 +145,8 @@
     <string name="autoExpenses">Выбрать расходы</string>
     <string name="autoIncomes">Выбрать доходы</string>
     <string name="checkbox_select_expense">Flag expense: %1$s</string>
+    <string name="backup_non_disponibile_al_momento">Резервное копирование недоступно в данный момент</string>
+    <string name="ripristino_backup_non_disponibile_al_momento">Восстановление резервной копии недоступно в данный момент</string>
 
     <!-- String Arrays -->
     <string-array name="frequenze">

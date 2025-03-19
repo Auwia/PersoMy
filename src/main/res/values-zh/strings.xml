@@ -145,6 +145,8 @@
     <string name="autoExpenses">选择支出</string>
     <string name="autoIncomes">选择收入</string>
     <string name="checkbox_select_expense">Flag expense: %1$s</string>
+    <string name="backup_non_disponibile_al_momento">备份目前不可用</string>
+    <string name="ripristino_backup_non_disponibile_al_momento">备份恢复目前不可用</string>
 
     <!-- String Arrays -->
     <string-array name="frequenze">

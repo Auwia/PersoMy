@@ -145,6 +145,8 @@
     <string name="autoExpenses">Seleziona le spese</string>
     <string name="autoIncomes">Seleziona le entrate</string>
     <string name="checkbox_select_expense">Flag expense: %1$s</string>
+    <string name="backup_non_disponibile_al_momento">Backup non disponibile al momento</string>
+    <string name="ripristino_backup_non_disponibile_al_momento">Ripristino backup non disponibile al momento</string>
 
     <!-- String Arrays -->
     <string-array name="frequenze">

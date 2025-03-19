@@ -139,6 +139,9 @@
     <string name="header_date_accessibility_label">Edit date.</string>
     <string name="header_year_accessibility_label">Year currently displayed.</string>
     <string name="checkbox_select_expense">Flag expense: %1$s</string>
+    <string name="backup_non_disponibile_al_momento">Backup not available at the moment</string>
+    <string name="ripristino_backup_non_disponibile_al_momento">Backup restore not available at the moment</string>
+
     <!-- String Arrays -->
     <string-array name="frequenze">
         <item>Daily</item>

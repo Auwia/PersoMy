@@ -82,7 +82,6 @@ import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
-
 public class MainActivity extends AppCompatActivity {
 
     /* VARIABILI DATA BASE */
@@ -163,17 +162,6 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
-            if (!Environment.isExternalStorageManager()) {
-                Intent intent = new Intent(Settings.ACTION_MANAGE_APP_ALL_FILES_ACCESS_PERMISSION);
-                intent.setData(Uri.parse("package:" + getPackageName()));
-                startActivity(intent);
-            }
-        } else {
-            /* For devices running Android 10 or lower */
-            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE}, 1);
-        }
 
         myFrequenza = new ArrayList<>();
         myFrequenza.add(new Frequenza("Giornaliero"));
@@ -270,6 +258,8 @@ public class MainActivity extends AppCompatActivity {
         } else if (menu_choise == R.menu.menu_backup) {
             inflater.inflate(R.menu.menu_backup, menu);
         }
+
+        Log.d("DEBUG", "Context menu created");
     }
 
     @Override
@@ -299,44 +289,12 @@ public class MainActivity extends AppCompatActivity {
             setTitle(getString(R.string.title_activity_main) + " - " + getString(R.string.menu_report) + ": " + getString(R.string.menu_voce));
             startVoce();
         } else if (item.getItemId() == R.id.menu_backup) {
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
-                if (!Environment.isExternalStorageManager()) {
-                    Intent intent = new Intent(Settings.ACTION_MANAGE_APP_ALL_FILES_ACCESS_PERMISSION);
-                    intent.setData(Uri.parse("package:" + getPackageName()));
-                    startActivity(intent);
-                } else {
-                    startBackup();
-                }
-            } else {
-                startBackup();
-            }
+            Toast.makeText(this, R.string.backup_non_disponibile_al_momento, Toast.LENGTH_SHORT).show();
         } else if (item.getItemId() == R.id.menu_ripristino_backup) {
-            startRestoreBackup();
+            Toast.makeText(this, R.string.ripristino_backup_non_disponibile_al_momento, Toast.LENGTH_SHORT).show();
         }
+
         return true;
-    }
-
-    @Override
-    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-
-        if (requestCode == REQUEST_WRITE_STORAGE) {
-            /* Check if the permission request was granted */
-            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                startBackup();
-            } else {
-                Toast.makeText(this, "Storage permission is required to perform the backup.", Toast.LENGTH_LONG).show();
-
-                if (!ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.WRITE_EXTERNAL_STORAGE)) {
-                    new AlertDialog.Builder(this).setTitle("Permission Required").setMessage("Storage permission is needed to perform the backup. Please enable it in the app settings.").setPositiveButton("Open Settings", (dialog, which) -> {
-                        Intent intent = new Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS);
-                        Uri uri = Uri.fromParts("package", getPackageName(), null);
-                        intent.setData(uri);
-                        startActivity(intent);
-                    }).setNegativeButton("Cancel", null).show();
-                }
-            }
-        }
     }
 
     @Override
@@ -2159,11 +2117,8 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void onBackupBtnPress(View v) {
-        /*
-        // disabilitato aspettando per una soluzione alternativa
         menu_choise = R.menu.menu_backup;
         openContextMenu(v);
-         */
     }
 
     public void onOptionsBtnPress(View v) {

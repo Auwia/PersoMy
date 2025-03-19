@@ -144,6 +144,8 @@
     <string name="autoExpenses">حدد المصروفات</string>
     <string name="autoIncomes">حدد الإيرادات</string>
     <string name="checkbox_select_expense">Flag expense: %1$s</string>
+    <string name="backup_non_disponibile_al_momento">النسخ الاحتياطي غير متاح في الوقت الحالي</string>
+    <string name="ripristino_backup_non_disponibile_al_momento">استعادة النسخ الاحتياطي غير متاحة في الوقت الحالي</string>
 
     <!-- String Arrays -->
     <string-array name="frequenze">
